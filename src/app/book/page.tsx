@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { Reveal } from "@/components/reveal";
 import { SOCIAL_LINKS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,21 +14,24 @@ export default function BookPage() {
   return (
     <section className="bg-paper">
       <Container className="py-16 md:py-24 lg:py-28">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <p className="eyebrow text-ocean-blue">Book a Session</p>
           <h1 className="h1-display mt-4">Start Your Water Journey</h1>
           <p className="prose-copy mt-5 text-ink-soft">
             Online booking is on the way. In the meantime, connect with SiLak Davao
             directly for current schedules and availability:
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mt-12 grid max-w-2xl gap-6 border-t border-ink/15 pt-10 sm:grid-cols-2">
+        <Reveal
+          delayMs={100}
+          className="mt-12 grid max-w-2xl gap-6 border-t border-ink/15 pt-10 sm:grid-cols-2"
+        >
           <a
             href={SOCIAL_LINKS.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col gap-2 border border-ink/15 p-6 transition-colors hover:border-deep-ocean"
+            className="group flex flex-col gap-2 border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-px hover:border-deep-ocean"
           >
             <span className="eyebrow text-ocean-blue">Primary</span>
             <span className="h3-display">Facebook</span>
@@ -40,7 +44,7 @@ export default function BookPage() {
             href={SOCIAL_LINKS.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col gap-2 border border-ink/15 p-6 transition-colors hover:border-deep-ocean"
+            className="group flex flex-col gap-2 border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-px hover:border-deep-ocean"
           >
             <span className="eyebrow text-ocean-blue">Secondary</span>
             <span className="h3-display">Instagram</span>
@@ -48,7 +52,7 @@ export default function BookPage() {
               {SOCIAL_LINKS.instagramHandle}
             </span>
           </a>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

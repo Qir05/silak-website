@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { LightboxProvider } from "@/components/lightbox";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
 import "./globals.css";
 
@@ -69,9 +70,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <SiteHeader />
-        <main className="flex-1 pt-20">{children}</main>
-        <SiteFooter />
+        <LightboxProvider>
+          <SiteHeader />
+          <main className="flex-1 pt-20">{children}</main>
+          <SiteFooter />
+        </LightboxProvider>
       </body>
     </html>
   );

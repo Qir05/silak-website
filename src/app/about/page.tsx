@@ -2,6 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { CtaBand } from "@/components/cta-band";
+import { Reveal } from "@/components/reveal";
+import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -23,6 +25,13 @@ const personJsonLd = {
   },
 };
 
+const instructorImage = {
+  src: "/images/instructor/edward-berdos.jpeg",
+  alt: "Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water",
+  width: 1536,
+  height: 1875,
+};
+
 export default function AboutPage() {
   return (
     <>
@@ -33,14 +42,16 @@ export default function AboutPage() {
 
       <section className="bg-paper-dim">
         <Container className="py-16 md:py-24 lg:py-28">
-          <p className="eyebrow text-ocean-blue">About SiLak Davao</p>
-          <h1 className="h1-display mt-4 max-w-2xl">The Ocean Is for Everyone</h1>
+          <Reveal>
+            <p className="eyebrow text-ocean-blue">About SiLak Davao</p>
+            <h1 className="h1-display mt-4 max-w-2xl">The Ocean Is for Everyone</h1>
+          </Reveal>
         </Container>
       </section>
 
       <section className="bg-deep-ocean text-white">
         <Container className="py-14 md:py-24 lg:py-28">
-          <div className="mx-auto max-w-3xl text-center">
+          <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-bright-aqua">Our Belief</p>
 
             <p className="prose-copy mx-auto mt-8 text-white/85">
@@ -63,34 +74,34 @@ export default function AboutPage() {
               Because the ocean has something to teach all of us&mdash;and everyone
               deserves the chance to learn.
             </p>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="bg-paper">
         <Container className="py-14 md:py-24 lg:py-28">
           <div className="grid gap-10 md:grid-cols-3 md:gap-10">
-            <div className="border-t border-ink/15 pt-6">
+            <Reveal delayMs={0} className="border-t border-ink/15 pt-6">
               <h2 className="h3-display">Breath</h2>
               <p className="prose-copy mt-3 text-ink-soft">
                 Calmness and breath control come before technique, in the pool and in
                 the ocean alike.
               </p>
-            </div>
-            <div className="border-t border-ink/15 pt-6">
+            </Reveal>
+            <Reveal delayMs={100} className="border-t border-ink/15 pt-6">
               <h2 className="h3-display">Safety</h2>
               <p className="prose-copy mt-3 text-ink-soft">
                 Water safety is treated as non-negotiable, whether the setting is
                 survival swimming or open-water freediving.
               </p>
-            </div>
-            <div className="border-t border-ink/15 pt-6">
+            </Reveal>
+            <Reveal delayMs={200} className="border-t border-ink/15 pt-6">
               <h2 className="h3-display">Respect for the Ocean</h2>
               <p className="prose-copy mt-3 text-ink-soft">
                 Every session builds composure alongside respect for the marine
                 environment students are learning within.
               </p>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>
@@ -98,16 +109,14 @@ export default function AboutPage() {
       <section className="bg-paper-dim">
         <Container className="py-14 md:py-24 lg:py-28">
           <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16">
-            <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden">
-              <Image
-                src="/images/instructor/edward-berdos.jpeg"
-                alt="Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water"
-                fill
+            <Reveal scale>
+              <LightboxTrigger
+                images={[instructorImage]}
                 sizes="(min-width: 768px) 380px, 100vw"
-                className="object-cover"
+                className="aspect-[4/5] max-w-sm"
               />
-            </div>
-            <div className="flex flex-col justify-center">
+            </Reveal>
+            <Reveal delayMs={100} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
               <h2 className="h2-display mt-4">Edward M. Berdos</h2>
               <div className="mt-2 flex items-center gap-2 text-ink-soft">
@@ -137,7 +146,7 @@ export default function AboutPage() {
                 environment for growth and self-discovery, all while having fun and
                 building confidence.&rdquo;
               </p>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>

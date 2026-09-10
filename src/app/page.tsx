@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { CtaLink } from "@/components/cta-link";
+import { Reveal } from "@/components/reveal";
+import { LightboxTrigger } from "@/components/lightbox-trigger";
 
 export const metadata: Metadata = {
   title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
@@ -20,6 +22,8 @@ const programs = [
     linkLabel: "Learn about survival swimming",
     image: "/images/swimming/adult-swimming-underwater.webp",
     alt: "Swimmer gliding underwater in a pool during a survival swimming session",
+    width: 1440,
+    height: 960,
   },
   {
     title: "Molchanovs Freediving",
@@ -29,6 +33,8 @@ const programs = [
     linkLabel: "Explore freediving levels",
     image: "/images/freediving/open-water-freediver.jpeg",
     alt: "Freediver descending along a reef in open water",
+    width: 2196,
+    height: 1913,
   },
   {
     title: "Junior Programs",
@@ -38,8 +44,24 @@ const programs = [
     linkLabel: "See junior programs",
     image: "/images/junior/junior-8-11.webp",
     alt: "Junior swimmer practicing freediving skills in a pool",
+    width: 1736,
+    height: 2455,
   },
 ];
+
+const programImages = programs.map((program) => ({
+  src: program.image,
+  alt: program.alt,
+  width: program.width,
+  height: program.height,
+}));
+
+const instructorImage = {
+  src: "/images/instructor/edward-berdos.jpeg",
+  alt: "Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water",
+  width: 1536,
+  height: 1875,
+};
 
 export default function Home() {
   return (
@@ -53,38 +75,38 @@ export default function Home() {
           sizes="100vw"
           className="object-cover object-[center_35%]"
         />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-deep-ocean/90 via-deep-ocean/25 to-deep-ocean/40"
-          aria-hidden="true"
-        />
+        <div className="absolute inset-0 bg-deep-ocean/45" aria-hidden="true" />
         <Container className="relative z-10 pb-16 pt-40 md:pb-24">
-          <p className="eyebrow text-soft-aqua">Swimming and Freediving in Davao</p>
-          <h1 className="h-hero mt-5 max-w-3xl text-white">
-            Find Your Flow. Discover What You&rsquo;re Capable Of.
-          </h1>
-          <p className="prose-copy mt-6 text-lg text-white/85">
-            Swimming, freediving, and unforgettable experiences in and around the water.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <CtaLink href="/#programs" variant="inverse">
-              Explore Courses
-            </CtaLink>
-            <CtaLink href="/about" variant="secondaryInverse">
-              Meet SiLak
-            </CtaLink>
-          </div>
+          <Reveal>
+            <p className="eyebrow text-soft-aqua">Swimming and Freediving in Davao</p>
+            <h1 className="h-hero mt-5 max-w-3xl text-white">
+              Find Your Flow. Discover What You&rsquo;re Capable Of.
+            </h1>
+            <p className="prose-copy mt-6 text-lg text-white/85">
+              Swimming, freediving, and unforgettable experiences in and around the
+              water.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-4">
+              <CtaLink href="/#programs" variant="inverse">
+                Explore Courses
+              </CtaLink>
+              <CtaLink href="/about" variant="secondaryInverse">
+                Meet SiLak
+              </CtaLink>
+            </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="bg-deep-ocean text-white">
         <Container className="grid gap-10 py-14 md:grid-cols-2 md:gap-16 md:py-24 lg:py-28">
-          <div>
+          <Reveal>
             <p className="eyebrow text-bright-aqua">Beyond the Surface</p>
             <h2 className="h2-display mt-5 max-w-md">
               Aquatic Confidence Through Breath and Safety
             </h2>
-          </div>
-          <div className="flex flex-col gap-6">
+          </Reveal>
+          <Reveal delayMs={100} className="flex flex-col gap-6">
             <p className="prose-copy text-white/85">
               SiLak Davao combines certified Molchanovs freediving progression with
               dedicated survival swimming. Our approach prioritizes breath control,
@@ -97,32 +119,29 @@ export default function Home() {
               fear. Every session builds composure and respect for the marine
               environment.
             </p>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section id="programs" className="bg-paper">
         <Container className="py-14 md:py-24 lg:py-28">
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <h2 className="h2-display">Your Journey in the Water</h2>
             <p className="prose-copy mt-5 text-ink-soft">
               From foundational water safety to advanced freediving techniques, our
               courses are structured for every skill level and age.
             </p>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-10 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8">
-            {programs.map((program) => (
-              <div key={program.href} className="flex flex-col">
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-ink/5">
-                  <Image
-                    src={program.image}
-                    alt={program.alt}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
+            {programs.map((program, i) => (
+              <Reveal key={program.href} delayMs={i * 100} className="flex flex-col">
+                <LightboxTrigger
+                  images={programImages}
+                  index={i}
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="aspect-[4/5]"
+                />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">
                   {program.description}
@@ -133,7 +152,7 @@ export default function Home() {
                 >
                   {program.linkLabel}
                 </Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -141,7 +160,7 @@ export default function Home() {
 
       <section className="bg-deep-ocean text-white">
         <Container className="py-14 md:py-24 lg:py-28">
-          <div className="mx-auto max-w-3xl text-center">
+          <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-bright-aqua">Our Belief</p>
             <h2 className="h2-display mt-5">The Ocean Is for Everyone.</h2>
 
@@ -165,37 +184,37 @@ export default function Home() {
               Because the ocean has something to teach all of us&mdash;and everyone
               deserves the chance to learn.
             </p>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="bg-paper">
         <Container className="py-14 md:py-24 lg:py-28">
           <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-            <div className="border-t border-ink/15 pt-6">
+            <Reveal delayMs={0} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">01</span>
               <h3 className="h3-display mt-3">Breath</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Every course begins with the breath: relaxation, calm, and control that
                 carries into everything else we teach in the water.
               </p>
-            </div>
-            <div className="border-t border-ink/15 pt-6">
+            </Reveal>
+            <Reveal delayMs={100} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">02</span>
               <h3 className="h3-display mt-3">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Water safety and confident survival floats come before anything else.
                 Ocean safety is treated as non-negotiable at every level.
               </p>
-            </div>
-            <div className="border-t border-ink/15 pt-6">
+            </Reveal>
+            <Reveal delayMs={200} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">03</span>
               <h3 className="h3-display mt-3">Progression</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Students move through certified Molchanovs levels at their own pace,
                 building equalisation and depth on a foundation of composure.
               </p>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>
@@ -203,16 +222,14 @@ export default function Home() {
       <section className="bg-paper-dim">
         <Container className="py-14 md:py-24 lg:py-28">
           <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16">
-            <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden">
-              <Image
-                src="/images/instructor/edward-berdos.jpeg"
-                alt="Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water"
-                fill
+            <Reveal scale>
+              <LightboxTrigger
+                images={[instructorImage]}
                 sizes="(min-width: 768px) 380px, 100vw"
-                className="object-cover"
+                className="aspect-[4/5] max-w-sm"
               />
-            </div>
-            <div className="flex flex-col justify-center">
+            </Reveal>
+            <Reveal delayMs={100} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
               <h2 className="h2-display mt-4">Edward M. Berdos</h2>
               <div className="mt-2 flex items-center gap-2 text-ink-soft">
@@ -239,27 +256,29 @@ export default function Home() {
                 environment for growth and self-discovery, all while having fun and
                 building confidence.&rdquo;
               </p>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>
 
       <section className="bg-deep-ocean text-white">
         <Container className="py-14 text-center md:py-20">
-          <h2 className="h2-display">Begin Your Journey in the Water</h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <CtaLink href="/book" variant="inverse">
-              Book a Session
-            </CtaLink>
-          </div>
-          <a
-            href="https://www.facebook.com/profile.php?id=61557089507037"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-block text-sm text-white/70 underline decoration-1 underline-offset-4 hover:text-white"
-          >
-            Or reach us on Facebook
-          </a>
+          <Reveal>
+            <h2 className="h2-display">Begin Your Journey in the Water</h2>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <CtaLink href="/book" variant="inverse">
+                Book a Session
+              </CtaLink>
+            </div>
+            <a
+              href="https://www.facebook.com/profile.php?id=61557089507037"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block text-sm text-white/70 underline decoration-1 underline-offset-4 hover:text-white"
+            >
+              Or reach us on Facebook
+            </a>
+          </Reveal>
         </Container>
       </section>
     </>

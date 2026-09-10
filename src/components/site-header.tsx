@@ -32,9 +32,7 @@ export function SiteHeader() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 w-full transition-colors duration-300 ${
-        transparent
-          ? "bg-transparent"
-          : "bg-paper/95 backdrop-blur-sm border-b border-ink/10"
+        transparent ? "bg-transparent" : "border-b border-ink/10 bg-paper"
       }`}
     >
       <Container className="flex h-20 items-center justify-between">
@@ -50,6 +48,7 @@ export function SiteHeader() {
         </Link>
 
         <nav
+          data-site-nav
           className={`hidden items-center gap-8 md:flex ${
             transparent ? "text-white" : "text-ink"
           }`}
@@ -70,10 +69,10 @@ export function SiteHeader() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className={`inline-flex items-center justify-center px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-200 border ${
+            className={`inline-flex items-center justify-center border px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 hover:-translate-y-px ${
               transparent
                 ? "border-white text-white hover:bg-white hover:text-deep-ocean"
-                : "border-deep-ocean bg-deep-ocean text-paper hover:bg-ocean-blue hover:border-ocean-blue"
+                : "border-deep-ocean bg-deep-ocean text-paper hover:border-ocean-blue hover:bg-ocean-blue"
             }`}
           >
             Book a Session
@@ -112,19 +111,20 @@ export function SiteHeader() {
 
       {menuOpen && (
         <div id="mobile-nav" className="border-t border-ink/10 bg-paper md:hidden">
-          <Container className="flex flex-col gap-1 py-4">
+          <Container data-site-nav className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="py-3 text-base font-medium text-ink"
+                aria-current={pathname === link.href ? "page" : undefined}
               >
                 {link.label}
               </Link>
             ))}
             <Link
               href="/book"
-              className="mt-3 inline-flex items-center justify-center border border-deep-ocean bg-deep-ocean px-6 py-3.5 text-sm font-medium tracking-wide text-paper"
+              className="mt-3 inline-flex items-center justify-center border border-deep-ocean bg-deep-ocean px-6 py-3.5 text-sm font-medium tracking-wide text-paper transition-all duration-200 hover:-translate-y-px hover:bg-ocean-blue"
             >
               Book a Session
             </Link>

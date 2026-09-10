@@ -15,6 +15,8 @@ const variantClasses: Record<Variant, string> = {
   ghost: "text-deep-ocean underline underline-offset-4 decoration-1 hover:text-ocean-blue",
 };
 
+const liftClasses = "transition-all duration-200 hover:-translate-y-px";
+
 export function CtaLink({
   href,
   children,
@@ -38,7 +40,7 @@ export function CtaLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide transition-colors duration-200 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide ${liftClasses} ${variantClasses[variant]} ${className}`}
       {...props}
     >
       {children}
