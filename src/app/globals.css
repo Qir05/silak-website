@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-deep-ocean: #092554;
+  --color-ocean-blue: #085598;
+  --color-silak-blue: #1697d3;
+  --color-bright-aqua: #43cff1;
+  --color-soft-aqua: #9fedf8;
+
+  --color-paper: #faf7f1;
+  --color-paper-dim: #f2ede3;
+  --color-ink: #0d1b2a;
+  --color-ink-soft: #3c4a5c;
+
+  --font-serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-deep-ocean: var(--color-deep-ocean);
+  --color-ocean-blue: var(--color-ocean-blue);
+  --color-silak-blue: var(--color-silak-blue);
+  --color-bright-aqua: var(--color-bright-aqua);
+  --color-soft-aqua: var(--color-soft-aqua);
+  --color-paper: var(--color-paper);
+  --color-paper-dim: var(--color-paper-dim);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-soft-aqua);
+  color: var(--color-deep-ocean);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-silak-blue);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-serif);
+}
+
+.h-hero {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-size: clamp(2.5rem, 1.75rem + 3.2vw, 4.75rem);
+}
+
+.h1-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  font-size: clamp(2.25rem, 1.7rem + 2.4vw, 3.75rem);
+}
+
+.h2-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+  font-size: clamp(1.875rem, 1.55rem + 1.4vw, 2.75rem);
+}
+
+.h3-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.prose-copy {
+  max-width: 62ch;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
