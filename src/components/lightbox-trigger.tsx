@@ -10,12 +10,16 @@ export function LightboxTrigger({
   sizes,
   priority = false,
   className = "",
+  fit = "cover",
 }: {
   images: LightboxImage[];
   index?: number;
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** Use "contain" for product-style photography where cropping would cut
+   * off the subject (e.g. mismatched-orientation merchandise photos). */
+  fit?: "cover" | "contain";
 }) {
   const { open } = useLightbox();
   const ref = useRef<HTMLButtonElement>(null);
@@ -35,7 +39,9 @@ export function LightboxTrigger({
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        className={`transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
+          fit === "contain" ? "object-contain p-4" : "object-cover"
+        }`}
       />
     </button>
   );

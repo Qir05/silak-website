@@ -118,7 +118,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
           role="dialog"
           aria-modal="true"
           aria-label={current.alt}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-deep-ocean/95 p-4 sm:p-8"
+          className="lightbox-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-deep-navy/95 p-4 sm:p-8"
           onClick={(event) => {
             if (event.target === event.currentTarget) close();
           }}
@@ -159,9 +159,8 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
             </button>
           )}
 
-          <div className="relative max-h-[85vh] max-w-[92vw] sm:max-w-[85vw]">
+          <div key={current.src} className="lightbox-image-enter relative max-h-[85vh] max-w-[92vw] sm:max-w-[85vw]">
             <Image
-              key={current.src}
               src={current.src}
               alt={current.alt}
               width={current.width}

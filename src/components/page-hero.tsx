@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Container } from "./container";
 import { Reveal } from "./reveal";
+import { sequenceStep } from "@/lib/reveal-timing";
 
 export function PageHero({
   eyebrow,
@@ -18,7 +19,7 @@ export function PageHero({
   imagePosition?: string;
 }) {
   return (
-    <section className="relative -mt-20 flex min-h-[64vh] items-end overflow-hidden bg-deep-ocean text-white">
+    <section className="relative -mt-20 flex min-h-[64vh] items-end overflow-hidden bg-deep-navy text-white">
       <Image
         src={image}
         alt={imageAlt}
@@ -28,11 +29,13 @@ export function PageHero({
         className="object-cover"
         style={{ objectPosition: imagePosition }}
       />
-      <div className="absolute inset-0 bg-deep-ocean/50" aria-hidden="true" />
+      <div className="absolute inset-0 bg-deep-navy/55" aria-hidden="true" />
       <Container className="relative z-10 py-14 md:py-20">
-        <Reveal>
+        <Reveal durationMs={800} distancePx={14}>
           <p className="eyebrow text-soft-aqua">{eyebrow}</p>
           <h1 className="h1-display mt-4 max-w-2xl text-white">{heading}</h1>
+        </Reveal>
+        <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
           <p className="prose-copy mt-5 text-white/85">{intro}</p>
         </Reveal>
       </Container>

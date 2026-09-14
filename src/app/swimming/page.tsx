@@ -3,6 +3,7 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
+import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 
 export const metadata: Metadata = {
@@ -18,6 +19,25 @@ const swimmingSessionImage = {
   width: 1000,
   height: 1226,
 };
+
+const covers = [
+  {
+    title: "Basic Techniques",
+    copy: "Core swimming technique built from the ground up, so movement in the water feels natural rather than forced.",
+  },
+  {
+    title: "Water Safety",
+    copy: "Practical awareness and habits for staying safe in and around water, for both children and adults.",
+  },
+  {
+    title: "Confident Survival Floats",
+    copy: "A dependable float and recovery position students can return to whenever they need to rest or regroup in the water.",
+  },
+  {
+    title: "Beginners and Families",
+    copy: "Sessions are structured to welcome complete beginners, including parents and children learning together.",
+  },
+];
 
 export default function SwimmingPage() {
   return (
@@ -49,7 +69,7 @@ export default function SwimmingPage() {
                 &mdash; not just in a pool, but around water in general.
               </p>
             </Reveal>
-            <Reveal delayMs={100} scale>
+            <Reveal delayMs={sequenceStep(1)} scale>
               <LightboxTrigger
                 images={[swimmingSessionImage]}
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -66,34 +86,12 @@ export default function SwimmingPage() {
             <h2 className="h2-display">What Survival Swimming Covers</h2>
           </Reveal>
           <div className="mt-10 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-x-16 md:gap-y-10">
-            <Reveal delayMs={0}>
-              <h3 className="h3-display">Basic Techniques</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Core swimming technique built from the ground up, so movement in the
-                water feels natural rather than forced.
-              </p>
-            </Reveal>
-            <Reveal delayMs={100}>
-              <h3 className="h3-display">Water Safety</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Practical awareness and habits for staying safe in and around water,
-                for both children and adults.
-              </p>
-            </Reveal>
-            <Reveal delayMs={100}>
-              <h3 className="h3-display">Confident Survival Floats</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                A dependable float and recovery position students can return to
-                whenever they need to rest or regroup in the water.
-              </p>
-            </Reveal>
-            <Reveal delayMs={200}>
-              <h3 className="h3-display">Beginners and Families</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Sessions are structured to welcome complete beginners, including
-                parents and children learning together.
-              </p>
-            </Reveal>
+            {covers.map((item, i) => (
+              <Reveal key={item.title} delayMs={groupStagger(i)}>
+                <h3 className="h3-display">{item.title}</h3>
+                <p className="prose-copy mt-3 text-ink-soft">{item.copy}</p>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>

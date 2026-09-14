@@ -8,7 +8,7 @@ export function CtaBand({
   heading?: string;
 }) {
   return (
-    <section className="bg-deep-ocean text-white">
+    <section className="bg-deep-navy text-white">
       <Container className="py-14 text-center md:py-20">
         <Reveal>
           <h2 className="h2-display">{heading}</h2>

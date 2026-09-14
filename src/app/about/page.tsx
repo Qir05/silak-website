@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
+import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { SITE_URL } from "@/lib/site";
 
@@ -32,6 +33,21 @@ const instructorImage = {
   height: 1875,
 };
 
+const values = [
+  {
+    title: "Breath",
+    copy: "Calmness and breath control come before technique, in the pool and in the ocean alike.",
+  },
+  {
+    title: "Safety",
+    copy: "Water safety is treated as non-negotiable, whether the setting is survival swimming or open-water freediving.",
+  },
+  {
+    title: "Respect for the Ocean",
+    copy: "Every session builds composure alongside respect for the marine environment students are learning within.",
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -49,11 +65,13 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-deep-ocean text-white">
+      <section className="bg-deep-navy text-white">
         <Container className="py-14 md:py-24 lg:py-28">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-bright-aqua">Our Belief</p>
+          </Reveal>
 
+          <Reveal delayMs={sequenceStep(1)} className="mx-auto max-w-3xl text-center">
             <p className="prose-copy mx-auto mt-8 text-white/85">
               At SiLak, we believe freediving is more than learning to hold your breath
               or reaching greater depths. It is a journey of discovering the
@@ -81,27 +99,12 @@ export default function AboutPage() {
       <section className="bg-paper">
         <Container className="py-14 md:py-24 lg:py-28">
           <div className="grid gap-10 md:grid-cols-3 md:gap-10">
-            <Reveal delayMs={0} className="border-t border-ink/15 pt-6">
-              <h2 className="h3-display">Breath</h2>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Calmness and breath control come before technique, in the pool and in
-                the ocean alike.
-              </p>
-            </Reveal>
-            <Reveal delayMs={100} className="border-t border-ink/15 pt-6">
-              <h2 className="h3-display">Safety</h2>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Water safety is treated as non-negotiable, whether the setting is
-                survival swimming or open-water freediving.
-              </p>
-            </Reveal>
-            <Reveal delayMs={200} className="border-t border-ink/15 pt-6">
-              <h2 className="h3-display">Respect for the Ocean</h2>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Every session builds composure alongside respect for the marine
-                environment students are learning within.
-              </p>
-            </Reveal>
+            {values.map((value, i) => (
+              <Reveal key={value.title} delayMs={groupStagger(i)} className="border-t border-ink/15 pt-6">
+                <h2 className="h3-display">{value.title}</h2>
+                <p className="prose-copy mt-3 text-ink-soft">{value.copy}</p>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -116,7 +119,7 @@ export default function AboutPage() {
                 className="aspect-[4/5] max-w-sm"
               />
             </Reveal>
-            <Reveal delayMs={100} className="flex flex-col justify-center">
+            <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
               <h2 className="h2-display mt-4">Edward M. Berdos</h2>
               <div className="mt-2 flex items-center gap-2 text-ink-soft">

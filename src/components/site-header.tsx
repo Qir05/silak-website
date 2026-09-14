@@ -69,7 +69,7 @@ export function SiteHeader() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className={`inline-flex items-center justify-center border px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 hover:-translate-y-px ${
+            className={`inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 hover:-translate-y-px ${
               transparent
                 ? "border-white text-white hover:bg-white hover:text-deep-ocean"
                 : "border-deep-ocean bg-deep-ocean text-paper hover:border-ocean-blue hover:bg-ocean-blue"
@@ -124,7 +124,7 @@ export function SiteHeader() {
             ))}
             <Link
               href="/book"
-              className="mt-3 inline-flex items-center justify-center border border-deep-ocean bg-deep-ocean px-6 py-3.5 text-sm font-medium tracking-wide text-paper transition-all duration-200 hover:-translate-y-px hover:bg-ocean-blue"
+              className="mt-3 inline-flex items-center justify-center rounded-sm border border-deep-ocean bg-deep-ocean px-6 py-3.5 text-sm font-medium tracking-wide text-paper transition-all duration-200 hover:-translate-y-px hover:bg-ocean-blue"
             >
               Book a Session
             </Link>

@@ -4,6 +4,7 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
+import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 
 export const metadata: Metadata = {
@@ -27,6 +28,21 @@ const instructorImage = {
   height: 1875,
 };
 
+const covers = [
+  {
+    title: "Breath-Hold Composure",
+    copy: "Relaxation and breath control form the foundation every level builds on.",
+  },
+  {
+    title: "Equalisation",
+    copy: "Technique for equalising comfortably and safely as depth increases.",
+  },
+  {
+    title: "Ocean Safety",
+    copy: "Safety protocols and awareness that stay non-negotiable at every level.",
+  },
+];
+
 export default function FreedivingPage() {
   return (
     <>
@@ -49,7 +65,7 @@ export default function FreedivingPage() {
                 className="aspect-[3/4]"
               />
             </Reveal>
-            <Reveal delayMs={100} className="md:order-1">
+            <Reveal delayMs={sequenceStep(1)} className="md:order-1">
               <p className="eyebrow text-ocean-blue">Certified Progression</p>
               <h2 className="h2-display mt-4">Calm, Structured Depth Progression</h2>
               <p className="prose-copy mt-6 text-ink-soft">
@@ -74,25 +90,12 @@ export default function FreedivingPage() {
             <h2 className="h2-display">What the Progression Covers</h2>
           </Reveal>
           <div className="mt-10 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-3 md:gap-8">
-            <Reveal delayMs={0}>
-              <h3 className="h3-display">Breath-Hold Composure</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Relaxation and breath control form the foundation every level builds
-                on.
-              </p>
-            </Reveal>
-            <Reveal delayMs={100}>
-              <h3 className="h3-display">Equalisation</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Technique for equalising comfortably and safely as depth increases.
-              </p>
-            </Reveal>
-            <Reveal delayMs={200}>
-              <h3 className="h3-display">Ocean Safety</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Safety protocols and awareness that stay non-negotiable at every level.
-              </p>
-            </Reveal>
+            {covers.map((item, i) => (
+              <Reveal key={item.title} delayMs={groupStagger(i)}>
+                <h3 className="h3-display">{item.title}</h3>
+                <p className="prose-copy mt-3 text-ink-soft">{item.copy}</p>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -107,7 +110,10 @@ export default function FreedivingPage() {
               courses. Reach out directly for current availability and details.
             </p>
           </Reveal>
-          <Reveal delayMs={100} className="mt-10 grid gap-8 border-t border-ink/15 pt-10 sm:grid-cols-2 sm:max-w-xl">
+          <Reveal
+            delayMs={sequenceStep(1)}
+            className="mt-10 grid gap-8 border-t border-ink/15 pt-10 sm:grid-cols-2 sm:max-w-xl"
+          >
             <div className="relative aspect-square w-full overflow-hidden bg-ink">
               <Image
                 src="/images/programs/molchanovs-wave-1.jpeg"
@@ -140,7 +146,7 @@ export default function FreedivingPage() {
                 className="aspect-[4/5] max-w-xs"
               />
             </Reveal>
-            <Reveal delayMs={100} className="flex flex-col justify-center">
+            <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Your Instructor</p>
               <h2 className="h2-display mt-4">Edward M. Berdos</h2>
               <p className="mt-2 text-sm font-medium tracking-wide text-ink-soft">

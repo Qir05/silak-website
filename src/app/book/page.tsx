@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
+import { sequenceStep } from "@/lib/reveal-timing";
 import { SOCIAL_LINKS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function BookPage() {
         </Reveal>
 
         <Reveal
-          delayMs={100}
+          delayMs={sequenceStep(1)}
           className="mt-12 grid max-w-2xl gap-6 border-t border-ink/15 pt-10 sm:grid-cols-2"
         >
           <a

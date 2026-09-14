@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
+import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 
 export const metadata: Metadata = {
@@ -74,7 +75,7 @@ export default function JuniorPage() {
                   className="aspect-[4/5] max-w-sm"
                 />
               </Reveal>
-              <Reveal delayMs={100} className={index % 2 === 1 ? "md:order-1" : ""}>
+              <Reveal delayMs={sequenceStep(1)} className={index % 2 === 1 ? "md:order-1" : ""}>
                 <p className="eyebrow text-ocean-blue">Molchanovs Junior</p>
                 <h2 className="h2-display mt-4">{group.range}</h2>
                 <p className="prose-copy mt-5 text-ink-soft">{group.copy}</p>

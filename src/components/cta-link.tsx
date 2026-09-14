@@ -7,7 +7,7 @@ const variantClasses: Record<Variant, string> = {
   primary:
     "bg-deep-ocean text-paper border border-deep-ocean hover:bg-ocean-blue hover:border-ocean-blue",
   inverse:
-    "bg-white text-deep-ocean border border-white hover:bg-soft-aqua hover:border-soft-aqua",
+    "bg-white text-deep-navy border border-white hover:bg-soft-aqua hover:border-soft-aqua",
   secondary:
     "bg-transparent text-deep-ocean border border-ink/30 hover:border-deep-ocean",
   secondaryInverse:
@@ -40,7 +40,7 @@ export function CtaLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center px-7 py-3.5 text-sm font-medium tracking-wide ${liftClasses} ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-sm px-7 py-3.5 text-sm font-medium tracking-wide ${liftClasses} ${variantClasses[variant]} ${className}`}
       {...props}
     >
       {children}

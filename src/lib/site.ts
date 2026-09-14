@@ -19,6 +19,7 @@ export const NAV_LINKS = [
   { href: "/freediving", label: "Freediving" },
   { href: "/junior", label: "Junior" },
   { href: "/about", label: "About" },
+  { href: "/merchandise", label: "Merchandise" },
 ] as const;
 
 export const SOCIAL_LINKS = {
