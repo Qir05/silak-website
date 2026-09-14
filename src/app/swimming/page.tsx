@@ -73,7 +73,7 @@ export default function SwimmingPage() {
               <LightboxTrigger
                 images={[swimmingSessionImage]}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="aspect-[4/3]"
+                className="aspect-[4/5]"
               />
             </Reveal>
           </div>
@@ -81,7 +81,7 @@ export default function SwimmingPage() {
       </section>
 
       <section className="bg-paper-dim">
-        <Container className="py-14 md:py-24 lg:py-28">
+        <Container className="py-14 md:py-20 lg:py-24">
           <Reveal className="max-w-2xl">
             <h2 className="h2-display">What Survival Swimming Covers</h2>
           </Reveal>

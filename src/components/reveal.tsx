@@ -13,9 +13,9 @@ export function Reveal({
   children: ReactNode;
   className?: string;
   delayMs?: number;
-  /** Transition duration in ms. Defaults to 1100ms for images, 1000ms for text. */
+  /** Transition duration in ms. Defaults to 1150ms for images, 1000ms for text. */
   durationMs?: number;
-  /** Initial vertical offset in px. Defaults to 24px for images, 32px for text. */
+  /** Initial vertical offset in px. Defaults to 32px for images, 44px for text. */
   distancePx?: number;
   /** Apply a very subtle initial scale-up, intended for large editorial imagery. */
   scale?: boolean;
@@ -51,9 +51,9 @@ export function Reveal({
 
   const style: CSSProperties & Record<string, string | number> = {};
   if (delayMs) style.transitionDelay = `${delayMs}ms`;
-  style["--reveal-duration"] = `${durationMs ?? (scale ? 1100 : 1000)}ms`;
-  style["--reveal-y"] = `${distancePx ?? (scale ? 24 : 32)}px`;
-  if (scale) style["--reveal-scale"] = 0.98;
+  style["--reveal-duration"] = `${durationMs ?? (scale ? 1150 : 1000)}ms`;
+  style["--reveal-y"] = `${distancePx ?? (scale ? 32 : 44)}px`;
+  if (scale) style["--reveal-scale"] = 0.97;
 
   return (
     <div ref={ref} className={`reveal ${visible ? "is-visible" : ""} ${className}`} style={style}>

@@ -66,7 +66,7 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-deep-navy text-white">
-        <Container className="py-14 md:py-24 lg:py-28">
+        <Container wide className="py-20 md:py-32 lg:py-40">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-bright-aqua">Our Belief</p>
           </Reveal>
@@ -97,7 +97,7 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-paper">
-        <Container className="py-14 md:py-24 lg:py-28">
+        <Container className="py-14 md:py-20 lg:py-24">
           <div className="grid gap-10 md:grid-cols-3 md:gap-10">
             {values.map((value, i) => (
               <Reveal key={value.title} delayMs={groupStagger(i)} className="border-t border-ink/15 pt-6">
@@ -110,13 +110,13 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-paper-dim">
-        <Container className="py-14 md:py-24 lg:py-28">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16">
+        <Container wide className="py-20 md:py-32 lg:py-40">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
             <Reveal scale>
               <LightboxTrigger
                 images={[instructorImage]}
-                sizes="(min-width: 768px) 380px, 100vw"
-                className="aspect-[4/5] max-w-sm"
+                sizes="(min-width: 1536px) 600px, (min-width: 1280px) 480px, (min-width: 768px) 380px, 100vw"
+                className="aspect-[4/5] max-w-sm xl:max-w-[480px] 2xl:max-w-[600px]"
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">

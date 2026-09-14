@@ -26,6 +26,7 @@ const programs = [
     alt: "Swimmer gliding underwater in a pool during a survival swimming session",
     width: 1440,
     height: 960,
+    fit: "cover" as const,
   },
   {
     title: "Molchanovs Freediving",
@@ -37,6 +38,7 @@ const programs = [
     alt: "Freediver descending along a reef in open water",
     width: 2196,
     height: 1913,
+    fit: "cover" as const,
   },
   {
     title: "Junior Programs",
@@ -48,6 +50,9 @@ const programs = [
     alt: "Junior swimmer practicing freediving skills in a pool",
     width: 1736,
     height: 2455,
+    // Designed program artwork, not a candid photo: presented matted rather
+    // than full-bleed so it reads as an illustration next to real photography.
+    fit: "contain" as const,
   },
 ];
 
@@ -79,7 +84,7 @@ export default function Home() {
           sizes="100vw"
           className="object-cover object-[center_35%]"
         />
-        <div className="absolute inset-0 bg-deep-navy/45" aria-hidden="true" />
+        <div className="absolute inset-0 bg-deep-navy/60" aria-hidden="true" />
         <Container className="relative z-10 pb-16 pt-40 md:pb-24">
           <Reveal durationMs={800} distancePx={14}>
             <p className="eyebrow text-soft-aqua">Swimming and Freediving in Davao</p>
@@ -107,7 +112,7 @@ export default function Home() {
       </section>
 
       <section className="bg-deep-ocean text-white">
-        <Container className="grid gap-10 py-16 md:grid-cols-2 md:gap-16 md:py-28 lg:py-32">
+        <Container className="grid gap-10 py-16 md:grid-cols-2 md:gap-16 md:py-24 lg:py-28">
           <Reveal>
             <p className="eyebrow text-bright-aqua">Beyond the Surface</p>
             <h2 className="h2-display mt-5 max-w-md">
@@ -132,7 +137,7 @@ export default function Home() {
       </section>
 
       <section id="programs" className="bg-paper-dim">
-        <Container className="py-16 md:py-28 lg:py-32">
+        <Container wide className="py-16 md:py-24 lg:py-28">
           <Reveal className="max-w-2xl">
             <h2 className="h2-display">Your Journey in the Water</h2>
             <p className="prose-copy mt-5 text-ink-soft">
@@ -141,14 +146,15 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-10 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8">
+          <div className="mt-12 grid gap-10 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8 xl:gap-10">
             {programs.map((program, i) => (
               <Reveal key={program.href} delayMs={groupStagger(i)} className="flex flex-col">
                 <LightboxTrigger
                   images={programImages}
                   index={i}
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-[4/5]"
+                  fit={program.fit}
                 />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">
@@ -167,7 +173,7 @@ export default function Home() {
       </section>
 
       <section className="bg-deep-navy text-white">
-        <Container className="py-16 md:py-28 lg:py-32">
+        <Container wide className="py-20 md:py-32 lg:py-40">
           <Reveal className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-bright-aqua">Our Belief</p>
             <h2 className="h2-display mt-5">The Ocean Is for Everyone.</h2>
@@ -199,7 +205,7 @@ export default function Home() {
       </section>
 
       <section className="bg-paper-dim">
-        <Container className="py-16 md:py-28 lg:py-32">
+        <Container className="py-14 md:py-20 lg:py-24">
           <div className="grid gap-12 md:grid-cols-3 md:gap-10">
             <Reveal delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">01</span>
@@ -230,13 +236,13 @@ export default function Home() {
       </section>
 
       <section className="bg-paper">
-        <Container className="py-16 md:py-28 lg:py-32">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16">
+        <Container wide className="py-20 md:py-32 lg:py-40">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
             <Reveal scale>
               <LightboxTrigger
                 images={[instructorImage]}
-                sizes="(min-width: 768px) 380px, 100vw"
-                className="aspect-[4/5] max-w-sm"
+                sizes="(min-width: 1536px) 600px, (min-width: 1280px) 480px, (min-width: 768px) 380px, 100vw"
+                className="aspect-[4/5] max-w-sm xl:max-w-[480px] 2xl:max-w-[600px]"
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
@@ -272,7 +278,7 @@ export default function Home() {
       </section>
 
       <section className="bg-aqua-tint">
-        <Container className="py-16 md:py-28 lg:py-32">
+        <Container wide className="py-16 md:py-24 lg:py-28">
           <Reveal className="max-w-2xl">
             <p className="eyebrow text-ocean-blue">SiLak Merchandise</p>
             <h2 className="h2-display mt-5">Carry SiLak Beyond the Water</h2>
@@ -282,13 +288,13 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 xl:gap-10">
             {merchandisePreview.map((image, i) => (
               <Reveal key={image.src} delayMs={groupStagger(i)}>
                 <LightboxTrigger
                   images={merchandisePreview}
                   index={i}
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-square"
                   fit="contain"
                 />
@@ -305,7 +311,7 @@ export default function Home() {
       </section>
 
       <section className="bg-deep-navy text-white">
-        <Container className="py-16 text-center md:py-24">
+        <Container className="py-20 text-center md:py-32 lg:py-36">
           <Reveal>
             <h2 className="h2-display">Begin Your Journey in the Water</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">

@@ -62,7 +62,7 @@ export default function FreedivingPage() {
               <LightboxTrigger
                 images={[lineTrainingImage]}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="aspect-[3/4]"
+                className="aspect-[4/5]"
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="md:order-1">
@@ -85,7 +85,7 @@ export default function FreedivingPage() {
       </section>
 
       <section className="bg-paper-dim">
-        <Container className="py-14 md:py-24 lg:py-28">
+        <Container className="py-14 md:py-20 lg:py-24">
           <Reveal className="max-w-2xl">
             <h2 className="h2-display">What the Progression Covers</h2>
           </Reveal>

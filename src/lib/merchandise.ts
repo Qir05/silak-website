@@ -10,7 +10,12 @@ export type MerchandiseProduct = {
   label: string;
   description: string;
   images: MerchandiseImage[];
-  /** "contain" avoids cropping landscape product shots into a portrait frame. */
+  /**
+   * All products use "contain" on a shared aqua-tint mat (see
+   * LightboxTrigger) so the white-background shirt photos, the gray-backed
+   * mask flat-lay, and the lanyard shot present as one curated set instead
+   * of three different sources cropped into a grid.
+   */
   imageFit: "cover" | "contain";
 };
 
@@ -48,7 +53,7 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
         height: 2048,
       },
     ],
-    imageFit: "cover",
+    imageFit: "contain",
   },
   {
     slug: "accessories",
