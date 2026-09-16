@@ -47,12 +47,12 @@ export default function FreedivingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Freediving in Davao"
-        heading="Molchanovs Freediving in Davao"
+        eyebrow="Freediving"
+        heading="Molchanovs Freediving"
         intro="Progress through certified levels, mastering breath-hold composure, equalisation, and depth."
-        image="/images/freediving/open-water-freediver.jpeg"
-        imageAlt="Freediver descending a line in open water"
-        imagePosition="center 30%"
+        image="/images/freediving/freediving-hero-reef.webp"
+        imageAlt="Freediver in a blue wetsuit gliding over a coral reef"
+        imagePosition="center 38%"
       />
 
       <section className="bg-paper">

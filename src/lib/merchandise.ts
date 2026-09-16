@@ -69,4 +69,18 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
     ],
     imageFit: "contain",
   },
+  {
+    slug: "fins",
+    label: "Freediving Fins",
+    description: "Freediving fins available through SiLak.",
+    images: [
+      {
+        src: "/images/merchandise/freediving-fins.webp",
+        alt: "Three pairs of long-blade freediving fins in white, green, and yellow laid side by side",
+        width: 1195,
+        height: 1316,
+      },
+    ],
+    imageFit: "contain",
+  },
 ];

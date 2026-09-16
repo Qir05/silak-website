@@ -44,7 +44,7 @@ export default function SwimmingPage() {
     <>
       <PageHero
         eyebrow="Swimming in Davao"
-        heading="Survival Swimming in Davao"
+        heading="Swimming Courses at SiLak Davao"
         intro="Essential skills for all ages, focusing on basic techniques, water safety, and confident survival floats."
         image="/images/swimming/adult-swimming-underwater.webp"
         imageAlt="Swimmer gliding underwater in a pool"
@@ -58,10 +58,10 @@ export default function SwimmingPage() {
               <p className="eyebrow text-ocean-blue">Foundational Aquatic Confidence</p>
               <h2 className="h2-display mt-4">Building Comfort in the Water First</h2>
               <p className="prose-copy mt-6 text-ink-soft">
-                Survival swimming at SiLak starts with the basics: breathing, floating,
-                and feeling comfortable in the water before anything else. Beginners
-                and families are guided at a pace that respects where each swimmer is
-                starting from.
+                Swimming courses at SiLak start with the basics: breathing,
+                floating, and feeling comfortable in the water before anything
+                else. Beginners are guided at a pace that respects where each
+                swimmer is starting from.
               </p>
               <p className="prose-copy mt-4 text-ink-soft">
                 Sessions focus on basic swimming techniques alongside practical water
