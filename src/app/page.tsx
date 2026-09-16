@@ -15,7 +15,20 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const programs = [
+type Program = {
+  title: string;
+  description: string;
+  href: string;
+  linkLabel: string;
+  image: string;
+  alt: string;
+  width: number;
+  height: number;
+  fit: "cover" | "contain";
+  objectPosition?: string;
+};
+
+const programs: Program[] = [
   {
     title: "Swimming",
     description:
@@ -26,7 +39,7 @@ const programs = [
     alt: "Swimmer gliding underwater in a pool during a survival swimming session",
     width: 1440,
     height: 960,
-    fit: "cover" as const,
+    fit: "cover",
   },
   {
     title: "Freediving",
@@ -38,7 +51,7 @@ const programs = [
     alt: "Freediver descending along a reef in open water",
     width: 2196,
     height: 1913,
-    fit: "cover" as const,
+    fit: "cover",
   },
   {
     title: "Junior Programs",
@@ -46,11 +59,15 @@ const programs = [
       "Freediving teaches kids to stay calm, face challenges, and trust themselves. Skills they can carry into everyday life.",
     href: "/junior",
     linkLabel: "See junior programs",
-    image: "/images/junior/junior-program-card.webp",
+    image: "/images/junior/junior-molchanovs.webp",
     alt: "Three junior swimmers practicing underwater during a Molchanovs Junior freediving session",
-    width: 1552,
-    height: 1254,
-    fit: "cover" as const,
+    width: 1536,
+    height: 1024,
+    fit: "cover",
+    // Source is landscape; bias the crop toward the left so the woman's
+    // hand stays in frame and as much of the "molchanovs" wordmark as
+    // possible remains readable.
+    objectPosition: "20% center",
   },
 ];
 
@@ -162,6 +179,7 @@ export default function Home() {
                   sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-[4/5]"
                   fit={program.fit}
+                  objectPosition={program.objectPosition}
                 />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">

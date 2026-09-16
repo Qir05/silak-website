@@ -118,6 +118,17 @@ body {
   transform: translateY(0) scale(1);
 }
 
+/* Hidden-scrollbar carousel track: still natively scrollable/swipeable,
+   just without a visible scrollbar chrome. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Active navigation state */
 [data-site-nav] a[aria-current="page"] {
   text-decoration: underline;
