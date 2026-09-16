@@ -34,8 +34,8 @@ const covers = [
     copy: "Relaxation and breath control form the foundation every level builds on.",
   },
   {
-    title: "Equalisation",
-    copy: "Technique for equalising comfortably and safely as depth increases.",
+    title: "Equalization",
+    copy: "Technique for equalizing comfortably and safely as depth increases.",
   },
   {
     title: "Ocean Safety",
@@ -47,12 +47,11 @@ export default function FreedivingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Freediving"
-        heading="Molchanovs Freediving"
-        intro="Progress through certified levels, mastering breath-hold composure, equalisation, and depth."
-        image="/images/freediving/freediving-hero-reef.webp"
+        heading="Molchanovs with Silak Freediving"
+        intro="Each level combines theory + practical training + safety, with progressively more advanced skills."
+        image="/images/freediving/freediving-hero-molchanovs.webp"
         imageAlt="Freediver in a blue wetsuit gliding over a coral reef"
-        imagePosition="center 38%"
+        imagePosition="center 45%"
       />
 
       <section className="bg-paper">
@@ -66,18 +65,12 @@ export default function FreedivingPage() {
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="md:order-1">
-              <p className="eyebrow text-ocean-blue">Certified Progression</p>
-              <h2 className="h2-display mt-4">Calm, Structured Depth Progression</h2>
+              <h2 className="h2-display">Calm, Structured Progression</h2>
               <p className="prose-copy mt-6 text-ink-soft">
                 Training follows the certified Molchanovs curriculum, moving students
                 through structured levels rather than rushing toward depth. Each level
-                builds breath-hold composure and equalisation before progressing
-                further.
-              </p>
-              <p className="prose-copy mt-4 text-ink-soft">
-                Calmness and respect for the marine environment are treated as core
-                skills, not afterthoughts &mdash; alongside the ocean safety that
-                underlies every dive.
+                builds Relaxation techniques, breath-hold composure and equalization
+                before progressing further.
               </p>
             </Reveal>
           </div>

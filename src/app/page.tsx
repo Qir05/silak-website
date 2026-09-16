@@ -96,8 +96,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-deep-navy/60" aria-hidden="true" />
         <Container className="relative z-10 pb-16 pt-40 md:pb-24">
           <Reveal durationMs={800} distancePx={14}>
-            <p className="eyebrow text-balance text-soft-aqua">Swimming and Freediving in Davao City</p>
-            <h1 className="h-hero mt-5 max-w-3xl text-white">
+            <h1 className="h-hero max-w-3xl text-white">
               Find Your Flow. Breathe Into Freedom. Discover Yourself.
             </h1>
           </Reveal>
@@ -108,7 +107,7 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(2)}>
-            <div className="mt-9 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <CtaLink href="/#programs" variant="inverse">
                 Explore Courses
               </CtaLink>
@@ -245,10 +244,7 @@ export default function Home() {
               <span className="eyebrow text-ocean-blue">03</span>
               <h3 className="h3-display mt-3">Progression</h3>
               <p className="prose-copy mt-3 text-ink-soft">
-                Progress through each level as your skills and confidence
-                grow. From beginner to advanced, our courses develop
-                breathing, relaxation, equalization, depth, and safety step
-                by step.
+                Master the fundamentals and progress with confidence, one level at a time.
               </p>
             </Reveal>
           </div>

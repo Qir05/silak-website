@@ -11,7 +11,7 @@ export function PageHero({
   imageAlt,
   imagePosition = "center",
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   intro: string;
   image: string;
@@ -32,8 +32,8 @@ export function PageHero({
       <div className="absolute inset-0 bg-deep-navy/55" aria-hidden="true" />
       <Container className="relative z-10 py-14 md:py-20">
         <Reveal durationMs={800} distancePx={14}>
-          <p className="eyebrow text-soft-aqua">{eyebrow}</p>
-          <h1 className="h1-display mt-4 max-w-2xl text-white">{heading}</h1>
+          {eyebrow && <p className="eyebrow text-soft-aqua">{eyebrow}</p>}
+          <h1 className={`h1-display max-w-2xl text-white ${eyebrow ? "mt-4" : ""}`}>{heading}</h1>
         </Reveal>
         <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
           <p className="prose-copy mt-5 text-white/85">{intro}</p>

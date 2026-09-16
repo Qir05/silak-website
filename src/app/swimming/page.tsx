@@ -7,9 +7,9 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 
 export const metadata: Metadata = {
-  title: "Survival Swimming in Davao",
+  title: "Swimming Courses in Davao",
   description:
-    "Survival swimming lessons in Davao for beginners and families, focused on foundational aquatic confidence, basic swimming technique, water safety, and confident survival floats.",
+    "Swimming lessons in Davao for beginners and families, focused on foundational aquatic confidence, basic swimming technique, and water safety.",
   alternates: { canonical: "/swimming" },
 };
 
@@ -29,14 +29,6 @@ const covers = [
     title: "Water Safety",
     copy: "Practical awareness and habits for staying safe in and around water, for both children and adults.",
   },
-  {
-    title: "Confident Survival Floats",
-    copy: "A dependable float and recovery position students can return to whenever they need to rest or regroup in the water.",
-  },
-  {
-    title: "Beginners and Families",
-    copy: "Sessions are structured to welcome complete beginners, including parents and children learning together.",
-  },
 ];
 
 export default function SwimmingPage() {
@@ -45,7 +37,7 @@ export default function SwimmingPage() {
       <PageHero
         eyebrow="Swimming in Davao"
         heading="Swimming Courses at SiLak Davao"
-        intro="Essential skills for all ages, focusing on basic techniques, water safety, and confident survival floats."
+        intro="Essential skills for all ages, focusing on basic techniques and water safety."
         image="/images/swimming/adult-swimming-underwater.webp"
         imageAlt="Swimmer gliding underwater in a pool"
         imagePosition="center 40%"
@@ -83,7 +75,7 @@ export default function SwimmingPage() {
       <section className="bg-paper-dim">
         <Container className="py-14 md:py-20 lg:py-24">
           <Reveal className="max-w-2xl">
-            <h2 className="h2-display">What Survival Swimming Covers</h2>
+            <h2 className="h2-display">What Swimming Covers</h2>
           </Reveal>
           <div className="mt-10 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-x-16 md:gap-y-10">
             {covers.map((item, i) => (

@@ -40,9 +40,9 @@ export function SiteHeader() {
           <Image
             src="/logos/silak-logo.png"
             alt="SiLak Davao logo"
-            width={44}
-            height={44}
-            className="h-11 w-11 object-contain"
+            width={56}
+            height={56}
+            className="h-14 w-14 object-contain"
             priority
           />
         </Link>
