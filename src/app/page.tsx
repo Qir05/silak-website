@@ -230,16 +230,18 @@ export default function Home() {
               <span className="eyebrow text-ocean-blue">02</span>
               <h3 className="h3-display mt-3">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
-                Water safety and confident survival floats come before anything else.
-                Ocean safety is treated as non-negotiable at every level.
+                Safety comes first, always. We build strong water skills and
+                make ocean safety a non-negotiable part of every dive.
               </p>
             </Reveal>
             <Reveal delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">03</span>
               <h3 className="h3-display mt-3">Progression</h3>
               <p className="prose-copy mt-3 text-ink-soft">
-                Students move through certified Molchanovs levels at their own pace,
-                building equalisation and depth on a foundation of composure.
+                Progress through each level as your skills and confidence
+                grow. From beginner to advanced, our courses develop
+                breathing, relaxation, equalization, depth, and safety step
+                by step.
               </p>
             </Reveal>
           </div>

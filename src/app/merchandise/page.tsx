@@ -25,7 +25,7 @@ export default function MerchandisePage() {
           <Reveal delayMs={sequenceStep(1)}>
             <p className="prose-copy mt-5 text-ink-soft">
               SiLak branded shirts and water-related gear, available directly through
-              SiLak in Davao. Reach out to see current designs and availability.
+              SiLak Davao. Reach out to see current designs and availability.
             </p>
           </Reveal>
         </Container>
