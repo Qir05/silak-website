@@ -50,9 +50,10 @@ const programs = [
     alt: "Three junior swimmers practicing underwater during a Molchanovs Junior freediving session",
     width: 1552,
     height: 1254,
-    // Designed program artwork, not a candid photo: presented matted rather
-    // than full-bleed so it reads as an illustration next to real photography.
-    fit: "contain" as const,
+    fit: "cover" as const,
+    // Source is landscape; bias the crop left-of-center so all three
+    // swimmers and the "Molchanovs Junior" wordmark stay visible.
+    objectPosition: "38% center",
   },
 ];
 
@@ -164,6 +165,7 @@ export default function Home() {
                   sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-[4/5]"
                   fit={program.fit}
+                  objectPosition={program.objectPosition}
                 />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">
@@ -200,7 +202,7 @@ export default function Home() {
               create better, calmer, more confident people.
             </p>
 
-            <p className="prose-copy mx-auto mt-8 text-white/85">Our Vision Is Simple</p>
+            <p className="prose-copy mx-auto mt-8 text-white/85">Our Mission Is Simple</p>
             <p className="font-display mx-auto mt-4 text-xl text-white md:text-2xl">
               Share the knowledge. Teach the skills. Change lives.
             </p>
