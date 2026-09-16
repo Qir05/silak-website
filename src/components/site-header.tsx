@@ -49,7 +49,7 @@ export function SiteHeader() {
 
         <nav
           data-site-nav
-          className={`hidden items-center gap-8 md:flex ${
+          className={`hidden items-center gap-8 lg:flex ${
             transparent ? "text-white" : "text-ink"
           }`}
           aria-label="Primary"
@@ -66,7 +66,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Link
             href="/book"
             className={`inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 hover:-translate-y-px ${
@@ -81,7 +81,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className={`flex h-11 w-11 items-center justify-center md:hidden ${
+          className={`flex h-11 w-11 items-center justify-center lg:hidden ${
             transparent ? "text-white" : "text-ink"
           }`}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -110,7 +110,7 @@ export function SiteHeader() {
       </Container>
 
       {menuOpen && (
-        <div id="mobile-nav" className="border-t border-ink/10 bg-paper md:hidden">
+        <div id="mobile-nav" className="border-t border-ink/10 bg-paper lg:hidden">
           <Container data-site-nav className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <Link

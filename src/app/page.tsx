@@ -87,15 +87,15 @@ export default function Home() {
         <div className="absolute inset-0 bg-deep-navy/60" aria-hidden="true" />
         <Container className="relative z-10 pb-16 pt-40 md:pb-24">
           <Reveal durationMs={800} distancePx={14}>
-            <p className="eyebrow text-soft-aqua">Swimming and Freediving in Davao</p>
+            <p className="eyebrow text-balance text-soft-aqua">Swimming and Freediving in Davao City</p>
             <h1 className="h-hero mt-5 max-w-3xl text-white">
-              Find Your Flow. Discover What You&rsquo;re Capable Of.
+              Find Your Flow. Breathe Into Freedom. Discover Yourself.
             </h1>
           </Reveal>
           <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
             <p className="prose-copy mt-6 text-lg text-white/85">
-              Swimming, freediving, and unforgettable experiences in and around the
-              water.
+              From swimming and freediving to unforgettable adventures. We help
+              you build confidence and discover what you&rsquo;re capable of.
             </p>
           </Reveal>
           <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(2)}>
