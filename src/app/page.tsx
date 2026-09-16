@@ -112,25 +112,34 @@ export default function Home() {
       </section>
 
       <section className="bg-deep-ocean text-white">
-        <Container className="grid gap-10 py-16 md:grid-cols-2 md:gap-16 md:py-24 lg:py-28">
+        <Container className="grid gap-10 py-16 md:grid-cols-2 md:gap-16 md:py-24 lg:py-28 lg:gap-20 xl:gap-24">
           <Reveal>
             <p className="eyebrow text-bright-aqua">Beyond the Surface</p>
-            <h2 className="h2-display mt-5 max-w-md">
-              Aquatic Confidence Through Breath and Safety
+            <h2 className="h2-display mt-5 max-w-md text-balance">
+              Learn the Art of Freediving. Discover the Art of Living.
             </h2>
           </Reveal>
-          <Reveal delayMs={sequenceStep(1)} className="flex flex-col gap-6">
+          <Reveal delayMs={sequenceStep(1)} className="flex flex-col gap-5 md:gap-6 lg:gap-7">
             <p className="prose-copy text-white/85">
-              SiLak Davao combines certified Molchanovs freediving progression with
-              dedicated survival swimming. Our approach prioritizes breath control,
-              equalisation, and non-negotiable ocean safety, fostering a profound
-              connection with water.
+              At SiLak Davao, we believe freediving is more than going deeper or
+              holding your breath longer. It is learning to breathe, relax, move
+              with awareness, and stay calm in the water.
             </p>
             <p className="prose-copy text-white/85">
-              We guide complete beginners, families, youth, and advanced divers to
-              master aquatic skills, treating the ocean as a space of flow rather than
-              fear. Every session builds composure and respect for the marine
-              environment.
+              Our approach is progressive, safe, and beginner friendly, guiding
+              you from your first experience in the water, even as a
+              non-swimmer, to becoming a confident and skilled freediver.
+            </p>
+            <p className="prose-copy text-white/85">
+              We focus on three foundations: relaxation, breathing, and safety.
+              As your skills grow, so does your confidence, body awareness, and
+              connection with the ocean.
+            </p>
+            <p className="prose-copy text-white/85">
+              And because we are guests in the underwater world, we teach every
+              diver to respect and protect marine life. The ocean gives us
+              life, beauty, and freedom. Freediving teaches us to protect what
+              we love.
             </p>
           </Reveal>
         </Container>
