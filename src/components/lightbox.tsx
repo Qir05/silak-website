@@ -18,6 +18,12 @@ export type LightboxImage = {
   height: number;
 };
 
+/** Fired on window when the lightbox opens/closes, so unrelated components
+ * (e.g. an autoplaying carousel elsewhere on the page) can react without a
+ * direct dependency on the lightbox's internal state. */
+export const LIGHTBOX_OPEN_EVENT = "silak:lightbox-open";
+export const LIGHTBOX_CLOSE_EVENT = "silak:lightbox-close";
+
 type LightboxContextValue = {
   open: (images: LightboxImage[], index: number, trigger: HTMLElement | null) => void;
 };
@@ -44,6 +50,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
       triggerRef.current = trigger;
       setImages(imgs);
       setIndex(startIndex);
+      window.dispatchEvent(new CustomEvent(LIGHTBOX_OPEN_EVENT));
     },
     [],
   );
@@ -52,6 +59,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
     setImages(null);
     triggerRef.current?.focus();
     triggerRef.current = null;
+    window.dispatchEvent(new CustomEvent(LIGHTBOX_CLOSE_EVENT));
   }, []);
 
   const showPrev = useCallback(() => {

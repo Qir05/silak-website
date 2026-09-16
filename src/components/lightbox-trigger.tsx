@@ -12,10 +12,10 @@ import { useLightbox, type LightboxImage } from "./lightbox";
  * - Product / lookbook imagery (merchandise): aspect-square, `fit="contain"`,
  *   so mismatched source proportions sit inside one consistent frame instead
  *   of being cropped.
- * - When a landscape-oriented image must sit in a portrait frame alongside
- *   real photography (e.g. the Junior tile in the homepage Programs grid),
- *   use `fit="cover"` with a tuned `objectPosition` so the three cards read
- *   as one consistent row instead of one looking visually smaller.
+ * - A designed graphic asset placed beside real photography (e.g. the
+ *   Junior tile in the homepage Programs grid) uses `fit="contain"` too:
+ *   the artwork carries its own text (a wordmark, "JUNIOR") that a cover
+ *   crop would cut off, so it's shown in full on its own mat instead.
  */
 export function LightboxTrigger({
   images,

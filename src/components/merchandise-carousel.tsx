@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { LightboxTrigger } from "./lightbox-trigger";
+import { LIGHTBOX_CLOSE_EVENT, LIGHTBOX_OPEN_EVENT } from "./lightbox";
 import { SOCIAL_LINKS } from "@/lib/site";
 import type { MerchandiseProduct } from "@/lib/merchandise";
 
-const AUTOPLAY_INTERVAL_MS = 4500;
-const RESUME_DELAY_MS = 5000;
+const AUTOPLAY_INTERVAL_MS = 4000;
+const RESUME_DELAY_MS = 4500;
 
 function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -23,16 +24,17 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
   const trackRef = useRef<HTMLDivElement>(null);
   const autoplayId = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeId = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lightboxOpen = useRef(false);
 
-  const stopAutoplay = useCallback(() => {
-    if (autoplayId.current) {
-      clearInterval(autoplayId.current);
-      autoplayId.current = null;
+  const clearResumeTimer = useCallback(() => {
+    if (resumeId.current) {
+      clearTimeout(resumeId.current);
+      resumeId.current = null;
     }
   }, []);
 
   const startAutoplay = useCallback(() => {
-    if (prefersReducedMotion() || autoplayId.current) return;
+    if (prefersReducedMotion() || autoplayId.current || lightboxOpen.current) return;
     autoplayId.current = setInterval(() => {
       const track = trackRef.current;
       if (!track) return;
@@ -45,25 +47,50 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
     }, AUTOPLAY_INTERVAL_MS);
   }, []);
 
-  // Pause on any manual interaction, resuming a few seconds after it ends.
-  const pauseThenResume = useCallback(() => {
-    stopAutoplay();
-    if (resumeId.current) clearTimeout(resumeId.current);
+  // Stops autoplay immediately and cancels any pending auto-resume, so a new
+  // interaction always wins over a previous one that hadn't resumed yet.
+  const pause = useCallback(() => {
+    clearResumeTimer();
+    if (autoplayId.current) {
+      clearInterval(autoplayId.current);
+      autoplayId.current = null;
+    }
+  }, [clearResumeTimer]);
+
+  // Called whenever an interaction *ends*. Schedules autoplay to pick back
+  // up a short while later, unless reduced motion or the lightbox is open
+  // (in which case the lightbox-close handler is what resumes it).
+  const scheduleResume = useCallback(() => {
+    if (prefersReducedMotion() || lightboxOpen.current) return;
+    clearResumeTimer();
     resumeId.current = setTimeout(startAutoplay, RESUME_DELAY_MS);
-  }, [stopAutoplay, startAutoplay]);
+  }, [clearResumeTimer, startAutoplay]);
 
   useEffect(() => {
     startAutoplay();
-    return () => {
-      stopAutoplay();
-      if (resumeId.current) clearTimeout(resumeId.current);
+
+    const onLightboxOpen = () => {
+      lightboxOpen.current = true;
+      pause();
     };
-  }, [startAutoplay, stopAutoplay]);
+    const onLightboxClose = () => {
+      lightboxOpen.current = false;
+      scheduleResume();
+    };
+    window.addEventListener(LIGHTBOX_OPEN_EVENT, onLightboxOpen);
+    window.addEventListener(LIGHTBOX_CLOSE_EVENT, onLightboxClose);
+
+    return () => {
+      pause();
+      window.removeEventListener(LIGHTBOX_OPEN_EVENT, onLightboxOpen);
+      window.removeEventListener(LIGHTBOX_CLOSE_EVENT, onLightboxClose);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollByCard = (direction: 1 | -1) => {
     const track = trackRef.current;
     if (!track) return;
-    pauseThenResume();
 
     if (direction === 1 && track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) {
       track.scrollTo({ left: 0, behavior: "smooth" });
@@ -78,11 +105,12 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
 
   return (
     <div
-      onMouseEnter={stopAutoplay}
-      onMouseLeave={startAutoplay}
-      onPointerDown={pauseThenResume}
-      onFocus={stopAutoplay}
-      onBlur={startAutoplay}
+      onMouseEnter={pause}
+      onMouseLeave={scheduleResume}
+      onPointerDown={pause}
+      onPointerUp={scheduleResume}
+      onFocus={pause}
+      onBlur={scheduleResume}
     >
       <div className="flex items-center justify-end gap-3">
         <button

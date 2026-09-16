@@ -6,6 +6,7 @@ import { CtaLink } from "@/components/cta-link";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
+import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 
 export const metadata: Metadata = {
@@ -63,11 +64,10 @@ const programs: Program[] = [
     alt: "Three junior swimmers practicing underwater during a Molchanovs Junior freediving session",
     width: 1536,
     height: 1024,
-    fit: "cover",
-    // Source is landscape; bias the crop toward the left so the woman's
-    // hand stays in frame and as much of the "molchanovs" wordmark as
-    // possible remains readable.
-    objectPosition: "20% center",
+    // Designed program artwork, not a candid photo: shown in full on its
+    // own mat rather than cropped, so the wordmark, "JUNIOR", and the
+    // woman's hand all stay visible.
+    fit: "contain",
   },
 ];
 
@@ -84,8 +84,6 @@ const instructorImage = {
   width: 1536,
   height: 1875,
 };
-
-const merchandisePreview = [MERCHANDISE_PRODUCTS[0].images[1], MERCHANDISE_PRODUCTS[1].images[0], MERCHANDISE_PRODUCTS[2].images[0]];
 
 export default function Home() {
   return (
@@ -315,21 +313,11 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 xl:gap-10">
-            {merchandisePreview.map((image, i) => (
-              <Reveal key={image.src} delayMs={groupStagger(i)}>
-                <LightboxTrigger
-                  images={merchandisePreview}
-                  index={i}
-                  sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
-                  className="aspect-square"
-                  fit="contain"
-                />
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delayMs={sequenceStep(1)} className="mt-12">
+            <MerchandiseCarousel products={MERCHANDISE_PRODUCTS} />
+          </Reveal>
 
-          <Reveal delayMs={groupStagger(3)} className="mt-10">
+          <Reveal delayMs={sequenceStep(2)} className="mt-10">
             <CtaLink href="/merchandise" variant="secondary">
               View Merchandise
             </CtaLink>
