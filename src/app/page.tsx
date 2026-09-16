@@ -43,7 +43,7 @@ const programs = [
   {
     title: "Junior Programs",
     description:
-      "Freediving teaches kids to stay calm, face challenges, and trust themselves skills they can carry into everyday life.",
+      "Freediving teaches kids to stay calm, face challenges, and trust themselves. Skills they can carry into everyday life.",
     href: "/junior",
     linkLabel: "See junior programs",
     image: "/images/junior/junior-program-card.webp",
@@ -51,9 +51,6 @@ const programs = [
     width: 1552,
     height: 1254,
     fit: "cover" as const,
-    // Source is landscape; bias the crop left-of-center so all three
-    // swimmers and the "Molchanovs Junior" wordmark stay visible.
-    objectPosition: "38% center",
   },
 ];
 
@@ -165,7 +162,6 @@ export default function Home() {
                   sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-[4/5]"
                   fit={program.fit}
-                  objectPosition={program.objectPosition}
                 />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">
@@ -231,7 +227,7 @@ export default function Home() {
               <h3 className="h3-display mt-3">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Safety comes first, always. We build strong water skills and
-                make ocean safety a non-negotiable part of every dive.
+                make safety a non-negotiable part of every dive.
               </p>
             </Reveal>
             <Reveal delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
