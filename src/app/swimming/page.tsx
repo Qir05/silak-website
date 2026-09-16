@@ -35,7 +35,6 @@ export default function SwimmingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Swimming in Davao"
         heading="Swimming Courses at SiLak Davao"
         intro="Essential skills for all ages, focusing on basic techniques and water safety."
         image="/images/swimming/adult-swimming-underwater.webp"

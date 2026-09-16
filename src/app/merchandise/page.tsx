@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { sequenceStep } from "@/lib/reveal-timing";
 import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 import { SOCIAL_LINKS } from "@/lib/site";
@@ -16,20 +16,14 @@ export const metadata: Metadata = {
 export default function MerchandisePage() {
   return (
     <>
-      <section className="bg-paper-dim">
-        <Container className="py-16 md:py-24 lg:py-28">
-          <Reveal>
-            <p className="eyebrow text-ocean-blue">Merchandise</p>
-            <h1 className="h1-display mt-4 max-w-2xl">SiLak Merchandise</h1>
-          </Reveal>
-          <Reveal delayMs={sequenceStep(1)}>
-            <p className="prose-copy mt-5 text-ink-soft">
-              SiLak branded shirts and water-related gear, available directly through
-              SiLak Davao. Reach out to see current designs and availability.
-            </p>
-          </Reveal>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="Merchandise"
+        heading="SiLak Merchandise"
+        intro="SiLak branded shirts and water-related gear, available directly through SiLak Davao. Reach out to see current designs and availability."
+        image="/images/merchandise/silak-shirt-ocean-connection.webp"
+        imageAlt="Black SiLak t-shirt with a turtle and freediver design on the front and an Ocean Connection mermaid design on the back"
+        fit="contain"
+      />
 
       <section className="bg-paper">
         <Container wide className="py-16 md:py-24 lg:py-28">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { sequenceStep } from "@/lib/reveal-timing";
@@ -49,19 +50,14 @@ const ageGroupImages = ageGroups.map((group) => ({
 export default function JuniorPage() {
   return (
     <>
-      <section className="bg-paper-dim">
-        <Container className="py-16 md:py-24 lg:py-28">
-          <Reveal>
-            <p className="eyebrow text-ocean-blue">For Children and Teens</p>
-            <h1 className="h1-display mt-4 max-w-2xl">Junior Aquatic Programs</h1>
-            <p className="prose-copy mt-5 text-ink-soft">
-              Introducing children and teens to aquatic confidence and basic freediving
-              in a safe, engaging environment &mdash; organized by age so every child
-              is met where they are.
-            </p>
-          </Reveal>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="For Children and Teens"
+        heading="Junior Aquatic Programs"
+        intro="Introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment — organized by age so every child is met where they are."
+        image="/images/junior/junior-molchanovs.webp"
+        imageAlt="Three junior swimmers practicing underwater during a Molchanovs Junior freediving session"
+        fit="contain"
+      />
 
       {ageGroups.map((group, index) => (
         <section key={group.range} className={index % 2 === 1 ? "bg-paper-dim" : "bg-paper"}>

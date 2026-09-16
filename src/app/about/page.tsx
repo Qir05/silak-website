@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
@@ -56,14 +57,13 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <section className="bg-paper-dim">
-        <Container className="py-16 md:py-24 lg:py-28">
-          <Reveal>
-            <p className="eyebrow text-ocean-blue">About SiLak Davao</p>
-            <h1 className="h1-display mt-4 max-w-2xl">The Ocean Is for Everyone</h1>
-          </Reveal>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="About SiLak Davao"
+        heading="The Ocean Is for Everyone"
+        image="/images/freediving/freediving-hero-reef.webp"
+        imageAlt="Freediver in a blue wetsuit gliding over a coral reef"
+        imagePosition="center 38%"
+      />
 
       <section className="bg-deep-navy text-white">
         <Container wide className="py-20 md:py-32 lg:py-40">

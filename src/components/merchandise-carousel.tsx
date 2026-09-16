@@ -19,10 +19,22 @@ import type { MerchandiseProduct } from "@/lib/merchandise";
 // around 25-40s depending on viewport width and card size, without needing
 // per-breakpoint timing.
 const SPEED_PX_PER_SEC = 50;
-const RESUME_DELAY_MS = 2000;
 const DRAG_CLICK_THRESHOLD_PX = 8;
 
 type PauseReason = "hover" | "pointer" | "drag" | "focus" | "lightbox";
+
+// Hovering is the most common, lowest-commitment interaction, so leaving it
+// resumes autoplay instantly. Interactions the user had to deliberately
+// commit to (a press, a drag, opening the Lightbox) get a very short grace
+// period instead, mainly so a drag-release or a Lightbox-close doesn't
+// visually stutter mid-gesture.
+const RESUME_DELAY_MS: Record<PauseReason, number> = {
+  hover: 0,
+  pointer: 300,
+  drag: 300,
+  focus: 300,
+  lightbox: 300,
+};
 
 function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -85,11 +97,19 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
       // This reason is clear, but stay paused if any other reason is
       // still active - only the LAST reason to clear starts the countdown.
       if (isAnyReasonActive()) return;
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
+        resumeTimerRef.current = null;
+      }
+      const delay = RESUME_DELAY_MS[name];
+      if (delay <= 0) {
+        pausedRef.current = false;
+        return;
+      }
       resumeTimerRef.current = setTimeout(() => {
         resumeTimerRef.current = null;
         if (!isAnyReasonActive()) pausedRef.current = false;
-      }, RESUME_DELAY_MS);
+      }, delay);
     },
     [isAnyReasonActive],
   );

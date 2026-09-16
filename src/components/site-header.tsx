@@ -35,14 +35,15 @@ export function SiteHeader() {
         transparent ? "bg-transparent" : "border-b border-ink/10 bg-paper"
       }`}
     >
-      <Container className="flex h-20 items-center justify-between">
+      {!transparent && <div className="header-water" aria-hidden="true" />}
+      <Container className="relative z-10 flex h-20 items-center justify-between lg:h-24">
         <Link href="/" className="flex items-center gap-2" aria-label="SiLak Davao home">
           <Image
             src="/logos/silak-logo.png"
             alt="SiLak Davao logo"
-            width={56}
-            height={56}
-            className="h-14 w-14 object-contain"
+            width={80}
+            height={80}
+            className="h-16 w-16 object-contain lg:h-20 lg:w-20"
             priority
           />
         </Link>
@@ -110,7 +111,7 @@ export function SiteHeader() {
       </Container>
 
       {menuOpen && (
-        <div id="mobile-nav" className="border-t border-ink/10 bg-paper lg:hidden">
+        <div id="mobile-nav" className="relative z-10 border-t border-ink/10 bg-paper lg:hidden">
           <Container data-site-nav className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <Link

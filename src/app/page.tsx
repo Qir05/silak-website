@@ -84,7 +84,7 @@ const instructorImage = {
 export default function Home() {
   return (
     <>
-      <section className="relative -mt-20 flex min-h-[92vh] items-end overflow-hidden bg-deep-navy text-white">
+      <section className="relative -mt-20 flex min-h-[92vh] items-end overflow-hidden bg-deep-navy text-white lg:-mt-24">
         <Image
           src="/images/hero/reef-freediver.jpg"
           alt="Freediver gliding over a coral reef near Davao"
