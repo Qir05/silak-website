@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 
 const programs = [
   {
-    title: "Survival Swimming",
+    title: "Swimming",
     description:
-      "Essential skills for all ages, focusing on basic techniques, water safety, and confident survival floats.",
+      "Essential skills for all ages, focusing on water adjustment, swimming techniques, and water safety.",
     href: "/swimming",
-    linkLabel: "Learn about survival swimming",
+    linkLabel: "Learn about swimming",
     image: "/images/swimming/adult-swimming-underwater.webp",
     alt: "Swimmer gliding underwater in a pool during a survival swimming session",
     width: 1440,
