@@ -165,13 +165,16 @@ body {
   animation: lightbox-image-in 260ms ease-out;
 }
 
-/* Header background: a slow, subtle water-ripple texture behind the nav bar
-   once it's in its solid (scrolled / non-transparent) state. Two thin,
-   low-opacity wave lines drift sideways very slowly - no gradients, no
-   video, just a repeating SVG tile whose whole layer is translated by
-   exactly one tile-width so the loop is seamless. Disabled automatically
-   for prefers-reduced-motion by the animation override below, same as
-   every other animation on the site. */
+/* Header background: a clearly visible, slow water-ripple flowing behind the
+   nav bar once it's in its solid (scrolled / non-transparent) state. Two
+   repeating SVG tiles (three wave contours total, weighted toward the
+   bottom edge so they read as water without crossing the nav text) drift
+   sideways at slightly different speeds for a gentle parallax "alive" feel
+   - no gradients, no video, no filters, just two layers each translated by
+   exactly one tile-width so every loop is seamless. Disabled automatically
+   for prefers-reduced-motion by the animation override below (the layers
+   snap to a single static frame, so the pattern stays visible but still),
+   same as every other animation on the site. */
 .header-water {
   position: absolute;
   inset: 0;
@@ -179,22 +182,41 @@ body {
   pointer-events: none;
 }
 
-.header-water::before {
+.header-water::before,
+.header-water::after {
   content: "";
   position: absolute;
   inset: 0;
-  width: calc(100% + 140px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='96' viewBox='0 0 140 96'%3E%3Cpath d='M0 24 Q17.5 10 35 24 T70 24 T105 24 T140 24' fill='none' stroke='%231697D3' stroke-opacity='0.10' stroke-width='1.5'/%3E%3Cpath d='M0 60 Q17.5 46 35 60 T70 60 T105 60 T140 60' fill='none' stroke='%2343CFF1' stroke-opacity='0.08' stroke-width='1.5'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  animation: header-water-drift 26s linear infinite;
 }
 
-@keyframes header-water-drift {
+.header-water::before {
+  width: calc(100% + 200px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='90' viewBox='0 0 200 90'%3E%3Cpath d='M0 58 Q25 42 50 58 T100 58 T150 58 T200 58' fill='none' stroke='%231697D3' stroke-opacity='0.5' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M0 76 Q25 60 50 76 T100 76 T150 76 T200 76' fill='none' stroke='%2343CFF1' stroke-opacity='0.42' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  animation: header-water-drift-a 22s linear infinite;
+}
+
+.header-water::after {
+  width: calc(100% + 240px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'%3E%3Cpath d='M0 68 Q30 50 60 68 T120 68 T180 68 T240 68' fill='none' stroke='%239FEDF8' stroke-opacity='0.35' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  animation: header-water-drift-b 25s linear infinite;
+}
+
+@keyframes header-water-drift-a {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-140px);
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes header-water-drift-b {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-240px);
   }
 }
 
