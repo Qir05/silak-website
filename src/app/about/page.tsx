@@ -83,9 +83,9 @@ export default function AboutPage() {
               create better, calmer, more confident people.
             </p>
 
-            <p className="prose-copy mx-auto mt-8 text-white/85">Our vision is simple:</p>
+            <p className="prose-copy mx-auto mt-8 text-white/85">Our Vision Is Simple</p>
             <p className="font-display mx-auto mt-3 text-xl text-white md:text-2xl">
-              Share the knowledge. Discover yourself.
+              Share the knowledge. Teach the skills. Change lives.
             </p>
 
             <p className="prose-copy mx-auto mt-8 text-white/85">
