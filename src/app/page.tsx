@@ -25,10 +25,12 @@ type Program = {
   alt: string;
   width: number;
   height: number;
-  fit: "cover" | "contain";
-  objectPosition?: string;
 };
 
+// All three program tiles share one contained editorial treatment (see
+// LightboxTrigger's fit="contain") so the row reads as one consistent set:
+// each image sits centered on the same aqua mat inside an identical 4:5
+// frame, at its own natural proportions, rather than three different crops.
 const programs: Program[] = [
   {
     title: "Swimming",
@@ -40,7 +42,6 @@ const programs: Program[] = [
     alt: "Swimmer gliding underwater in a pool during a survival swimming session",
     width: 1440,
     height: 960,
-    fit: "cover",
   },
   {
     title: "Freediving",
@@ -52,7 +53,6 @@ const programs: Program[] = [
     alt: "Freediver descending along a reef in open water",
     width: 2196,
     height: 1913,
-    fit: "cover",
   },
   {
     title: "Junior Programs",
@@ -64,10 +64,6 @@ const programs: Program[] = [
     alt: "Three junior swimmers practicing underwater during a Molchanovs Junior freediving session",
     width: 1536,
     height: 1024,
-    // Designed program artwork, not a candid photo: shown in full on its
-    // own mat rather than cropped, so the wordmark, "JUNIOR", and the
-    // woman's hand all stay visible.
-    fit: "contain",
   },
 ];
 
@@ -176,8 +172,7 @@ export default function Home() {
                   index={i}
                   sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
                   className="aspect-[4/5]"
-                  fit={program.fit}
-                  objectPosition={program.objectPosition}
+                  fit="contain"
                 />
                 <h3 className="h3-display mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">

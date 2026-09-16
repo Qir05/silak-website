@@ -1,149 +1,194 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { LightboxTrigger } from "./lightbox-trigger";
 import { LIGHTBOX_CLOSE_EVENT, LIGHTBOX_OPEN_EVENT } from "./lightbox";
 import { SOCIAL_LINKS } from "@/lib/site";
 import type { MerchandiseProduct } from "@/lib/merchandise";
 
-const AUTOPLAY_INTERVAL_MS = 4000;
+// Continuous right-to-left marquee, driven by requestAnimationFrame rather
+// than a stepping interval. Speed is a constant px/sec, so one full loop
+// (the width of a single, non-duplicated product sequence) naturally lands
+// around 25-40s depending on viewport width and card size, without needing
+// per-breakpoint timing.
+const SPEED_PX_PER_SEC = 50;
 const RESUME_DELAY_MS = 4500;
+const DRAG_CLICK_THRESHOLD_PX = 8;
 
 function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function getStep(track: HTMLDivElement) {
-  const card = track.querySelector<HTMLElement>("[data-carousel-card]");
-  if (!card) return track.clientWidth * 0.8;
-  const gap = parseFloat(getComputedStyle(track).columnGap || "0") || 0;
-  return card.getBoundingClientRect().width + gap;
-}
-
 export function MerchandiseCarousel({ products }: { products: MerchandiseProduct[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const autoplayId = useRef<ReturnType<typeof setInterval> | null>(null);
-  const resumeId = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lightboxOpen = useRef(false);
+  const offsetRef = useRef(0);
+  const loopWidthRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number | null>(null);
+  const pausedRef = useRef(false);
+  const draggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartOffsetRef = useRef(0);
+  const dragDistanceRef = useRef(0);
+  const suppressClickRef = useRef(false);
+  const pointerIdRef = useRef<number | null>(null);
+  const capturedRef = useRef(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lightboxOpenRef = useRef(false);
 
-  const clearResumeTimer = useCallback(() => {
-    if (resumeId.current) {
-      clearTimeout(resumeId.current);
-      resumeId.current = null;
-    }
+  const applyTransform = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
   }, []);
 
-  const startAutoplay = useCallback(() => {
-    if (prefersReducedMotion() || autoplayId.current || lightboxOpen.current) return;
-    autoplayId.current = setInterval(() => {
-      const track = trackRef.current;
-      if (!track) return;
-      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-      if (atEnd) {
-        track.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        track.scrollBy({ left: getStep(track), behavior: "smooth" });
-      }
-    }, AUTOPLAY_INTERVAL_MS);
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    // The track renders two back-to-back copies of the product sequence, so
+    // one copy's width is half the full scrollWidth.
+    loopWidthRef.current = track.scrollWidth / 2;
   }, []);
 
-  // Stops autoplay immediately and cancels any pending auto-resume, so a new
-  // interaction always wins over a previous one that hadn't resumed yet.
+  const wrapOffset = useCallback(() => {
+    const loopWidth = loopWidthRef.current;
+    if (loopWidth <= 0) return;
+    // The second copy is pixel-identical to the first, so crossing this
+    // boundary in either direction is visually seamless.
+    while (offsetRef.current <= -loopWidth) offsetRef.current += loopWidth;
+    while (offsetRef.current > 0) offsetRef.current -= loopWidth;
+  }, []);
+
   const pause = useCallback(() => {
-    clearResumeTimer();
-    if (autoplayId.current) {
-      clearInterval(autoplayId.current);
-      autoplayId.current = null;
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
     }
-  }, [clearResumeTimer]);
+    pausedRef.current = true;
+  }, []);
 
-  // Called whenever an interaction *ends*. Schedules autoplay to pick back
-  // up a short while later, unless reduced motion or the lightbox is open
-  // (in which case the lightbox-close handler is what resumes it).
   const scheduleResume = useCallback(() => {
-    if (prefersReducedMotion() || lightboxOpen.current) return;
-    clearResumeTimer();
-    resumeId.current = setTimeout(startAutoplay, RESUME_DELAY_MS);
-  }, [clearResumeTimer, startAutoplay]);
+    if (lightboxOpenRef.current) return;
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    resumeTimerRef.current = setTimeout(() => {
+      resumeTimerRef.current = null;
+      pausedRef.current = false;
+    }, RESUME_DELAY_MS);
+  }, []);
 
   useEffect(() => {
-    startAutoplay();
+    measure();
+    lastTsRef.current = null;
+
+    function tick(ts: number) {
+      if (lastTsRef.current === null) lastTsRef.current = ts;
+      const dt = ts - lastTsRef.current;
+      lastTsRef.current = ts;
+
+      if (!pausedRef.current && !draggingRef.current && !lightboxOpenRef.current && !prefersReducedMotion()) {
+        offsetRef.current -= (SPEED_PX_PER_SEC * dt) / 1000;
+        wrapOffset();
+        applyTransform();
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    }
+    rafRef.current = requestAnimationFrame(tick);
+
+    const onResize = () => measure();
+    window.addEventListener("resize", onResize);
 
     const onLightboxOpen = () => {
-      lightboxOpen.current = true;
+      lightboxOpenRef.current = true;
       pause();
     };
     const onLightboxClose = () => {
-      lightboxOpen.current = false;
+      lightboxOpenRef.current = false;
       scheduleResume();
     };
     window.addEventListener(LIGHTBOX_OPEN_EVENT, onLightboxOpen);
     window.addEventListener(LIGHTBOX_CLOSE_EVENT, onLightboxClose);
 
     return () => {
-      pause();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener(LIGHTBOX_OPEN_EVENT, onLightboxOpen);
       window.removeEventListener(LIGHTBOX_CLOSE_EVENT, onLightboxClose);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const scrollByCard = (direction: 1 | -1) => {
-    const track = trackRef.current;
-    if (!track) return;
+  const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    pause();
+    draggingRef.current = true;
+    dragDistanceRef.current = 0;
+    dragStartXRef.current = event.clientX;
+    dragStartOffsetRef.current = offsetRef.current;
+    pointerIdRef.current = event.pointerId;
+    // Pointer capture is deferred until real drag motion is confirmed
+    // (see onPointerMove): capturing eagerly here retargets the browser's
+    // synthesized `click` event to this wrapper for every tap, which would
+    // silently break "click a product image to open the Lightbox".
+  };
 
-    if (direction === 1 && track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) {
-      track.scrollTo({ left: 0, behavior: "smooth" });
-      return;
+  const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    const delta = event.clientX - dragStartXRef.current;
+    dragDistanceRef.current = Math.abs(delta);
+    if (dragDistanceRef.current > DRAG_CLICK_THRESHOLD_PX) {
+      suppressClickRef.current = true;
+      if (!capturedRef.current && pointerIdRef.current !== null) {
+        event.currentTarget.setPointerCapture(pointerIdRef.current);
+        capturedRef.current = true;
+      }
     }
-    if (direction === -1 && track.scrollLeft <= 4) {
-      track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
-      return;
+    offsetRef.current = dragStartOffsetRef.current + delta;
+    wrapOffset();
+    applyTransform();
+  };
+
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (capturedRef.current && pointerIdRef.current !== null) {
+      event.currentTarget.releasePointerCapture(pointerIdRef.current);
     }
-    track.scrollBy({ left: direction * getStep(track), behavior: "smooth" });
+    capturedRef.current = false;
+    pointerIdRef.current = null;
+    draggingRef.current = false;
+    scheduleResume();
+  };
+
+  const onClickCapture = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (suppressClickRef.current) {
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClickRef.current = false;
+    }
   };
 
   return (
-    <div
-      onMouseEnter={pause}
-      onMouseLeave={scheduleResume}
-      onPointerDown={pause}
-      onPointerUp={scheduleResume}
-      onFocus={pause}
-      onBlur={scheduleResume}
-    >
-      <div className="flex items-center justify-end gap-3">
-        <button
-          type="button"
-          onClick={() => scrollByCard(-1)}
-          aria-label="Previous product"
-          className="flex h-11 w-11 items-center justify-center rounded-sm border border-ink/20 text-ink transition-colors hover:border-deep-ocean hover:text-deep-ocean"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollByCard(1)}
-          aria-label="Next product"
-          className="flex h-11 w-11 items-center justify-center rounded-sm border border-ink/20 text-ink transition-colors hover:border-deep-ocean hover:text-deep-ocean"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-
+    <div className="relative overflow-hidden" onMouseEnter={pause} onMouseLeave={scheduleResume}>
       <div
         ref={trackRef}
-        className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onClickCapture={onClickCapture}
+        onFocus={pause}
+        onBlur={scheduleResume}
+        className="flex touch-pan-y select-none gap-6 will-change-transform"
       >
-        {products.map((product) => (
+        {[...products, ...products].map((product, i) => (
           <div
-            key={product.slug}
+            key={`${product.slug}-${i}`}
             data-carousel-card
-            className="w-[85%] flex-shrink-0 snap-start sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
+            className="flex w-[85%] flex-shrink-0 flex-col sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
           >
             <LightboxTrigger
               images={product.images}
@@ -152,7 +197,7 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
               fit={product.imageFit}
             />
             <h3 className="h3-display mt-5">{product.label}</h3>
-            <p className="prose-copy mt-2 text-ink-soft">{product.description}</p>
+            <p className="prose-copy mt-2 flex-1 text-ink-soft">{product.description}</p>
             <a
               href={SOCIAL_LINKS.facebook}
               target="_blank"

@@ -6,16 +6,17 @@ import { useLightbox, type LightboxImage } from "./lightbox";
 
 /**
  * Sitewide image ratio system (applied via each call site's `className`):
- * - Portrait editorial photography (Programs, Instructor, Junior, in-body
- *   photos): aspect-[4/5], `fit="cover"`.
+ * - Portrait editorial photography (Instructor, in-body photos): aspect-[4/5],
+ *   `fit="cover"`.
  * - Landscape editorial photography: aspect-[4/3], `fit="cover"`.
  * - Product / lookbook imagery (merchandise): aspect-square, `fit="contain"`,
  *   so mismatched source proportions sit inside one consistent frame instead
  *   of being cropped.
- * - A designed graphic asset placed beside real photography (e.g. the
- *   Junior tile in the homepage Programs grid) uses `fit="contain"` too:
- *   the artwork carries its own text (a wordmark, "JUNIOR") that a cover
- *   crop would cut off, so it's shown in full on its own mat instead.
+ * - The homepage Programs grid (Swimming, Freediving, Junior) uses
+ *   `fit="contain"` for all three tiles so the row reads as one set: each
+ *   photo or designed asset sits centered on the same aqua mat inside an
+ *   identical 4:5 frame at its own natural proportions, instead of three
+ *   different cover crops fighting for attention.
  */
 export function LightboxTrigger({
   images,
