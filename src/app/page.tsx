@@ -29,11 +29,11 @@ const programs = [
     fit: "cover" as const,
   },
   {
-    title: "Molchanovs Freediving",
+    title: "Freediving",
     description:
-      "Progress through certified levels, mastering breath-hold composure, equalisation, and depth.",
+      "Discover the freedom of exploring the underwater world on a single breath.",
     href: "/freediving",
-    linkLabel: "Explore freediving levels",
+    linkLabel: "Explore Freediving",
     image: "/images/freediving/open-water-freediver.jpeg",
     alt: "Freediver descending along a reef in open water",
     width: 2196,
