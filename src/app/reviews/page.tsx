@@ -8,7 +8,7 @@ import { REVIEWS } from "@/lib/reviews";
 export const metadata: Metadata = {
   title: "Reviews",
   description:
-    "Student stories and experiences from swimming and freediving sessions with SiLak Davao in Davao City, Philippines.",
+    "Real experiences from swimmers and freedivers who trained with SiLak Davao in Davao City, Philippines.",
   alternates: { canonical: "/reviews" },
 };
 
@@ -21,33 +21,65 @@ export default function ReviewsPage() {
             <p className="eyebrow text-ocean-blue">Reviews</p>
             <h1 className="h1-display mt-4">Student Stories</h1>
           </Reveal>
+          <Reveal delayMs={sequenceStep(1)} className="max-w-2xl">
+            <p className="prose-copy mt-5 text-ink-soft">
+              Real experiences from swimmers and freedivers who trained with SiLak
+              Davao.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
 
-          {REVIEWS.length > 0 ? (
-            <div className="mt-12 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-12">
-              {REVIEWS.map((review, i) => (
-                <Reveal key={`${review.name}-${i}`} delayMs={groupStagger(i)}>
-                  <figure className="flex h-full flex-col">
-                    <blockquote className="font-display text-xl leading-snug text-ink md:text-2xl">
-                      &ldquo;{review.quote}&rdquo;
-                    </blockquote>
-                    <figcaption className="mt-6 text-sm text-ink-soft">
-                      <span className="font-medium text-ink">{review.name}</span>
-                      {review.program && <span> &middot; {review.program}</span>}
-                    </figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
-          ) : (
-            <Reveal
-              delayMs={sequenceStep(1)}
-              className="mt-12 max-w-2xl border-t border-ink/15 pt-10"
-            >
-              <p className="prose-copy text-ink-soft">
-                Student stories and experiences will be shared here.
-              </p>
-            </Reveal>
-          )}
+      <section className="bg-aqua-tint">
+        <Container wide className="py-16 md:py-24 lg:py-28">
+          <ul className="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:gap-10">
+            {REVIEWS.map((review, i) => {
+              const approved = Boolean(review.quote && review.name);
+              // With two columns on tablet, an odd final card spans the full
+              // row so the set never ends on a lone half-width card.
+              const spanLast =
+                i === REVIEWS.length - 1 && REVIEWS.length % 2 === 1
+                  ? "md:col-span-2 lg:col-span-1"
+                  : "";
+
+              return (
+                <li key={review.label} className={spanLast}>
+                  <Reveal delayMs={groupStagger(i)} className="h-full">
+                    <figure className="flex h-full min-h-[18rem] flex-col border border-ink/10 bg-paper p-8 md:min-h-[20rem] md:p-10">
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="eyebrow text-ocean-blue">{review.label}</span>
+                        <span
+                          className="font-display text-5xl leading-none text-soft-aqua"
+                          aria-hidden="true"
+                        >
+                          &ldquo;
+                        </span>
+                      </div>
+
+                      {approved ? (
+                        <>
+                          <blockquote className="font-display mt-8 flex-1 text-xl leading-snug text-ink md:text-2xl">
+                            {review.quote}
+                          </blockquote>
+                          <figcaption className="mt-8 border-t border-ink/10 pt-5 text-sm text-ink-soft">
+                            <span className="font-medium text-ink">{review.name}</span>
+                            {review.program && <span> &middot; {review.program}</span>}
+                          </figcaption>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex-1" />
+                          <figcaption className="mt-8 border-t border-ink/10 pt-5 text-sm leading-relaxed text-ink-soft">
+                            Approved testimonial content will be added here.
+                          </figcaption>
+                        </>
+                      )}
+                    </figure>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ul>
         </Container>
       </section>
 
