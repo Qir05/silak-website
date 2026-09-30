@@ -32,10 +32,9 @@ export function SiteHeader() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 w-full transition-colors duration-300 ${
-        transparent ? "bg-transparent" : "border-b border-ink/10 bg-paper"
+        transparent ? "bg-transparent" : "bg-paper"
       }`}
     >
-      {!transparent && <div className="header-water" aria-hidden="true" />}
       <Container className="relative z-10 flex h-20 items-center justify-between lg:h-24">
         <Link href="/" className="flex items-center gap-2" aria-label="SiLak Davao home">
           <Image
@@ -50,7 +49,7 @@ export function SiteHeader() {
 
         <nav
           data-site-nav
-          className={`hidden items-center gap-8 lg:flex ${
+          className={`hidden items-center gap-7 xl:flex 2xl:gap-8 ${
             transparent ? "text-white" : "text-ink"
           }`}
           aria-label="Primary"
@@ -67,7 +66,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Link
             href="/book"
             className={`inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 hover:-translate-y-px ${
@@ -82,7 +81,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className={`flex h-11 w-11 items-center justify-center lg:hidden ${
+          className={`flex h-11 w-11 items-center justify-center xl:hidden ${
             transparent ? "text-white" : "text-ink"
           }`}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -111,7 +110,7 @@ export function SiteHeader() {
       </Container>
 
       {menuOpen && (
-        <div id="mobile-nav" className="relative z-10 border-t border-ink/10 bg-paper lg:hidden">
+        <div id="mobile-nav" className="relative z-10 border-t border-ink/10 bg-paper xl:hidden">
           <Container data-site-nav className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <Link
@@ -132,6 +131,8 @@ export function SiteHeader() {
           </Container>
         </div>
       )}
+
+      {!transparent && <div className="wave-divider" aria-hidden="true" />}
     </header>
   );
 }

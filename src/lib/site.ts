@@ -15,11 +15,13 @@ export const SITE_URL = rawSiteUrl;
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/swimming", label: "Swimming" },
   { href: "/freediving", label: "Freediving" },
   { href: "/junior", label: "Junior" },
   { href: "/about", label: "About" },
   { href: "/merchandise", label: "Merchandise" },
+  { href: "/instructor", label: "Instructor" },
 ] as const;
 
 export const SOCIAL_LINKS = {

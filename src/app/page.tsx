@@ -31,6 +31,8 @@ type Program = {
 // LightboxTrigger's fit="contain") so the row reads as one consistent set:
 // each image sits centered on the same aqua mat inside an identical 4:5
 // frame, at its own natural proportions, rather than three different crops.
+// On mobile the frame is 3:2 instead, so the landscape photos fill it and
+// each title sits close to its own image rather than below a tall empty mat.
 const programs: Program[] = [
   {
     title: "Swimming",
@@ -163,17 +165,17 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-10 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8 xl:gap-10">
+          <div className="mt-12 grid gap-16 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8 xl:gap-10">
             {programs.map((program, i) => (
               <Reveal key={program.href} delayMs={groupStagger(i)} className="flex flex-col">
                 <LightboxTrigger
                   images={programImages}
                   index={i}
                   sizes="(min-width: 1280px) 28vw, (min-width: 768px) 33vw, 100vw"
-                  className="aspect-[4/5]"
+                  className="aspect-[3/2] md:aspect-[4/5]"
                   fit="contain"
                 />
-                <h3 className="h3-display mt-6">{program.title}</h3>
+                <h3 className="h3-display mt-4 md:mt-6">{program.title}</h3>
                 <p className="prose-copy mt-3 flex-1 text-ink-soft">
                   {program.description}
                 </p>
@@ -279,15 +281,14 @@ export default function Home() {
               <p className="prose-copy mt-6 text-ink-soft">
                 &ldquo;The heart of my approach to teaching freediving is the belief in
                 calmness and presence. I focus on guiding students to embrace the
-                beauty of relaxation, ensuring that they never feel rushed or forced.
-                In freediving, as in life, the greatest growth happens when you embrace
-                the moment, and I teach my students to surrender to the flow of the
-                water, trust their bodies, and experience the transformative power of
-                stillness. My goal is to help you dive deeper, not into the water, but
-                into your own potential. Together, we will create a safe, nurturing
-                environment for growth and self-discovery, all while having fun and
-                building confidence.&rdquo;
+                beauty of relaxation, ensuring that they never feel rushed or
+                forced.&rdquo;
               </p>
+              <div className="mt-8">
+                <CtaLink href="/instructor" variant="secondary">
+                  Meet Edward
+                </CtaLink>
+              </div>
             </Reveal>
           </div>
         </Container>

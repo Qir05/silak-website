@@ -22,7 +22,7 @@ export function SiteFooter() {
               <span className="font-display text-lg">{SITE_NAME}</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-              Swimming and freediving instruction in {LOCATION}, built around breath,
+              Swimming and freediving in {LOCATION}, built around breath,
               safety, and confidence in the water.
             </p>
           </div>

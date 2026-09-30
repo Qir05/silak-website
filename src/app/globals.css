@@ -165,58 +165,61 @@ body {
   animation: lightbox-image-in 260ms ease-out;
 }
 
-/* Header background: a clearly visible, slow water-ripple flowing behind the
-   nav bar once it's in its solid (scrolled / non-transparent) state. Two
-   repeating SVG tiles (three wave contours total, weighted toward the
-   bottom edge so they read as water without crossing the nav text) drift
-   sideways at slightly different speeds for a gentle parallax "alive" feel
-   - no gradients, no video, no filters, just two layers each translated by
-   exactly one tile-width so every loop is seamless. Disabled automatically
-   for prefers-reduced-motion by the animation override below (the layers
-   snap to a single static frame, so the pattern stays visible but still),
-   same as every other animation on the site. */
-.header-water {
+/* Water-wave divider: a slim 12px strip hanging directly below the solid
+   header (absolutely positioned at top: 100%, so it adds no layout height
+   and causes no shift). Exactly two thin wave lines, each with a 2px
+   amplitude, drift slowly sideways at different speeds and wavelengths so
+   they read as moving water rather than a static pattern. Each layer is
+   translated by exactly one tile-width, so every loop is seamless. Under
+   prefers-reduced-motion both lines are shown still (see override below). */
+.wave-divider {
   position: absolute;
-  inset: 0;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
   overflow: hidden;
   pointer-events: none;
+  background: var(--color-paper);
 }
 
-.header-water::before,
-.header-water::after {
+.wave-divider::before,
+.wave-divider::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-repeat: repeat;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: repeat-x;
 }
 
-.header-water::before {
-  width: calc(100% + 200px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='90' viewBox='0 0 200 90'%3E%3Cpath d='M0 58 Q25 42 50 58 T100 58 T150 58 T200 58' fill='none' stroke='%231697D3' stroke-opacity='0.5' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M0 76 Q25 60 50 76 T100 76 T150 76 T200 76' fill='none' stroke='%2343CFF1' stroke-opacity='0.42' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
-  animation: header-water-drift-a 22s linear infinite;
+.wave-divider::before {
+  width: calc(100% + 80px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='12' viewBox='0 0 80 12'%3E%3Cpath d='M0 5 Q20 1 40 5 T80 5' fill='none' stroke='%231697D3' stroke-opacity='0.55' stroke-width='1.5'/%3E%3C/svg%3E");
+  animation: wave-divider-drift-a 16s linear infinite;
 }
 
-.header-water::after {
-  width: calc(100% + 240px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='90' viewBox='0 0 240 90'%3E%3Cpath d='M0 68 Q30 50 60 68 T120 68 T180 68 T240 68' fill='none' stroke='%239FEDF8' stroke-opacity='0.35' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  animation: header-water-drift-b 25s linear infinite;
+.wave-divider::after {
+  width: calc(100% + 120px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12'%3E%3Cpath d='M0 8 Q30 4 60 8 T120 8' fill='none' stroke='%2343CFF1' stroke-opacity='0.6' stroke-width='1.5'/%3E%3C/svg%3E");
+  animation: wave-divider-drift-b 22s linear infinite;
 }
 
-@keyframes header-water-drift-a {
+@keyframes wave-divider-drift-a {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-200px);
+    transform: translateX(-80px);
   }
 }
 
-@keyframes header-water-drift-b {
+@keyframes wave-divider-drift-b {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-240px);
+    transform: translateX(-120px);
   }
 }
 
@@ -240,7 +243,9 @@ body {
   }
 
   .lightbox-backdrop,
-  .lightbox-image-enter {
+  .lightbox-image-enter,
+  .wave-divider::before,
+  .wave-divider::after {
     animation: none !important;
   }
 }
