@@ -17,6 +17,9 @@ import { useLightbox, type LightboxImage } from "./lightbox";
  *   photo or designed asset sits centered on the same aqua mat inside an
  *   identical 4:5 frame at its own natural proportions, instead of three
  *   different cover crops fighting for attention.
+ * - Review screenshots: frame set to each screenshot's exact proportions,
+ *   `fit="contain"` with `matted={false}`, so the full image fills the frame
+ *   edge to edge and is never cropped.
  */
 export function LightboxTrigger({
   images,
@@ -25,6 +28,7 @@ export function LightboxTrigger({
   priority = false,
   className = "",
   fit = "cover",
+  matted = true,
   objectPosition,
 }: {
   images: LightboxImage[];
@@ -33,6 +37,9 @@ export function LightboxTrigger({
   priority?: boolean;
   className?: string;
   fit?: "cover" | "contain";
+  /** With `fit="contain"`, pad the image inside an aqua mat. Turn off when
+   * the frame already matches the image's own proportions. */
+  matted?: boolean;
   /** CSS object-position, for biasing a cover crop toward the subject. */
   objectPosition?: string;
 }) {
@@ -54,9 +61,12 @@ export function LightboxTrigger({
         fill
         sizes={sizes}
         priority={priority}
-        className={`transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
-          fit === "contain" ? "object-contain p-6" : "object-cover"
-        }`}
+        unoptimized={img.unoptimized}
+        // Unmatted frames fit the image edge to edge, so the hover zoom is
+        // skipped there - it would clip the outer edge of the image.
+        className={`transition-transform duration-500 ease-out ${
+          fit === "contain" && !matted ? "" : "group-hover:scale-[1.03]"
+        } ${fit === "contain" ? `object-contain ${matted ? "p-6" : ""}` : "object-cover"}`}
         style={objectPosition ? { objectPosition } : undefined}
       />
     </button>

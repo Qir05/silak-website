@@ -16,6 +16,9 @@ export type LightboxImage = {
   alt: string;
   width: number;
   height: number;
+  /** Serve the file as-is (no re-encoding), for text-heavy screenshots that
+   * are already optimized and would soften under default compression. */
+  unoptimized?: boolean;
 };
 
 /** Fired on window when the lightbox opens/closes, so unrelated components
@@ -175,6 +178,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
               height={current.height}
               sizes="90vw"
               className="h-auto max-h-[85vh] w-auto max-w-full object-contain"
+              unoptimized={current.unoptimized}
               priority
             />
           </div>
