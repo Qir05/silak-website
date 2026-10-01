@@ -76,24 +76,24 @@ const programImages = programs.map((program) => ({
   height: program.height,
 }));
 
-// Hero art direction: the wide image serves tablet and desktop (>= 768px),
-// a portrait-format image serves phones. A <picture> element lets the
-// browser download only the one that matches.
-const heroAlt = "Freediver in a blue wetsuit reaching forward over a sunlit coral reef";
+// Hero art direction: one <source> for tablet and desktop (>= 768px) and
+// the <img> fallback for phones, so the browser downloads only the match.
+// Both currently point at the original reef photo.
+const heroAlt = "Freediver gliding over a coral reef near Davao";
 const {
   props: { srcSet: heroWideSrcSet },
 } = getImageProps({
-  src: "/images/hero/freediver-sunlit-reef-wide.webp",
+  src: "/images/hero/reef-freediver.jpg",
   alt: heroAlt,
-  width: 2062,
-  height: 763,
+  width: 4096,
+  height: 2730,
   sizes: "100vw",
 });
 const { props: heroMobileProps } = getImageProps({
-  src: "/images/hero/freediver-sunlit-reef-mobile.webp",
+  src: "/images/hero/reef-freediver.jpg",
   alt: heroAlt,
-  width: 610,
-  height: 763,
+  width: 4096,
+  height: 2730,
   sizes: "100vw",
 });
 
@@ -119,7 +119,7 @@ export default function Home() {
             alt={heroAlt}
             loading="eager"
             fetchPriority="high"
-            className="h-full w-full object-cover md:object-[33%_50%] lg:object-[32%_50%]"
+            className="h-full w-full object-cover md:object-[33%_50%] lg:object-[50%_35%]"
           />
         </picture>
         <div
