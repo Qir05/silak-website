@@ -49,9 +49,9 @@ export default function FreedivingPage() {
       <PageHero
         heading="Molchanovs with Silak Freediving"
         intro="Each level combines theory + practical training + safety, with progressively more advanced skills."
-        image="/images/freediving/freediving-hero-molchanovs.webp"
+        image="/images/hero/freediver-sunlit-reef-wide.webp"
         imageAlt="Freediver in a blue wetsuit gliding over a coral reef"
-        imagePosition="center 45%"
+        imagePosition="58% center"
       />
 
       <section className="bg-paper">
