@@ -58,11 +58,10 @@ export default function AboutPage() {
       />
 
       <PageHero
-        eyebrow="About SiLak Davao"
         heading="The Ocean Is for Everyone"
-        image="/images/freediving/freediving-hero-reef.webp"
-        imageAlt="Freediver in a blue wetsuit gliding over a coral reef"
-        imagePosition="center 38%"
+        image="/images/freediving/open-water-freediver.jpeg"
+        imageAlt="Freediver arching backward above a coral reef in sunlit open water"
+        imagePosition="45% 40%"
       />
 
       <section className="bg-deep-navy text-white">
