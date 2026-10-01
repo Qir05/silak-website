@@ -139,7 +139,6 @@ export default function Home() {
         <Container className="relative z-10 pb-14 pt-[calc(125vw-7rem)] md:pb-20 md:pt-[calc(62.5vw-6rem)] lg:pb-24 lg:pt-40">
           <Reveal durationMs={800} distancePx={14}>
             <h1 className="h-hero max-w-3xl text-white">
-              <span className="block md:inline">Find Your Flow.</span>{" "}
               <span className="block md:inline">Breathe Into Freedom.</span>{" "}
               <span className="block md:inline">Discover Yourself.</span>
             </h1>
