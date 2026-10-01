@@ -137,6 +137,20 @@ body {
   transform: translateY(0) scale(1);
 }
 
+/* Phones: the same reveal with 25% more travel and 15% more time, so the
+   motion reads clearly on a small screen without becoming showy. Pairs with
+   the later trigger line in Reveal. Desktop/tablet values are unchanged. */
+@media (max-width: 767px) {
+  .reveal {
+    transform: translateY(calc(var(--reveal-y, 32px) * 1.25)) scale(var(--reveal-scale, 1));
+    transition-duration: calc(var(--reveal-duration, 1000ms) * 1.15);
+  }
+
+  .reveal.is-visible {
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Hidden-scrollbar carousel track: still natively scrollable/swipeable,
    just without a visible scrollbar chrome. */
 .no-scrollbar {

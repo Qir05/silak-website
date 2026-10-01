@@ -27,26 +27,46 @@ export function Reveal({
     const node = ref.current;
     if (!node) return;
 
+    // Phones trigger later: on a short viewport, firing at the bottom 8% means
+    // the animation plays out on a sliver of screen the reader isn't looking
+    // at yet. Below 768px, wait until the element's top passes 82% of the
+    // viewport height.
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const triggerInset = mobile ? 0.18 : 0.08;
+
     // Already in view (or already scrolled past) on mount, e.g. above-the-fold
     // content, a same-page anchor jump, or a restored scroll position: reveal
     // immediately instead of waiting on an intersection that may never re-fire.
-    if (node.getBoundingClientRect().top < window.innerHeight) {
+    const triggerLine = window.innerHeight * (mobile ? 1 - triggerInset : 1);
+    if (node.getBoundingClientRect().top < triggerLine) {
       setVisible(true);
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
-    );
+    const observers: IntersectionObserver[] = [];
+    const watch = (
+      isReady: (entry: IntersectionObserverEntry) => boolean,
+      options: IntersectionObserverInit,
+    ) => {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (!isReady(entry)) return;
+        setVisible(true);
+        observers.forEach((o) => o.disconnect());
+      }, options);
+      observer.observe(node);
+      observers.push(observer);
+    };
 
-    observer.observe(node);
-    return () => observer.disconnect();
+    // Primary trigger: the element's top crosses the trigger line.
+    watch((entry) => entry.isIntersecting, {
+      threshold: 0,
+      rootMargin: `0px 0px -${triggerInset * 100}% 0px`,
+    });
+    // Mobile fallback: a short element at the very end of a page can be fully
+    // on screen without ever reaching the raised trigger line.
+    if (mobile) watch((entry) => entry.intersectionRatio >= 0.99, { threshold: 0.99 });
+
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   const style: CSSProperties & Record<string, string | number> = {};
