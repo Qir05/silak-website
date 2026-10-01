@@ -51,13 +51,23 @@ export default function JuniorPage() {
   return (
     <>
       <PageHero
-        eyebrow="For Children and Teens"
         heading="Junior Aquatic Programs"
-        intro="Introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment — organized by age so every child is met where they are."
         image="/images/junior/junior-molchanovs.webp"
         imageAlt="Three junior swimmers practicing underwater during a Molchanovs Junior freediving session"
         fit="contain"
       />
+
+      <section className="bg-paper">
+        <Container className="pt-12 md:pt-16">
+          <Reveal className="max-w-2xl">
+            <p className="prose-copy text-lg text-ink-soft">
+              Introducing children and teens to aquatic confidence and basic
+              freediving in a safe, engaging environment &mdash; organized by age so
+              every child is met where they are.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
 
       {ageGroups.map((group, index) => (
         <section key={group.range} className={index % 2 === 1 ? "bg-paper-dim" : "bg-paper"}>

@@ -17,7 +17,6 @@ export default function MerchandisePage() {
   return (
     <>
       <PageHero
-        eyebrow="Merchandise"
         heading="SiLak Merchandise"
         intro="SiLak branded shirts and water-related gear, available directly through SiLak Davao. Reach out to see current designs and availability."
         image="/images/merchandise/silak-shirt-ocean-connection.webp"
