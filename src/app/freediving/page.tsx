@@ -109,19 +109,19 @@ export default function FreedivingPage() {
           >
             <div className="relative aspect-square w-full overflow-hidden bg-ink">
               <Image
-                src="/images/programs/molchanovs-wave-1.jpeg"
-                alt="Molchanovs Wave 1 freediving certification badge"
+                src="/images/programs/molchanovs-wave-1-price.jpg"
+                alt="Molchanovs Wave 1 course badge, ₱13,000"
                 fill
-                sizes="(min-width: 640px) 260px, 50vw"
+                sizes="(min-width: 640px) 288px, 100vw"
                 className="object-contain"
               />
             </div>
             <div className="relative aspect-square w-full overflow-hidden bg-ink">
               <Image
-                src="/images/programs/molchanovs-wave-2.jpeg"
-                alt="Molchanovs Wave 2 freediving certification badge"
+                src="/images/programs/molchanovs-wave-2-price.jpg"
+                alt="Molchanovs Wave 2 course badge, ₱18,000"
                 fill
-                sizes="(min-width: 640px) 260px, 50vw"
+                sizes="(min-width: 640px) 288px, 100vw"
                 className="object-contain"
               />
             </div>

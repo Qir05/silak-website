@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
@@ -76,6 +76,27 @@ const programImages = programs.map((program) => ({
   height: program.height,
 }));
 
+// Hero art direction: the wide image serves tablet and desktop (>= 768px),
+// a portrait-format image serves phones. A <picture> element lets the
+// browser download only the one that matches.
+const heroAlt = "Freediver in a blue wetsuit reaching forward over a sunlit coral reef";
+const {
+  props: { srcSet: heroWideSrcSet },
+} = getImageProps({
+  src: "/images/hero/freediver-sunlit-reef-wide.webp",
+  alt: heroAlt,
+  width: 2062,
+  height: 763,
+  sizes: "100vw",
+});
+const { props: heroMobileProps } = getImageProps({
+  src: "/images/hero/freediver-sunlit-reef-mobile.webp",
+  alt: heroAlt,
+  width: 610,
+  height: 763,
+  sizes: "100vw",
+});
+
 const instructorImage = {
   src: "/images/instructor/edward-berdos.jpeg",
   alt: "Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water",
@@ -86,30 +107,51 @@ const instructorImage = {
 export default function Home() {
   return (
     <>
-      <section className="relative -mt-20 flex min-h-[92vh] items-end overflow-hidden bg-deep-navy text-white lg:-mt-24">
-        <Image
-          src="/images/hero/reef-freediver.jpg"
-          alt="Freediver gliding over a coral reef near Davao"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_35%]"
+      {/* Below lg the photo is a full-width band at the top (shown whole on
+          phones, framed around the diver on tablets) that fades into navy,
+          with the copy set on the fade beneath it. From lg up it returns to
+          the full-bleed hero with the copy over the reef. */}
+      <section className="relative -mt-20 flex items-end overflow-hidden bg-deep-navy text-white lg:-mt-24 lg:min-h-[92vh]">
+        <picture className="absolute inset-x-0 top-0 block aspect-[4/5] md:aspect-[16/10] lg:inset-0 lg:aspect-auto">
+          <source media="(min-width: 768px)" srcSet={heroWideSrcSet} />
+          <img
+            {...heroMobileProps}
+            alt={heroAlt}
+            loading="eager"
+            fetchPriority="high"
+            className="h-full w-full object-cover md:object-[33%_50%] lg:object-[32%_50%]"
+          />
+        </picture>
+        <div
+          className="absolute inset-x-0 top-0 aspect-[4/5] bg-linear-to-b from-deep-navy/45 via-transparent via-30% to-deep-navy md:aspect-[16/10] lg:hidden"
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-deep-navy/60" aria-hidden="true" />
-        <Container className="relative z-10 pb-16 pt-40 md:pb-24">
+        <div
+          className="absolute inset-0 hidden bg-linear-to-t from-deep-navy/85 via-deep-navy/30 via-45% to-deep-navy/40 lg:block"
+          aria-hidden="true"
+        />
+        {/* Left-weighted scrim keeps the copy column legible where it crosses
+            the diver's legs, while her face and reaching arm stay bright. */}
+        <div
+          className="absolute inset-0 hidden bg-linear-to-r from-deep-navy/55 via-deep-navy/20 via-40% to-transparent to-65% lg:block"
+          aria-hidden="true"
+        />
+        <Container className="relative z-10 pb-14 pt-[calc(125vw-7rem)] md:pb-20 md:pt-[calc(62.5vw-6rem)] lg:pb-24 lg:pt-40">
           <Reveal durationMs={800} distancePx={14}>
             <h1 className="h-hero max-w-3xl text-white">
-              Find Your Flow. Breathe Into Freedom. Discover Yourself.
+              <span className="block md:inline">Find Your Flow.</span>{" "}
+              <span className="block md:inline">Breathe Into Freedom.</span>{" "}
+              <span className="block md:inline">Discover Yourself.</span>
             </h1>
           </Reveal>
           <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
-            <p className="prose-copy mt-6 text-lg text-white/85">
+            <p className="prose-copy mt-5 text-base text-white/85 md:mt-6 md:text-lg">
               From swimming and freediving to unforgettable adventures. We help
               you build confidence and discover what you&rsquo;re capable of.
             </p>
           </Reveal>
           <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(2)}>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-col gap-3 min-[400px]:flex-row min-[400px]:flex-wrap min-[400px]:items-center min-[400px]:gap-4 md:mt-10">
               <CtaLink href="/#programs" variant="inverse">
                 Explore Courses
               </CtaLink>
