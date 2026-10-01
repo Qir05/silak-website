@@ -9,6 +9,7 @@ export function Reveal({
   durationMs,
   distancePx,
   scale = false,
+  stagger = false,
 }: {
   children: ReactNode;
   className?: string;
@@ -19,6 +20,9 @@ export function Reveal({
   distancePx?: number;
   /** Apply a very subtle initial scale-up, intended for large editorial imagery. */
   scale?: boolean;
+  /** The delay staggers items that sit side by side. Phones stack those
+   * items so each enters view on its own, and the delay is skipped there. */
+  stagger?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -70,13 +74,18 @@ export function Reveal({
   }, []);
 
   const style: CSSProperties & Record<string, string | number> = {};
-  if (delayMs) style.transitionDelay = `${delayMs}ms`;
+  if (delayMs) style["--reveal-delay"] = `${delayMs}ms`;
   style["--reveal-duration"] = `${durationMs ?? (scale ? 1150 : 1000)}ms`;
   style["--reveal-y"] = `${distancePx ?? (scale ? 32 : 44)}px`;
   if (scale) style["--reveal-scale"] = 0.97;
 
   return (
-    <div ref={ref} className={`reveal ${visible ? "is-visible" : ""} ${className}`} style={style}>
+    <div
+      ref={ref}
+      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      style={style}
+      data-stagger={stagger || undefined}
+    >
       {children}
     </div>
   );

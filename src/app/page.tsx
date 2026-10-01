@@ -208,7 +208,7 @@ export default function Home() {
 
           <div className="mt-12 grid gap-16 border-t border-ink/10 pt-12 md:grid-cols-3 md:gap-8 xl:gap-10">
             {programs.map((program, i) => (
-              <Reveal key={program.href} delayMs={groupStagger(i)} className="flex flex-col">
+              <Reveal key={program.href} stagger delayMs={groupStagger(i)} className="flex flex-col">
                 <LightboxTrigger
                   images={programImages}
                   index={i}
@@ -267,7 +267,7 @@ export default function Home() {
       <section className="bg-paper-dim">
         <Container className="py-14 md:py-20 lg:py-24">
           <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-            <Reveal delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
+            <Reveal stagger delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">01</span>
               <h3 className="h3-display mt-3">Breath</h3>
               <p className="prose-copy mt-3 text-ink-soft">
@@ -275,7 +275,7 @@ export default function Home() {
                 carries into everything else we teach in the water.
               </p>
             </Reveal>
-            <Reveal delayMs={groupStagger(1)} className="border-t border-ink/15 pt-6">
+            <Reveal stagger delayMs={groupStagger(1)} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">02</span>
               <h3 className="h3-display mt-3">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
@@ -283,7 +283,7 @@ export default function Home() {
                 make safety a non-negotiable part of every dive.
               </p>
             </Reveal>
-            <Reveal delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
+            <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
               <span className="eyebrow text-ocean-blue">03</span>
               <h3 className="h3-display mt-3">Progression</h3>
               <p className="prose-copy mt-3 text-ink-soft">

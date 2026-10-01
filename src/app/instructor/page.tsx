@@ -53,40 +53,44 @@ export default function InstructorPage() {
                 priority
               />
             </Reveal>
-            <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
-              <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
-              <h1 className="h1-display mt-4">Edward M. Berdos</h1>
-              <div className="mt-3 flex items-center gap-2 text-ink-soft">
-                <span className="text-sm font-medium tracking-wide">
-                  Molchanovs Instructor
-                </span>
-                <Image
-                  src="/logos/molchanovs-mark.png"
-                  alt="Molchanovs"
-                  width={20}
-                  height={16}
-                  className="h-4 w-auto object-contain opacity-70"
-                />
-              </div>
-              <p className="prose-copy mt-8 text-ink-soft">
-                &ldquo;The heart of my approach to teaching freediving is the belief in
-                calmness and presence. I focus on guiding students to embrace the
-                beauty of relaxation, ensuring that they never feel rushed or forced.
-                In freediving, as in life, the greatest growth happens when you embrace
-                the moment, and I teach my students to surrender to the flow of the
-                water, trust their bodies, and experience the transformative power of
-                stillness.&rdquo;
-              </p>
-              <p className="font-display mt-8 max-w-2xl text-2xl leading-snug text-deep-ocean md:text-3xl">
-                &ldquo;My goal is to help you dive deeper, not into the water, but into
-                your own potential.&rdquo;
-              </p>
-              <p className="prose-copy mt-8 text-ink-soft">
-                &ldquo;Together, we will create a safe, nurturing environment for
-                growth and self-discovery, all while having fun and building
-                confidence.&rdquo;
-              </p>
-            </Reveal>
+            <div className="flex flex-col justify-center">
+              <Reveal delayMs={sequenceStep(1)}>
+                <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
+                <h1 className="h1-display mt-4">Edward M. Berdos</h1>
+                <div className="mt-3 flex items-center gap-2 text-ink-soft">
+                  <span className="text-sm font-medium tracking-wide">
+                    Molchanovs Instructor
+                  </span>
+                  <Image
+                    src="/logos/molchanovs-mark.png"
+                    alt="Molchanovs"
+                    width={20}
+                    height={16}
+                    className="h-4 w-auto object-contain opacity-70"
+                  />
+                </div>
+              </Reveal>
+              <Reveal delayMs={sequenceStep(2)}>
+                <p className="prose-copy mt-8 text-ink-soft">
+                  &ldquo;The heart of my approach to teaching freediving is the belief in
+                  calmness and presence. I focus on guiding students to embrace the
+                  beauty of relaxation, ensuring that they never feel rushed or forced.
+                  In freediving, as in life, the greatest growth happens when you embrace
+                  the moment, and I teach my students to surrender to the flow of the
+                  water, trust their bodies, and experience the transformative power of
+                  stillness.&rdquo;
+                </p>
+                <p className="font-display mt-8 max-w-2xl text-2xl leading-snug text-deep-ocean md:text-3xl">
+                  &ldquo;My goal is to help you dive deeper, not into the water, but into
+                  your own potential.&rdquo;
+                </p>
+                <p className="prose-copy mt-8 text-ink-soft">
+                  &ldquo;Together, we will create a safe, nurturing environment for
+                  growth and self-discovery, all while having fun and building
+                  confidence.&rdquo;
+                </p>
+              </Reveal>
+            </div>
           </div>
         </Container>
       </section>

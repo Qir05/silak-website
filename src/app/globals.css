@@ -130,6 +130,7 @@ body {
   transition:
     opacity var(--reveal-duration, 1000ms) var(--ease-reveal),
     transform var(--reveal-duration, 1000ms) var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 .reveal.is-visible {
@@ -148,6 +149,12 @@ body {
 
   .reveal.is-visible {
     transform: translateY(0) scale(1);
+  }
+
+  /* Row staggers don't apply once the row has stacked: each item already
+     enters view on its own. */
+  .reveal[data-stagger] {
+    transition-delay: 0ms;
   }
 }
 
@@ -273,6 +280,7 @@ body {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+    transition-delay: 0ms !important;
   }
 
   .lightbox-backdrop,

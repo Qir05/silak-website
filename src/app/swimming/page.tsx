@@ -78,7 +78,7 @@ export default function SwimmingPage() {
           </Reveal>
           <div className="mt-10 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-x-16 md:gap-y-10">
             {covers.map((item, i) => (
-              <Reveal key={item.title} delayMs={groupStagger(i)}>
+              <Reveal key={item.title} stagger delayMs={groupStagger(i)}>
                 <h3 className="h3-display">{item.title}</h3>
                 <p className="prose-copy mt-3 text-ink-soft">{item.copy}</p>
               </Reveal>

@@ -84,7 +84,7 @@ export default function FreedivingPage() {
           </Reveal>
           <div className="mt-10 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-3 md:gap-8">
             {covers.map((item, i) => (
-              <Reveal key={item.title} delayMs={groupStagger(i)}>
+              <Reveal key={item.title} stagger delayMs={groupStagger(i)}>
                 <h3 className="h3-display">{item.title}</h3>
                 <p className="prose-copy mt-3 text-ink-soft">{item.copy}</p>
               </Reveal>
@@ -103,29 +103,30 @@ export default function FreedivingPage() {
               courses. Reach out directly for current availability and details.
             </p>
           </Reveal>
-          <Reveal
-            delayMs={sequenceStep(1)}
-            className="mt-10 grid gap-8 border-t border-ink/15 pt-10 sm:grid-cols-2 sm:max-w-xl"
-          >
-            <div className="relative aspect-square w-full overflow-hidden bg-ink">
-              <Image
-                src="/images/programs/molchanovs-wave-1-price.jpg"
-                alt="Molchanovs Wave 1 course badge, ₱13,000"
-                fill
-                sizes="(min-width: 640px) 288px, 100vw"
-                className="object-contain"
-              />
-            </div>
-            <div className="relative aspect-square w-full overflow-hidden bg-ink">
-              <Image
-                src="/images/programs/molchanovs-wave-2-price.jpg"
-                alt="Molchanovs Wave 2 course badge, ₱18,000"
-                fill
-                sizes="(min-width: 640px) 288px, 100vw"
-                className="object-contain"
-              />
-            </div>
-          </Reveal>
+          <div className="mt-10 grid gap-8 border-t border-ink/15 pt-10 sm:grid-cols-2 sm:max-w-xl">
+            <Reveal stagger delayMs={sequenceStep(1)}>
+              <div className="relative aspect-square w-full overflow-hidden bg-ink">
+                <Image
+                  src="/images/programs/molchanovs-wave-1-price.jpg"
+                  alt="Molchanovs Wave 1 course badge, ₱13,000"
+                  fill
+                  sizes="(min-width: 640px) 288px, 100vw"
+                  className="object-contain"
+                />
+              </div>
+            </Reveal>
+            <Reveal stagger delayMs={sequenceStep(1) + groupStagger(1)}>
+              <div className="relative aspect-square w-full overflow-hidden bg-ink">
+                <Image
+                  src="/images/programs/molchanovs-wave-2-price.jpg"
+                  alt="Molchanovs Wave 2 course badge, ₱18,000"
+                  fill
+                  sizes="(min-width: 640px) 288px, 100vw"
+                  className="object-contain"
+                />
+              </div>
+            </Reveal>
+          </div>
         </Container>
       </section>
 

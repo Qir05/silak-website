@@ -99,7 +99,7 @@ export default function AboutPage() {
         <Container className="py-14 md:py-20 lg:py-24">
           <div className="grid gap-10 md:grid-cols-3 md:gap-10">
             {values.map((value, i) => (
-              <Reveal key={value.title} delayMs={groupStagger(i)} className="border-t border-ink/15 pt-6">
+              <Reveal key={value.title} stagger delayMs={groupStagger(i)} className="border-t border-ink/15 pt-6">
                 <h2 className="h3-display">{value.title}</h2>
                 <p className="prose-copy mt-3 text-ink-soft">{value.copy}</p>
               </Reveal>
@@ -118,37 +118,41 @@ export default function AboutPage() {
                 className="aspect-[4/5] max-w-sm xl:max-w-[480px] 2xl:max-w-[600px]"
               />
             </Reveal>
-            <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
-              <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
-              <h2 className="h2-display mt-4">Edward M. Berdos</h2>
-              <div className="mt-2 flex items-center gap-2 text-ink-soft">
-                <span className="text-sm font-medium tracking-wide">
-                  Molchanovs Instructor
-                </span>
-                <Image
-                  src="/logos/molchanovs-mark.png"
-                  alt="Molchanovs"
-                  width={20}
-                  height={16}
-                  className="h-4 w-auto object-contain opacity-70"
-                />
-              </div>
-              <p className="prose-copy mt-6 text-ink-soft">
-                &ldquo;The heart of my approach to teaching freediving is the belief in
-                calmness and presence. I focus on guiding students to embrace the
-                beauty of relaxation, ensuring that they never feel rushed or forced.
-                In freediving, as in life, the greatest growth happens when you embrace
-                the moment, and I teach my students to surrender to the flow of the
-                water, trust their bodies, and experience the transformative power of
-                stillness.&rdquo;
-              </p>
-              <p className="prose-copy mt-4 text-ink-soft">
-                &ldquo;My goal is to help you dive deeper, not into the water, but into
-                your own potential. Together, we will create a safe, nurturing
-                environment for growth and self-discovery, all while having fun and
-                building confidence.&rdquo;
-              </p>
-            </Reveal>
+            <div className="flex flex-col justify-center">
+              <Reveal delayMs={sequenceStep(1)}>
+                <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
+                <h2 className="h2-display mt-4">Edward M. Berdos</h2>
+                <div className="mt-2 flex items-center gap-2 text-ink-soft">
+                  <span className="text-sm font-medium tracking-wide">
+                    Molchanovs Instructor
+                  </span>
+                  <Image
+                    src="/logos/molchanovs-mark.png"
+                    alt="Molchanovs"
+                    width={20}
+                    height={16}
+                    className="h-4 w-auto object-contain opacity-70"
+                  />
+                </div>
+              </Reveal>
+              <Reveal delayMs={sequenceStep(2)}>
+                <p className="prose-copy mt-6 text-ink-soft">
+                  &ldquo;The heart of my approach to teaching freediving is the belief in
+                  calmness and presence. I focus on guiding students to embrace the
+                  beauty of relaxation, ensuring that they never feel rushed or forced.
+                  In freediving, as in life, the greatest growth happens when you embrace
+                  the moment, and I teach my students to surrender to the flow of the
+                  water, trust their bodies, and experience the transformative power of
+                  stillness.&rdquo;
+                </p>
+                <p className="prose-copy mt-4 text-ink-soft">
+                  &ldquo;My goal is to help you dive deeper, not into the water, but into
+                  your own potential. Together, we will create a safe, nurturing
+                  environment for growth and self-discovery, all while having fun and
+                  building confidence.&rdquo;
+                </p>
+              </Reveal>
+            </div>
           </div>
         </Container>
       </section>
