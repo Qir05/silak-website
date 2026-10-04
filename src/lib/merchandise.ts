@@ -33,7 +33,7 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
         height: 803,
       },
       {
-        src: "/images/merchandise/silak-shirt-freediver.webp",
+        src: "/images/merchandise/silak-shirt-silak-freediver.webp",
         alt: "Black SiLak t-shirt with a diver splash design on the front and a colorful SiLak Freediver print on the back",
         width: 1044,
         height: 840,
@@ -79,6 +79,24 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
         alt: "Three pairs of long-blade freediving fins in white, green, and yellow laid side by side",
         width: 1195,
         height: 1316,
+      },
+      {
+        src: "/images/merchandise/freediving-fins-frenzel-translucent.webp",
+        alt: "Pair of Frenzel freediving fins with translucent blades and black foot pockets, on a black Frenzel fin bag on grass",
+        width: 1240,
+        height: 1600,
+      },
+      {
+        src: "/images/merchandise/freediving-fins-frenzel-carbon-grey-bag.webp",
+        alt: "Pair of Frenzel freediving fins with dark patterned blades and white foot pockets, on a grey fin bag with a manta ray design",
+        width: 1140,
+        height: 1600,
+      },
+      {
+        src: "/images/merchandise/freediving-fins-frenzel-carbon-white-bag.webp",
+        alt: "Pair of Frenzel freediving fins with dark patterned blades and white foot pockets, on a white Frenzel fin bag on grass",
+        width: 1113,
+        height: 1600,
       },
     ],
     imageFit: "contain",

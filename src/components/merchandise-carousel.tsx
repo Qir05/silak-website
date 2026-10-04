@@ -215,6 +215,10 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
   }, []);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    // A new press starts a new gesture. A touch drag never produces a click
+    // to consume the previous gesture's suppression, so clear it here or the
+    // next genuine tap on a product would be swallowed.
+    suppressClickRef.current = false;
     setReason("pointer", true);
     pointerActiveRef.current = true;
     dragDistanceRef.current = 0;
@@ -265,10 +269,16 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
   const onBlur = () => setReason("focus", false);
 
   return (
+    // Hover pause is for a real mouse only. Touch browsers (iOS Safari,
+    // Android Chrome) emit a compatibility mouseenter on tap but no
+    // mouseleave until the user taps elsewhere, which would leave the
+    // marquee paused after a tap.
     <div
       className="relative overflow-hidden"
-      onMouseEnter={() => setReason("hover", true)}
-      onMouseLeave={() => setReason("hover", false)}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") setReason("hover", true);
+      }}
+      onPointerLeave={() => setReason("hover", false)}
     >
       <div
         ref={trackRef}
@@ -277,6 +287,10 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
         onPointerUp={finishPointerInteraction}
         onPointerCancel={finishPointerInteraction}
         onClickCapture={onClickCapture}
+        // Desktop browsers start a native image drag when a product photo is
+        // dragged with the mouse, which fires pointercancel and ends the
+        // strip drag after a few pixels.
+        onDragStart={(event) => event.preventDefault()}
         onFocus={onFocus}
         onBlur={onBlur}
         className="flex touch-pan-y select-none gap-6 will-change-transform"

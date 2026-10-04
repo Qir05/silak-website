@@ -8,6 +8,7 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
+import { REVIEWS } from "@/lib/reviews";
 
 export const metadata: Metadata = {
   title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
@@ -96,6 +97,10 @@ const { props: heroMobileProps } = getImageProps({
   height: 2730,
   sizes: "100vw",
 });
+
+// Homepage teaser: the first two of the real review screenshots shown in
+// full on /reviews.
+const reviewPreview = REVIEWS.slice(0, 2);
 
 const instructorImage = {
   src: "/images/instructor/edward-berdos.jpeg",
@@ -268,24 +273,21 @@ export default function Home() {
         <Container className="py-14 md:py-20 lg:py-24">
           <div className="grid gap-12 md:grid-cols-3 md:gap-10">
             <Reveal stagger delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
-              <span className="eyebrow text-ocean-blue">01</span>
-              <h3 className="h3-display mt-3">Breath</h3>
+              <h3 className="h3-display">Breath</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Every course begins with the breath: relaxation, calm, and control that
                 carries into everything else we teach in the water.
               </p>
             </Reveal>
             <Reveal stagger delayMs={groupStagger(1)} className="border-t border-ink/15 pt-6">
-              <span className="eyebrow text-ocean-blue">02</span>
-              <h3 className="h3-display mt-3">Safety</h3>
+              <h3 className="h3-display">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Safety comes first, always. We build strong water skills and
                 make safety a non-negotiable part of every dive.
               </p>
             </Reveal>
             <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
-              <span className="eyebrow text-ocean-blue">03</span>
-              <h3 className="h3-display mt-3">Progression</h3>
+              <h3 className="h3-display">Progression</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Master the fundamentals and progress with confidence, one level at a time.
               </p>
@@ -330,6 +332,48 @@ export default function Home() {
                   Meet Edward
                 </CtaLink>
               </div>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-paper">
+        <Container className="pb-20 md:pb-28 lg:pb-32">
+          <div className="grid gap-10 border-t border-ink/10 pt-14 md:pt-20 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-8 lg:pt-24">
+            <Reveal className="max-w-md lg:col-start-1 lg:row-start-1">
+              <p className="eyebrow text-ocean-blue">Reviews</p>
+              <h2 className="h2-display mt-4">Student Stories</h2>
+              <p className="prose-copy mt-5 text-ink-soft">
+                Real experiences from swimmers and freedivers who trained with SiLak
+                Davao.
+              </p>
+            </Reveal>
+
+            <div className="flex flex-col gap-6 md:gap-8 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+              {reviewPreview.map((review, i) => (
+                <Reveal key={review.src} delayMs={i === 0 ? sequenceStep(1) : 0}>
+                  <div className="relative -mx-5 bg-aqua-tint p-3 sm:-mx-8 sm:p-5 md:mx-0 md:p-6">
+                    <span
+                      className="absolute left-0 top-0 h-0.5 w-14 bg-deep-ocean"
+                      aria-hidden="true"
+                    />
+                    <LightboxTrigger
+                      images={reviewPreview}
+                      index={i}
+                      sizes="(min-width: 1024px) 700px, 100vw"
+                      className={review.aspectClass}
+                      fit="contain"
+                      matted={false}
+                    />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal className="lg:col-start-1 lg:row-start-2 lg:self-start">
+              <CtaLink href="/reviews" variant="secondary">
+                View All Reviews
+              </CtaLink>
             </Reveal>
           </div>
         </Container>
