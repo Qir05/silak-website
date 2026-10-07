@@ -163,7 +163,10 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
 
     function tick(ts: number) {
       if (lastTsRef.current === null) lastTsRef.current = ts;
-      const dt = ts - lastTsRef.current;
+      // Capped so that after the browser pauses frames (a background tab,
+      // a busy main thread) the strip resumes where it was instead of
+      // leaping ahead by the whole pause.
+      const dt = Math.min(ts - lastTsRef.current, 100);
       lastTsRef.current = ts;
 
       if (!pausedRef.current && !prefersReducedMotion()) {

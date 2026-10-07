@@ -139,7 +139,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
             type="button"
             onClick={close}
             aria-label="Close image"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:right-6 sm:top-6"
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:right-6 sm:top-6"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -156,7 +156,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
               type="button"
               onClick={showPrev}
               aria-label="Previous image"
-              className="absolute left-1 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:left-4"
+              className="absolute left-1 z-10 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:left-4"
             >
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -188,7 +188,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
               type="button"
               onClick={showNext}
               aria-label="Next image"
-              className="absolute right-1 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:right-4"
+              className="absolute right-1 z-10 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:right-4"
             >
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path

@@ -98,9 +98,10 @@ const { props: heroMobileProps } = getImageProps({
   sizes: "100vw",
 });
 
-// Homepage teaser: the first two of the real review screenshots shown in
-// full on /reviews.
-const reviewPreview = REVIEWS.slice(0, 2);
+// Homepage preview: the first four real review screenshots (Red Valencia
+// first); the full set is on /reviews.
+const reviewPreview = REVIEWS.slice(0, 4);
+const reviewColumnSize = Math.ceil(reviewPreview.length / 2);
 
 const instructorImage = {
   src: "/images/instructor/edward-berdos.jpeg",
@@ -269,36 +270,63 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="bg-paper-dim">
-        <Container className="py-14 md:py-20 lg:py-24">
-          <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-            <Reveal stagger delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
-              <h3 className="h3-display">Breath</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Every course begins with the breath: relaxation, calm, and control that
-                carries into everything else we teach in the water.
-              </p>
-            </Reveal>
-            <Reveal stagger delayMs={groupStagger(1)} className="border-t border-ink/15 pt-6">
-              <h3 className="h3-display">Safety</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Safety comes first, always. We build strong water skills and
-                make safety a non-negotiable part of every dive.
-              </p>
-            </Reveal>
-            <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
-              <h3 className="h3-display">Progression</h3>
-              <p className="prose-copy mt-3 text-ink-soft">
-                Master the fundamentals and progress with confidence, one level at a time.
-              </p>
-            </Reveal>
+      <section className="bg-paper">
+        <Container wide className="pb-16 pt-20 md:pb-20 md:pt-28 lg:pb-24 lg:pt-32">
+          <Reveal className="max-w-2xl">
+            <p className="eyebrow text-ocean-blue">Reviews</p>
+            <h2 className="h2-display mt-4">Student Stories</h2>
+            <p className="prose-copy mt-5 text-ink-soft">
+              Real experiences from swimmers and freedivers who trained with SiLak
+              Davao.
+            </p>
+          </Reveal>
+
+          {/* A static editorial layout, never a carousel. One generous column
+              keeps the post text readable; two columns only from xl, where
+              each screenshot still renders close to its native size. */}
+          <div className="mt-12 grid max-w-3xl gap-6 md:mt-14 md:gap-8 xl:max-w-none xl:grid-cols-2 xl:items-start xl:gap-10">
+            {/* Two explicit column stacks rather than CSS multi-column, which
+                WebKit lays out incorrectly around the animated reveal blocks.
+                Below xl the stacks run one after the other, so the reading
+                order stays the review order. */}
+            {[reviewPreview.slice(0, reviewColumnSize), reviewPreview.slice(reviewColumnSize)].map((column, c) => (
+              <div key={c} className="flex flex-col gap-6 md:gap-8 xl:gap-10">
+                {column.map((review, j) => {
+                  const i = c * reviewColumnSize + j;
+                  return (
+                    <Reveal key={review.src} delayMs={i === 0 ? sequenceStep(1) : 0}>
+                      <div className="relative -mx-5 bg-aqua-tint p-3 sm:-mx-8 sm:p-5 md:mx-0 md:p-6">
+                        <span
+                          className="absolute left-0 top-0 h-0.5 w-14 bg-deep-ocean"
+                          aria-hidden="true"
+                        />
+                        <LightboxTrigger
+                          images={reviewPreview}
+                          index={i}
+                          sizes="(min-width: 1280px) 45vw, (min-width: 768px) 720px, 100vw"
+                          className={review.aspectClass}
+                          fit="contain"
+                          matted={false}
+                        />
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            ))}
           </div>
+
+          <Reveal className="mt-10 md:mt-12 xl:mt-14">
+            <CtaLink href="/reviews" variant="secondary">
+              View All Reviews
+            </CtaLink>
+          </Reveal>
         </Container>
       </section>
 
       <section className="bg-paper">
-        <Container wide className="py-20 md:py-32 lg:py-40">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
+        <Container wide className="pb-20 md:pb-32 lg:pb-40">
+          <div className="grid gap-10 border-t border-ink/10 pt-16 md:grid-cols-[minmax(0,380px)_1fr] md:pt-24 lg:pt-28 md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
             <Reveal scale>
               <LightboxTrigger
                 images={[instructorImage]}
@@ -337,43 +365,28 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="bg-paper">
-        <Container className="pb-20 md:pb-28 lg:pb-32">
-          <div className="grid gap-10 border-t border-ink/10 pt-14 md:pt-20 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-8 lg:pt-24">
-            <Reveal className="max-w-md lg:col-start-1 lg:row-start-1">
-              <p className="eyebrow text-ocean-blue">Reviews</p>
-              <h2 className="h2-display mt-4">Student Stories</h2>
-              <p className="prose-copy mt-5 text-ink-soft">
-                Real experiences from swimmers and freedivers who trained with SiLak
-                Davao.
+      <section className="bg-paper-dim">
+        <Container className="py-14 md:py-20 lg:py-24">
+          <div className="grid gap-12 md:grid-cols-3 md:gap-10">
+            <Reveal stagger delayMs={groupStagger(0)} className="border-t border-ink/15 pt-6">
+              <h3 className="h3-display">Breath</h3>
+              <p className="prose-copy mt-3 text-ink-soft">
+                Every course begins with the breath: relaxation, calm, and control that
+                carries into everything else we teach in the water.
               </p>
             </Reveal>
-
-            <div className="flex flex-col gap-6 md:gap-8 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-              {reviewPreview.map((review, i) => (
-                <Reveal key={review.src} delayMs={i === 0 ? sequenceStep(1) : 0}>
-                  <div className="relative -mx-5 bg-aqua-tint p-3 sm:-mx-8 sm:p-5 md:mx-0 md:p-6">
-                    <span
-                      className="absolute left-0 top-0 h-0.5 w-14 bg-deep-ocean"
-                      aria-hidden="true"
-                    />
-                    <LightboxTrigger
-                      images={reviewPreview}
-                      index={i}
-                      sizes="(min-width: 1024px) 700px, 100vw"
-                      className={review.aspectClass}
-                      fit="contain"
-                      matted={false}
-                    />
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-
-            <Reveal className="lg:col-start-1 lg:row-start-2 lg:self-start">
-              <CtaLink href="/reviews" variant="secondary">
-                View All Reviews
-              </CtaLink>
+            <Reveal stagger delayMs={groupStagger(1)} className="border-t border-ink/15 pt-6">
+              <h3 className="h3-display">Safety</h3>
+              <p className="prose-copy mt-3 text-ink-soft">
+                Safety comes first, always. We build strong water skills and
+                make safety a non-negotiable part of every dive.
+              </p>
+            </Reveal>
+            <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
+              <h3 className="h3-display">Progression</h3>
+              <p className="prose-copy mt-3 text-ink-soft">
+                Master the fundamentals and progress with confidence, one level at a time.
+              </p>
             </Reveal>
           </div>
         </Container>
