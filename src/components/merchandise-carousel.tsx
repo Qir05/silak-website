@@ -8,8 +8,9 @@ import {
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import Image from "next/image";
 import { LightboxTrigger } from "./lightbox-trigger";
-import { LIGHTBOX_CLOSE_EVENT, LIGHTBOX_OPEN_EVENT } from "./lightbox";
+import { LIGHTBOX_CLOSE_EVENT, LIGHTBOX_OPEN_EVENT, useLightbox } from "./lightbox";
 import { SOCIAL_LINKS } from "@/lib/site";
 import type { MerchandiseProduct } from "@/lib/merchandise";
 
@@ -41,6 +42,7 @@ function prefersReducedMotion() {
 }
 
 export function MerchandiseCarousel({ products }: { products: MerchandiseProduct[] }) {
+  const { open: openLightbox } = useLightbox();
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
   const loopWidthRef = useRef(0);
@@ -310,7 +312,31 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
               className="aspect-square"
               fit={product.imageFit}
             />
-            <h3 className="h3-display mt-5 text-center">{product.label}</h3>
+            {/* Every photo of the product, visible on the card itself; each
+                opens the Lightbox at that photo. The row's height is reserved
+                on single-photo products too, so all cards stay the same
+                height. */}
+            <div className="mt-3 flex h-7 items-center justify-center gap-1 sm:h-8 lg:h-9">
+              {product.images.length > 1 &&
+                product.images.map((image, imageIndex) => (
+                  <button
+                    key={image.src}
+                    type="button"
+                    onClick={(event) => openLightbox(product.images, imageIndex, event.currentTarget)}
+                    aria-label={`View ${product.label} photo ${imageIndex + 1} of ${product.images.length}`}
+                    className="relative h-7 w-7 flex-shrink-0 overflow-hidden border border-ink/10 bg-aqua-tint transition-colors hover:border-deep-ocean sm:h-8 sm:w-8 lg:h-9 lg:w-9"
+                  >
+                    <Image
+                      src={image.src}
+                      alt=""
+                      fill
+                      sizes="40px"
+                      className="object-contain"
+                    />
+                  </button>
+                ))}
+            </div>
+            <h3 className="h3-display mt-4 text-center">{product.label}</h3>
             <p className="prose-copy mx-auto mt-2 flex-1 text-center text-ink-soft">{product.description}</p>
             <a
               href={SOCIAL_LINKS.facebook}
