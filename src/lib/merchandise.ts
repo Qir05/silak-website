@@ -43,8 +43,8 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
   },
   {
     slug: "masks",
-    label: "Mask Collection",
-    description: "Freediving and swimming masks available through SiLak.",
+    label: "Freediving Mask Collection",
+    description: "Freediving masks available through SiLak.",
     images: [
       {
         src: "/images/merchandise/mask-collection.webp",
@@ -101,6 +101,21 @@ export const MERCHANDISE_PRODUCTS: MerchandiseProduct[] = [
         alt: "Two freediving lanyards with carabiners, in blue and red",
         width: 1290,
         height: 1030,
+      },
+    ],
+    imageFit: "contain",
+  },
+  {
+    slug: "ear-equalization-training-tool",
+    label: "Ear Equalization Training Tool",
+    description:
+      "A practical tool for practicing equalization technique, with three balloons and a storage box included.",
+    images: [
+      {
+        src: "/images/merchandise/ear-equalization-training-tool.jpg",
+        alt: "Ear equalization training tool package: a red training tool in an open zip storage box with three balloons in teal, green and red. Text reads: What's in a package? Included: 1 x Ear Equalization Training Tool, 3 x Balloons, 1 x Storage Box",
+        width: 1290,
+        height: 1256,
       },
     ],
     imageFit: "contain",
