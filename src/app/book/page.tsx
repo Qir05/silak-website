@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { sequenceStep } from "@/lib/reveal-timing";
-import { SOCIAL_LINKS } from "@/lib/site";
+import { SOCIAL_LINKS, openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Book a Session",
   description:
     "Connect with SiLak Davao on Facebook or Instagram for current schedules, availability, and booking for swimming and freediving sessions in Davao.",
   alternates: { canonical: "/book" },
+  openGraph: openGraphFor("/book"),
 };
 
 export default function BookPage() {

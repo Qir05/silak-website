@@ -8,12 +8,14 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
+import { openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Molchanovs Freediving in Davao",
   description:
     "Certified Molchanovs freediving progression in Davao, guiding students through breath-hold composure, equalisation, depth progression, and ocean safety.",
   alternates: { canonical: "/freediving" },
+  openGraph: openGraphFor("/freediving"),
 };
 
 const lineTrainingImage = {

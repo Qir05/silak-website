@@ -5,12 +5,14 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
+import { openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Junior Aquatic Programs",
   description:
     "Junior aquatic programs in Davao for ages 4 to 15, introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment.",
   alternates: { canonical: "/junior" },
+  openGraph: openGraphFor("/junior"),
 };
 
 const ageGroups = [

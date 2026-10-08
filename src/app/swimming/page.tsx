@@ -5,12 +5,14 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
+import { openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Swimming Courses in Davao",
   description:
     "Swimming lessons in Davao for beginners and families, focused on foundational aquatic confidence, basic swimming technique, and water safety.",
   alternates: { canonical: "/swimming" },
+  openGraph: openGraphFor("/swimming"),
 };
 
 const swimmingSessionImage = {

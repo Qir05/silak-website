@@ -4,13 +4,14 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
-import { SOCIAL_LINKS } from "@/lib/site";
+import { SOCIAL_LINKS, openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "SiLak Merchandise",
   description:
     "SiLak branded shirts and water-related gear available through SiLak Davao, including apparel, masks, and freediving training accessories.",
   alternates: { canonical: "/merchandise" },
+  openGraph: openGraphFor("/merchandise"),
 };
 
 export default function MerchandisePage() {

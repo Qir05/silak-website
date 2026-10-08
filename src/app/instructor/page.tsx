@@ -6,12 +6,13 @@ import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: instructor.title ? `${instructor.name}, ${instructor.title}` : instructor.name,
   description: instructor.metaDescription,
   alternates: { canonical: "/instructor" },
+  openGraph: openGraphFor("/instructor"),
 };
 
 const personJsonLd = {

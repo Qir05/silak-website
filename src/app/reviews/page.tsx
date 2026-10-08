@@ -5,12 +5,14 @@ import { Reveal } from "@/components/reveal";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { REVIEWS } from "@/lib/reviews";
+import { openGraphFor } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Reviews",
   description:
     "Real experiences from swimmers and freedivers who trained with SiLak Davao in Davao City, Philippines.",
   alternates: { canonical: "/reviews" },
+  openGraph: openGraphFor("/reviews"),
 };
 
 type PanelLayout = {

@@ -3,7 +3,14 @@ import { Fraunces, Geist } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { LightboxProvider } from "@/components/lightbox";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
+import {
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  SITE_URL,
+  SOCIAL_IMAGE,
+  SOCIAL_LINKS,
+  openGraphFor,
+} from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,28 +28,16 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "SiLak Davao | Swimming & Freediving Instruction in Davao",
+    default: SITE_TITLE,
     template: "%s | SiLak Davao",
   },
   description: SITE_DESCRIPTION,
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
-    description: SITE_DESCRIPTION,
-    images: [
-      {
-        url: "/images/hero/reef-freediver.jpg",
-        width: 1600,
-        height: 1067,
-        alt: "Freediver gliding over a coral reef in Davao",
-      },
-    ],
-  },
+  openGraph: openGraphFor("/"),
   twitter: {
     card: "summary_large_image",
-    title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [SOCIAL_IMAGE],
   },
 };
 

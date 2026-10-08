@@ -5,7 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, openGraphFor } from "@/lib/site";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   description:
     "SiLak Davao is a swimming and freediving school in Davao, built around breath, safety, and respect for the ocean.",
   alternates: { canonical: "/about" },
+  openGraph: openGraphFor("/about"),
 };
 
 const personJsonLd = {
