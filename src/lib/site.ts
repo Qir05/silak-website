@@ -19,12 +19,17 @@ export const SITE_URL = rawSiteUrl;
 
 export const SITE_TITLE = "SiLak Davao | Swimming & Freediving Instruction in Davao";
 
-/** Dedicated 1200x630 social preview, cropped from the About hero photo. */
+/** Title and description used for link previews (Open Graph and Twitter). */
+export const SOCIAL_TITLE = "SiLak Davao | Swimming & Freediving School";
+export const SOCIAL_DESCRIPTION =
+  "Swimming and freediving lessons in Davao City, focused on confidence, safety, and progressive learning in the water.";
+
+/** Dedicated 1200x630 social preview, cropped from the homepage hero photo. */
 export const SOCIAL_IMAGE = {
-  url: "/images/social/silak-social-preview.jpg",
+  url: "/images/social/silak-social-preview-reef.jpg",
   width: 1200,
   height: 630,
-  alt: "Freediver arching backward above a coral reef in sunlit open water",
+  alt: "Freediver gliding over a coral reef in clear blue water",
 };
 
 /**
@@ -36,8 +41,8 @@ export function openGraphFor(path: string) {
   return {
     type: "website" as const,
     siteName: SITE_NAME,
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
+    title: SOCIAL_TITLE,
+    description: SOCIAL_DESCRIPTION,
     url: path,
     images: [SOCIAL_IMAGE],
   };

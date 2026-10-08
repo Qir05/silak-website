@@ -7,8 +7,10 @@ import {
   SITE_DESCRIPTION,
   SITE_TITLE,
   SITE_URL,
+  SOCIAL_DESCRIPTION,
   SOCIAL_IMAGE,
   SOCIAL_LINKS,
+  SOCIAL_TITLE,
   openGraphFor,
 } from "@/lib/site";
 import "./globals.css";
@@ -35,8 +37,8 @@ export const metadata: Metadata = {
   openGraph: openGraphFor("/"),
   twitter: {
     card: "summary_large_image",
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
+    title: SOCIAL_TITLE,
+    description: SOCIAL_DESCRIPTION,
     images: [SOCIAL_IMAGE],
   },
 };
