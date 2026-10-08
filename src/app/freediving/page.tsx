@@ -6,6 +6,8 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
+import { InstructorCredential } from "@/components/instructor-credential";
+import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 
 export const metadata: Metadata = {
   title: "Molchanovs Freediving in Davao",
@@ -21,12 +23,6 @@ const lineTrainingImage = {
   height: 2523,
 };
 
-const instructorImage = {
-  src: "/images/instructor/edward-berdos.jpeg",
-  alt: "Edward M. Berdos, Molchanovs Instructor",
-  width: 1536,
-  height: 1875,
-};
 
 const covers = [
   {
@@ -135,22 +131,16 @@ export default function FreedivingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-14">
             <Reveal scale>
               <LightboxTrigger
-                images={[instructorImage]}
+                images={[instructor.image]}
                 sizes="(min-width: 768px) 320px, 100vw"
                 className="aspect-[4/5] max-w-xs"
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Your Instructor</p>
-              <h2 className="h2-display mt-4">Edward M. Berdos</h2>
-              <p className="mt-2 text-sm font-medium tracking-wide text-ink-soft">
-                Molchanovs Instructor
-              </p>
-              <p className="prose-copy mt-6 text-ink-soft">
-                Training is guided around calmness and presence &mdash; never rushed or
-                forced. Students are taught to trust their bodies and build confidence
-                one level at a time.
-              </p>
+              <h2 className="h2-display mt-4">{instructor.name}</h2>
+              <InstructorCredential instructor={instructor} />
+              <p className="prose-copy mt-6 text-ink-soft">{instructor.freedivingParagraph}</p>
             </Reveal>
           </div>
         </Container>

@@ -1,4 +1,4 @@
-import Image, { getImageProps } from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
@@ -9,6 +9,8 @@ import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 import { REVIEWS } from "@/lib/reviews";
+import { InstructorCredential } from "@/components/instructor-credential";
+import { ACTIVE_INSTRUCTOR as instructor, activeInstructorFirstName } from "@/lib/instructors";
 
 export const metadata: Metadata = {
   title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
@@ -103,12 +105,6 @@ const { props: heroMobileProps } = getImageProps({
 const reviewPreview = REVIEWS.slice(0, 4);
 const reviewColumnSize = Math.ceil(reviewPreview.length / 2);
 
-const instructorImage = {
-  src: "/images/instructor/edward-berdos.jpeg",
-  alt: "Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water",
-  width: 1536,
-  height: 1875,
-};
 
 export default function Home() {
   return (
@@ -329,35 +325,19 @@ export default function Home() {
           <div className="grid gap-10 border-t border-ink/10 pt-16 md:grid-cols-[minmax(0,380px)_1fr] md:pt-24 lg:pt-28 md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
             <Reveal scale>
               <LightboxTrigger
-                images={[instructorImage]}
+                images={[instructor.image]}
                 sizes="(min-width: 1536px) 600px, (min-width: 1280px) 480px, (min-width: 768px) 380px, 100vw"
                 className="aspect-[4/5] max-w-sm xl:max-w-[480px] 2xl:max-w-[600px]"
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
               <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
-              <h2 className="h2-display mt-4">Edward M. Berdos</h2>
-              <div className="mt-2 flex items-center gap-2 text-ink-soft">
-                <span className="text-sm font-medium tracking-wide">
-                  Molchanovs Instructor
-                </span>
-                <Image
-                  src="/logos/molchanovs-mark.png"
-                  alt="Molchanovs"
-                  width={20}
-                  height={16}
-                  className="h-4 w-auto object-contain opacity-70"
-                />
-              </div>
-              <p className="prose-copy mt-6 text-ink-soft">
-                &ldquo;The heart of my approach to teaching freediving is the belief in
-                calmness and presence. I focus on guiding students to embrace the
-                beauty of relaxation, ensuring that they never feel rushed or
-                forced.&rdquo;
-              </p>
+              <h2 className="h2-display mt-4">{instructor.name}</h2>
+              <InstructorCredential instructor={instructor} />
+              <p className="prose-copy mt-6 text-ink-soft">{instructor.previewParagraph}</p>
               <div className="mt-8">
                 <CtaLink href="/instructor" variant="secondary">
-                  Meet Edward
+                  Meet {activeInstructorFirstName}
                 </CtaLink>
               </div>
             </Reveal>

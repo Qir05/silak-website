@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
@@ -7,19 +6,21 @@ import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { SITE_URL } from "@/lib/site";
+import { InstructorCredential } from "@/components/instructor-credential";
+import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 
 export const metadata: Metadata = {
   title: "About SiLak Davao",
   description:
-    "SiLak Davao is a swimming and freediving school in Davao led by Molchanovs Instructor Edward M. Berdos, built around breath, safety, and respect for the ocean.",
+    "SiLak Davao is a swimming and freediving school in Davao, built around breath, safety, and respect for the ocean.",
   alternates: { canonical: "/about" },
 };
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Edward M. Berdos",
-  jobTitle: "Molchanovs Instructor",
+  name: instructor.name,
+  ...(instructor.title ? { jobTitle: instructor.title } : {}),
   worksFor: {
     "@type": "Organization",
     name: "SiLak Davao",
@@ -27,12 +28,6 @@ const personJsonLd = {
   },
 };
 
-const instructorImage = {
-  src: "/images/instructor/edward-berdos.jpeg",
-  alt: "Edward M. Berdos, Molchanovs Instructor, wearing freediving gear by the water",
-  width: 1536,
-  height: 1875,
-};
 
 const values = [
   {
@@ -113,7 +108,7 @@ export default function AboutPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16 xl:grid-cols-[minmax(0,480px)_1fr] xl:gap-20 2xl:grid-cols-[minmax(0,600px)_1fr]">
             <Reveal scale>
               <LightboxTrigger
-                images={[instructorImage]}
+                images={[instructor.image]}
                 sizes="(min-width: 1536px) 600px, (min-width: 1280px) 480px, (min-width: 768px) 380px, 100vw"
                 className="aspect-[4/5] max-w-sm xl:max-w-[480px] 2xl:max-w-[600px]"
               />
@@ -121,36 +116,15 @@ export default function AboutPage() {
             <div className="flex flex-col justify-center">
               <Reveal delayMs={sequenceStep(1)}>
                 <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
-                <h2 className="h2-display mt-4">Edward M. Berdos</h2>
-                <div className="mt-2 flex items-center gap-2 text-ink-soft">
-                  <span className="text-sm font-medium tracking-wide">
-                    Molchanovs Instructor
-                  </span>
-                  <Image
-                    src="/logos/molchanovs-mark.png"
-                    alt="Molchanovs"
-                    width={20}
-                    height={16}
-                    className="h-4 w-auto object-contain opacity-70"
-                  />
-                </div>
+                <h2 className="h2-display mt-4">{instructor.name}</h2>
+                <InstructorCredential instructor={instructor} />
               </Reveal>
               <Reveal delayMs={sequenceStep(2)}>
-                <p className="prose-copy mt-6 text-ink-soft">
-                  &ldquo;The heart of my approach to teaching freediving is the belief in
-                  calmness and presence. I focus on guiding students to embrace the
-                  beauty of relaxation, ensuring that they never feel rushed or forced.
-                  In freediving, as in life, the greatest growth happens when you embrace
-                  the moment, and I teach my students to surrender to the flow of the
-                  water, trust their bodies, and experience the transformative power of
-                  stillness.&rdquo;
-                </p>
-                <p className="prose-copy mt-4 text-ink-soft">
-                  &ldquo;My goal is to help you dive deeper, not into the water, but into
-                  your own potential. Together, we will create a safe, nurturing
-                  environment for growth and self-discovery, all while having fun and
-                  building confidence.&rdquo;
-                </p>
+                {instructor.bio.map((paragraph) => (
+                  <p key={paragraph.slice(0, 32)} className="prose-copy mt-4 text-ink-soft first:mt-6">
+                    {paragraph}
+                  </p>
+                ))}
               </Reveal>
             </div>
           </div>
