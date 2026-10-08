@@ -27,7 +27,7 @@ const JIMMIE_BIO = [
 export const JIMMIE_CARLO: InstructorProfile = {
   name: "Jimmie Carlo",
   image: {
-    src: "/images/instructors/jimmie-carlo.webp",
+    src: "/images/instructors/jimmie-carlo-portrait.webp",
     alt: "Jimmie Carlo standing poolside in a black wetsuit, with a freediving mask resting on the forehead",
     width: 896,
     height: 1200,
