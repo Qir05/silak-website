@@ -8,15 +8,16 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
-import { openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "Molchanovs Freediving in Davao",
+export const metadata: Metadata = pageMetadata({
+  path: "/freediving",
+  title: "Molchanovs Freediving Courses in Davao City | SiLak Davao",
   description:
-    "Certified Molchanovs freediving progression in Davao, guiding students through breath-hold composure, equalisation, depth progression, and ocean safety.",
-  alternates: { canonical: "/freediving" },
-  openGraph: openGraphFor("/freediving"),
-};
+    "Molchanovs Wave 1 and Wave 2 freediving courses in Davao City, progressing through relaxation, breath-hold composure, equalization, and ocean safety.",
+});
 
 const lineTrainingImage = {
   src: "/images/freediving/freediving-line-training.jpeg",
@@ -44,6 +45,7 @@ const covers = [
 export default function FreedivingPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Freediving", "/freediving")} />
       <PageHero
         heading="Molchanovs with Silak Freediving"
         intro="Each level combines theory + practical training + safety, with progressively more advanced skills."

@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
+
 export const SITE_NAME = "SiLak Davao";
 
 export const SITE_DESCRIPTION =
-  "Swimming and freediving instruction in Davao, focused on breath control, water safety, and aquatic confidence for beginners, families, and advanced divers.";
+  "SiLak Davao is a swimming and freediving school in Davao City, Philippines, offering survival swimming lessons and Molchanovs freediving courses for all levels.";
 
 const PRODUCTION_SITE_URL = "https://www.silakadventure.com";
 
@@ -17,7 +19,7 @@ const rawSiteUrl =
 
 export const SITE_URL = rawSiteUrl;
 
-export const SITE_TITLE = "SiLak Davao | Swimming & Freediving Instruction in Davao";
+export const SITE_TITLE = "SiLak Davao | Swimming & Freediving School in Davao City";
 
 /** Title and description used for link previews (Open Graph and Twitter). */
 export const SOCIAL_TITLE = "SiLak Davao | Swimming & Freediving School";
@@ -33,18 +35,43 @@ export const SOCIAL_IMAGE = {
 };
 
 /**
- * Shared Open Graph metadata. Every page uses the same title, description
- * and preview image; `path` sets og:url to that page's own canonical URL so
- * a shared subpage link is not treated as the homepage.
+ * Full metadata for one page: a unique title and description, its canonical
+ * URL, and matching Open Graph / Twitter tags with the shared preview image.
+ * og:url is the page's own canonical URL so a shared subpage is not treated
+ * as the homepage. The homepage passes the approved social title/description.
  */
-export function openGraphFor(path: string) {
+export function pageMetadata({
+  path,
+  title,
+  description,
+  socialTitle = title,
+  socialDescription = description,
+}: {
+  path: string;
+  title: string;
+  description: string;
+  socialTitle?: string;
+  socialDescription?: string;
+}): Metadata {
   return {
-    type: "website" as const,
-    siteName: SITE_NAME,
-    title: SOCIAL_TITLE,
-    description: SOCIAL_DESCRIPTION,
-    url: path,
-    images: [SOCIAL_IMAGE],
+    title: { absolute: title },
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      locale: "en_PH",
+      title: socialTitle,
+      description: socialDescription,
+      url: path,
+      images: [SOCIAL_IMAGE],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description: socialDescription,
+      images: [SOCIAL_IMAGE],
+    },
   };
 }
 

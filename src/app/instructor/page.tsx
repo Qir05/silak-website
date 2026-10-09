@@ -6,35 +6,21 @@ import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
-import { SITE_URL, openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema, instructorSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: instructor.title ? `${instructor.name}, ${instructor.title}` : instructor.name,
+export const metadata: Metadata = pageMetadata({
+  path: "/instructor",
+  title: `Meet ${instructor.name}, Your Instructor | SiLak Davao`,
   description: instructor.metaDescription,
-  alternates: { canonical: "/instructor" },
-  openGraph: openGraphFor("/instructor"),
-};
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: instructor.name,
-  ...(instructor.title ? { jobTitle: instructor.title } : {}),
-  image: `${SITE_URL}${instructor.image.src}`,
-  worksFor: {
-    "@type": "Organization",
-    name: "SiLak Davao",
-    url: SITE_URL,
-  },
-};
+});
 
 export default function InstructorPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <JsonLd data={breadcrumbSchema("Instructor", "/instructor")} />
+      <JsonLd data={instructorSchema()} />
 
       <section className="bg-paper">
         <Container wide className="py-16 md:py-24 lg:py-32">

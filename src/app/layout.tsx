@@ -8,11 +8,11 @@ import {
   SITE_TITLE,
   SITE_URL,
   SOCIAL_DESCRIPTION,
-  SOCIAL_IMAGE,
-  SOCIAL_LINKS,
   SOCIAL_TITLE,
-  openGraphFor,
+  pageMetadata,
 } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { siteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +27,16 @@ const fraunces = Fraunces({
   axes: ["opsz"],
 });
 
+// Defaults inherited by any route without its own metadata (e.g. the 404
+// page). Every public page sets its own title, canonical and social tags.
+const homeSocial = pageMetadata({
+  path: "/",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  socialTitle: SOCIAL_TITLE,
+  socialDescription: SOCIAL_DESCRIPTION,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -34,26 +44,8 @@ export const metadata: Metadata = {
     template: "%s | SiLak Davao",
   },
   description: SITE_DESCRIPTION,
-  openGraph: openGraphFor("/"),
-  twitter: {
-    card: "summary_large_image",
-    title: SOCIAL_TITLE,
-    description: SOCIAL_DESCRIPTION,
-    images: [SOCIAL_IMAGE],
-  },
-};
-
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "SiLak Davao",
-  url: SITE_URL,
-  logo: `${SITE_URL}/logos/silak-logo.png`,
-  areaServed: {
-    "@type": "City",
-    name: "Davao City",
-  },
-  sameAs: [SOCIAL_LINKS.facebook, SOCIAL_LINKS.instagram],
+  openGraph: homeSocial.openGraph,
+  twitter: homeSocial.twitter,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -63,10 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper text-ink font-sans">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <JsonLd data={siteSchema} />
         <LightboxProvider>
           <SiteHeader />
           <main className="flex-1 pt-20 lg:pt-24">{children}</main>

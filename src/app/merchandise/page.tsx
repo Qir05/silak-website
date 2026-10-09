@@ -4,19 +4,21 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
-import { SOCIAL_LINKS, openGraphFor } from "@/lib/site";
+import { SOCIAL_LINKS, pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "SiLak Merchandise",
+export const metadata: Metadata = pageMetadata({
+  path: "/merchandise",
+  title: "SiLak Merchandise | Shirts and Freediving Gear",
   description:
-    "SiLak branded shirts and water-related gear available through SiLak Davao, including apparel, masks, and freediving training accessories.",
-  alternates: { canonical: "/merchandise" },
-  openGraph: openGraphFor("/merchandise"),
-};
+    "SiLak branded shirts and water-related gear available through SiLak Davao, including apparel, freediving masks, fins, and training accessories.",
+});
 
 export default function MerchandisePage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Merchandise", "/merchandise")} />
       <PageHero
         heading="SiLak Merchandise"
         intro="SiLak branded shirts and water-related gear, available directly through SiLak Davao. Reach out to see current designs and availability."
@@ -28,7 +30,7 @@ export default function MerchandisePage() {
       <section className="bg-paper">
         <Container wide className="py-16 md:py-24 lg:py-28">
           <Reveal>
-            <MerchandiseCarousel products={MERCHANDISE_PRODUCTS} />
+            <MerchandiseCarousel products={MERCHANDISE_PRODUCTS} headingLevel="h2" />
           </Reveal>
         </Container>
       </section>

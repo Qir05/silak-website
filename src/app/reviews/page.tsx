@@ -5,15 +5,16 @@ import { Reveal } from "@/components/reveal";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { REVIEWS } from "@/lib/reviews";
-import { openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "Reviews",
+export const metadata: Metadata = pageMetadata({
+  path: "/reviews",
+  title: "Student Reviews | SiLak Davao",
   description:
     "Real experiences from swimmers and freedivers who trained with SiLak Davao in Davao City, Philippines.",
-  alternates: { canonical: "/reviews" },
-  openGraph: openGraphFor("/reviews"),
-};
+});
 
 type PanelLayout = {
   /** Grid placement of the caption (numeral + label). */
@@ -69,6 +70,7 @@ const CAPTION_STYLES: Record<PanelLayout["captionStyle"], { root: string; numera
 export default function ReviewsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Reviews", "/reviews")} />
       <section className="bg-paper">
         <Container className="pb-12 pt-16 md:pb-16 md:pt-24 lg:pt-28">
           <Reveal className="max-w-2xl">

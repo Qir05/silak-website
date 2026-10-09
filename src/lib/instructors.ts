@@ -36,7 +36,7 @@ export const JIMMIE_CARLO: InstructorProfile = {
   previewParagraph: JIMMIE_BIO[0],
   freedivingParagraph: JIMMIE_BIO[1],
   metaDescription:
-    "Meet Jimmie Carlo of SiLak Davao: a progressive, patient approach to teaching swimming and freediving, building comfort before technique and confidence before challenge.",
+    "Meet Jimmie Carlo of SiLak Davao: a patient, progressive approach to teaching swimming and freediving, building comfort before technique.",
 };
 
 /**

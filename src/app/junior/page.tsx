@@ -5,15 +5,16 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
-import { openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "Junior Aquatic Programs",
+export const metadata: Metadata = pageMetadata({
+  path: "/junior",
+  title: "Junior Aquatic Programs for Ages 4 to 15 | SiLak Davao",
   description:
-    "Junior aquatic programs in Davao for ages 4 to 15, introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment.",
-  alternates: { canonical: "/junior" },
-  openGraph: openGraphFor("/junior"),
-};
+    "Junior aquatic programs in Davao City for ages 4 to 15, introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment.",
+});
 
 const ageGroups = [
   {
@@ -52,6 +53,7 @@ const ageGroupImages = ageGroups.map((group) => ({
 export default function JuniorPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Junior Programs", "/junior")} />
       <PageHero
         heading="Junior Aquatic Programs"
         image="/images/junior/junior-molchanovs.webp"

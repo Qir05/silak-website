@@ -41,7 +41,14 @@ function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function MerchandiseCarousel({ products }: { products: MerchandiseProduct[] }) {
+export function MerchandiseCarousel({
+  products,
+  headingLevel = "h3",
+}: {
+  products: MerchandiseProduct[];
+  /** Heading level for product titles, so it nests under the page's own headings. */
+  headingLevel?: "h2" | "h3";
+}) {
   const { open: openLightbox } = useLightbox();
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
@@ -336,7 +343,12 @@ export function MerchandiseCarousel({ products }: { products: MerchandiseProduct
                   </button>
                 ))}
             </div>
-            <h3 className="h3-display mt-4 text-center">{product.label}</h3>
+            {(() => {
+              // The second copy exists only to make the loop seamless, so its
+              // titles are plain text rather than duplicate headings.
+              const Title = i < products.length ? headingLevel : "p";
+              return <Title className="h3-display mt-4 text-center">{product.label}</Title>;
+            })()}
             <p className="prose-copy mx-auto mt-2 flex-1 text-center text-ink-soft">{product.description}</p>
             <a
               href={SOCIAL_LINKS.facebook}

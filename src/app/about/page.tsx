@@ -5,29 +5,20 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
-import { SITE_URL, openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema, faqSchema, instructorSchema } from "@/lib/schema";
+import { FAQ } from "@/lib/faq";
+import Link from "next/link";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 
-export const metadata: Metadata = {
-  title: "About SiLak Davao",
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
+  title: "About SiLak Davao | Swimming & Freediving in Davao City",
   description:
-    "SiLak Davao is a swimming and freediving school in Davao, built around breath, safety, and respect for the ocean.",
-  alternates: { canonical: "/about" },
-  openGraph: openGraphFor("/about"),
-};
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: instructor.name,
-  ...(instructor.title ? { jobTitle: instructor.title } : {}),
-  worksFor: {
-    "@type": "Organization",
-    name: "SiLak Davao",
-    url: SITE_URL,
-  },
-};
+    "About SiLak Davao, a swimming and freediving school in Davao City built around breath, safety, and respect for the ocean, with answers to common questions.",
+});
 
 
 const values = [
@@ -48,10 +39,9 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <JsonLd data={breadcrumbSchema("About", "/about")} />
+      <JsonLd data={instructorSchema()} />
+      <JsonLd data={faqSchema(FAQ)} />
 
       <PageHero
         heading="The Ocean Is for Everyone"
@@ -128,6 +118,31 @@ export default function AboutPage() {
                 ))}
               </Reveal>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-paper">
+        <Container className="py-16 md:py-24 lg:py-28">
+          <Reveal className="max-w-2xl">
+            <p className="eyebrow text-ocean-blue">Questions</p>
+            <h2 className="h2-display mt-4">Common Questions</h2>
+          </Reveal>
+          <div className="mt-10 grid gap-x-12 gap-y-10 md:mt-12 md:grid-cols-2">
+            {FAQ.map((item, i) => (
+              <Reveal key={item.question} stagger delayMs={groupStagger(i % 2)} className="border-t border-ink/15 pt-6">
+                <h3 className="font-display text-xl leading-snug text-ink md:text-2xl">{item.question}</h3>
+                <p className="prose-copy mt-3 text-ink-soft">{item.answer}</p>
+                {item.link && (
+                  <Link
+                    href={item.link.href}
+                    className="mt-3 inline-block text-sm font-medium text-deep-ocean underline decoration-1 underline-offset-4 hover:text-ocean-blue"
+                  >
+                    {item.link.label}
+                  </Link>
+                )}
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>

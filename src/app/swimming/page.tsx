@@ -5,15 +5,16 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
-import { openGraphFor } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
-  title: "Swimming Courses in Davao",
+export const metadata: Metadata = pageMetadata({
+  path: "/swimming",
+  title: "Swimming Lessons in Davao City | SiLak Davao",
   description:
-    "Swimming lessons in Davao for beginners and families, focused on foundational aquatic confidence, basic swimming technique, and water safety.",
-  alternates: { canonical: "/swimming" },
-  openGraph: openGraphFor("/swimming"),
-};
+    "Swimming lessons in Davao City for beginners of all ages, starting with breathing, floating, and comfort in the water, then technique and water safety.",
+});
 
 const swimmingSessionImage = {
   src: "/images/swimming/swimming-session.jpeg",
@@ -36,6 +37,7 @@ const covers = [
 export default function SwimmingPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Swimming", "/swimming")} />
       <PageHero
         heading="Swimming Courses at SiLak Davao"
         intro="Essential skills for all ages, focusing on basic techniques and water safety."

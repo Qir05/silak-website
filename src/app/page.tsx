@@ -11,15 +11,15 @@ import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 import { REVIEWS } from "@/lib/reviews";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor, activeInstructorFirstName } from "@/lib/instructors";
-import { openGraphFor } from "@/lib/site";
+import { pageMetadata, SITE_TITLE, SITE_DESCRIPTION, SOCIAL_TITLE, SOCIAL_DESCRIPTION } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "SiLak Davao | Swimming & Freediving Instruction in Davao",
-  description:
-    "SiLak Davao offers survival swimming and Molchanovs freediving instruction in Davao, guiding beginners, families, and advanced divers toward breath control, water safety, and aquatic confidence.",
-  alternates: { canonical: "/" },
-  openGraph: openGraphFor("/"),
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  socialTitle: SOCIAL_TITLE,
+  socialDescription: SOCIAL_DESCRIPTION,
+});
 
 type Program = {
   title: string;
