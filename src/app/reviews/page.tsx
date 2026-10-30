@@ -7,7 +7,8 @@ import { sequenceStep } from "@/lib/reveal-timing";
 import { REVIEWS } from "@/lib/reviews";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { CourseLinks } from "@/components/course-links";
+import { pageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = pageMetadata({
   path: "/reviews",
@@ -70,7 +71,7 @@ const CAPTION_STYLES: Record<PanelLayout["captionStyle"], { root: string; numera
 export default function ReviewsPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Reviews", "/reviews")} />
+      <JsonLd data={pageSchema("Reviews", "/reviews")} />
       <section className="bg-paper">
         <Container className="pb-12 pt-16 md:pb-16 md:pt-24 lg:pt-28">
           <Reveal className="max-w-2xl">
@@ -143,6 +144,8 @@ export default function ReviewsPage() {
           </div>
         </Container>
       </section>
+
+      <CourseLinks />
 
       <CtaBand />
     </>

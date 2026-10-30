@@ -4,7 +4,8 @@ import { Reveal } from "@/components/reveal";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { SOCIAL_LINKS, pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { CourseLinks } from "@/components/course-links";
+import { pageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = pageMetadata({
   path: "/book",
@@ -16,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
 export default function BookPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Book a Session", "/book")} />
+      <JsonLd data={pageSchema("Book a Session", "/book")} />
       <section className="bg-paper">
         <Container className="py-16 md:py-24 lg:py-28">
           <Reveal className="max-w-2xl">
@@ -60,6 +61,8 @@ export default function BookPage() {
           </Reveal>
         </Container>
       </section>
+
+      <CourseLinks />
     </>
   );
 }

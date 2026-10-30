@@ -10,13 +10,15 @@ import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { coursesSchema, pageSchema } from "@/lib/schema";
+import { FREEDIVING_FAQ } from "@/lib/faq";
+import { FaqSection } from "@/components/faq-section";
 
 export const metadata: Metadata = pageMetadata({
   path: "/freediving",
-  title: "Molchanovs Freediving Courses in Davao City | SiLak Davao",
+  title: "Freediving Lessons in Davao City | Molchanovs at SiLak",
   description:
-    "Molchanovs Wave 1 and Wave 2 freediving courses in Davao City, progressing through relaxation, breath-hold composure, equalization, and ocean safety.",
+    "Beginner-friendly freediving lessons in Davao City. Molchanovs Wave 1 and Wave 2 courses covering relaxation, breath-hold composure, and ocean safety.",
 });
 
 const lineTrainingImage = {
@@ -45,7 +47,23 @@ const covers = [
 export default function FreedivingPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Freediving", "/freediving")} />
+      <JsonLd data={pageSchema("Freediving", "/freediving")} />
+      <JsonLd
+        data={coursesSchema([
+          {
+            name: "Molchanovs Wave 1",
+            description:
+              "Molchanovs Wave 1 freediving course at SiLak Davao, combining theory, practical training, and safety.",
+            pricePhp: 13000,
+          },
+          {
+            name: "Molchanovs Wave 2",
+            description:
+              "Molchanovs Wave 2 freediving course at SiLak Davao, combining theory, practical training, and safety with more advanced skills.",
+            pricePhp: 18000,
+          },
+        ])}
+      />
       <PageHero
         heading="Molchanovs with Silak Freediving"
         intro="Each level combines theory + practical training + safety, with progressively more advanced skills."
@@ -99,8 +117,9 @@ export default function FreedivingPage() {
             <p className="eyebrow text-ocean-blue">Molchanovs Levels</p>
             <h2 className="h2-display mt-4">Wave 1 and Wave 2</h2>
             <p className="prose-copy mt-5 text-ink-soft">
-              SiLak Davao runs the certified Molchanovs Wave 1 and Wave 2 freediving
-              courses. Reach out directly for current availability and details.
+              SiLak Davao, based in Davao City, runs the certified Molchanovs Wave 1
+              and Wave 2 freediving courses. Reach out directly for current
+              availability and details.
             </p>
           </Reveal>
           <div className="mt-10 grid gap-8 border-t border-ink/15 pt-10 sm:grid-cols-2 sm:max-w-xl">
@@ -149,6 +168,8 @@ export default function FreedivingPage() {
           </div>
         </Container>
       </section>
+
+      <FaqSection items={FREEDIVING_FAQ} />
 
       <CtaBand heading="Ready to Start Your Freediving Progression?" />
     </>

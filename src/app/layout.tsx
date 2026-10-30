@@ -23,7 +23,7 @@ const geistSans = Geist({
 const fraunces = Fraunces({
   variable: "--font-serif",
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  style: "normal",
   axes: ["opsz"],
 });
 
@@ -55,6 +55,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper text-ink font-sans">
+        <noscript>
+          <style>{".reveal{opacity:1;transform:none}"}</style>
+        </noscript>
         <JsonLd data={siteSchema} />
         <LightboxProvider>
           <SiteHeader />
