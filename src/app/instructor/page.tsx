@@ -8,7 +8,8 @@ import { InstructorCredential } from "@/components/instructor-credential";
 import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema, instructorSchema } from "@/lib/schema";
+import { CourseLinks } from "@/components/course-links";
+import { pageSchema, instructorSchema } from "@/lib/schema";
 
 export const metadata: Metadata = pageMetadata({
   path: "/instructor",
@@ -19,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
 export default function InstructorPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Instructor", "/instructor")} />
+      <JsonLd data={pageSchema("Instructor", "/instructor")} />
       <JsonLd data={instructorSchema()} />
 
       <section className="bg-paper">
@@ -50,6 +51,8 @@ export default function InstructorPage() {
           </div>
         </Container>
       </section>
+
+      <CourseLinks />
 
       <CtaBand />
     </>

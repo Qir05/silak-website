@@ -7,13 +7,15 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { coursesSchema, pageSchema } from "@/lib/schema";
+import { SWIMMING_FAQ } from "@/lib/faq";
+import { FaqSection } from "@/components/faq-section";
 
 export const metadata: Metadata = pageMetadata({
   path: "/swimming",
-  title: "Swimming Lessons in Davao City | SiLak Davao",
+  title: "Swimming Lessons in Davao City for All Ages | SiLak Davao",
   description:
-    "Swimming lessons in Davao City for beginners of all ages, starting with breathing, floating, and comfort in the water, then technique and water safety.",
+    "Swimming lessons in Davao City for kids and adults, starting with breathing, floating, and comfort in the water, then technique and water safety.",
 });
 
 const swimmingSessionImage = {
@@ -37,7 +39,16 @@ const covers = [
 export default function SwimmingPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Swimming", "/swimming")} />
+      <JsonLd data={pageSchema("Swimming", "/swimming")} />
+      <JsonLd
+        data={coursesSchema([
+          {
+            name: "Swimming Courses",
+            description:
+              "Essential swimming skills for all ages at SiLak Davao, focusing on basic techniques and water safety.",
+          },
+        ])}
+      />
       <PageHero
         heading="Swimming Courses at SiLak Davao"
         intro="Essential skills for all ages, focusing on basic techniques and water safety."
@@ -90,6 +101,8 @@ export default function SwimmingPage() {
           </div>
         </Container>
       </section>
+
+      <FaqSection items={SWIMMING_FAQ} />
 
       <CtaBand heading="Ready to Get Comfortable in the Water?" />
     </>

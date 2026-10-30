@@ -7,13 +7,15 @@ import { sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { coursesSchema, pageSchema } from "@/lib/schema";
+import { JUNIOR_FAQ } from "@/lib/faq";
+import { FaqSection } from "@/components/faq-section";
 
 export const metadata: Metadata = pageMetadata({
   path: "/junior",
-  title: "Junior Aquatic Programs for Ages 4 to 15 | SiLak Davao",
+  title: "Junior Freediving Programs, Ages 4 to 15 | SiLak Davao",
   description:
-    "Junior aquatic programs in Davao City for ages 4 to 15, introducing children and teens to aquatic confidence and basic freediving in a safe, engaging environment.",
+    "Molchanovs Junior programs in Davao City for ages 4 to 15, introducing children and teens to aquatic confidence and basic freediving.",
 });
 
 const ageGroups = [
@@ -43,6 +45,12 @@ const ageGroups = [
   },
 ];
 
+const AGE_RANGES: [number, number][] = [
+  [4, 7],
+  [8, 11],
+  [12, 15],
+];
+
 const ageGroupImages = ageGroups.map((group) => ({
   src: group.image,
   alt: group.alt,
@@ -53,7 +61,16 @@ const ageGroupImages = ageGroups.map((group) => ({
 export default function JuniorPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Junior Programs", "/junior")} />
+      <JsonLd data={pageSchema("Junior Programs", "/junior")} />
+      <JsonLd
+        data={coursesSchema(
+          ageGroups.map((group, i) => ({
+            name: `Molchanovs Junior, ${group.range}`,
+            description: group.copy,
+            ages: AGE_RANGES[i],
+          })),
+        )}
+      />
       <PageHero
         heading="Junior Aquatic Programs"
         image="/images/junior/junior-molchanovs.webp"
@@ -106,6 +123,8 @@ export default function JuniorPage() {
           </Reveal>
         </Container>
       </section>
+
+      <FaqSection items={JUNIOR_FAQ} className="bg-paper-dim" />
 
       <CtaBand heading="Ready to Get Your Child Started?" />
     </>

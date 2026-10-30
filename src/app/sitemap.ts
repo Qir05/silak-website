@@ -1,23 +1,22 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// URLs only. lastmod is deliberately omitted: this site has no per-page
+// modification record, and a build-time timestamp would tell search engines
+// every page changed on every deploy, which is untrue and teaches them to
+// ignore the field.
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
-    "/reviews",
-    "/swimming",
     "/freediving",
+    "/swimming",
     "/junior",
-    "/about",
-    "/merchandise",
     "/instructor",
+    "/about",
+    "/reviews",
     "/book",
+    "/merchandise",
   ];
 
-  return routes.map((route) => ({
-    url: `${SITE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: route === "" ? 1 : 0.7,
-  }));
+  return routes.map((route) => ({ url: `${SITE_URL}${route}` }));
 }

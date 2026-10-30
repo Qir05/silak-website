@@ -6,7 +6,7 @@ import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 import { SOCIAL_LINKS, pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/schema";
+import { pageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = pageMetadata({
   path: "/merchandise",
@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata({
 export default function MerchandisePage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema("Merchandise", "/merchandise")} />
+      <JsonLd data={pageSchema("Merchandise", "/merchandise")} />
       <PageHero
         heading="SiLak Merchandise"
         intro="SiLak branded shirts and water-related gear, available directly through SiLak Davao. Reach out to see current designs and availability."

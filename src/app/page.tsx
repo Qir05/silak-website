@@ -205,8 +205,9 @@ export default function Home() {
           <Reveal className="max-w-2xl">
             <h2 className="h2-display">Your Journey in the Water</h2>
             <p className="prose-copy mt-5 text-ink-soft">
-              From foundational water safety to advanced freediving techniques, our
-              courses are structured for every skill level and age.
+              SiLak Davao is a swimming and freediving school in Davao City,
+              Philippines. From foundational water safety to advanced freediving
+              techniques, our courses are structured for every skill level and age.
             </p>
           </Reveal>
 
