@@ -1,13 +1,14 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { CtaLink } from "@/components/cta-link";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
-import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
+import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
 import { coursesSchema, pageSchema } from "@/lib/schema";
@@ -160,10 +161,15 @@ export default function FreedivingPage() {
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
-              <p className="eyebrow text-ocean-blue">Your Instructor</p>
+              <p className="eyebrow text-ocean-blue">Instructor</p>
               <h2 className="h2-display mt-4">{instructor.name}</h2>
               <InstructorCredential instructor={instructor} />
               <p className="prose-copy mt-6 text-ink-soft">{instructor.freedivingParagraph}</p>
+              <div className="mt-8">
+                <CtaLink href="/instructor" variant="secondary">
+                  Meet the Instructors
+                </CtaLink>
+              </div>
             </Reveal>
           </div>
         </Container>

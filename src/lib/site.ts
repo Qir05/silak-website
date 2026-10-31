@@ -83,7 +83,7 @@ export const NAV_LINKS = [
   { href: "/junior", label: "Junior" },
   { href: "/about", label: "About" },
   { href: "/merchandise", label: "Merchandise" },
-  { href: "/instructor", label: "Instructor" },
+  { href: "/instructor", label: "Instructors" },
 ] as const;
 
 export const SOCIAL_LINKS = {

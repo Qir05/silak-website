@@ -1,3 +1,4 @@
+import { ACTIVE_INSTRUCTORS, instructorNames } from "./instructors";
 import type { FaqItem } from "./schema";
 
 export type FaqEntry = FaqItem & { link?: { href: string; label: string } };
@@ -33,8 +34,8 @@ export const GENERAL_FAQ: FaqEntry[] = [
   {
     question: "Who teaches at SiLak Davao?",
     answer:
-      "Jimmie Carlo teaches swimming and freediving at SiLak Davao, with an approach that is progressive, patient, and free from unnecessary pressure.",
-    link: { href: "/instructor", label: "Meet Jimmie Carlo" },
+      `The instructors at SiLak Davao are ${instructorNames(ACTIVE_INSTRUCTORS)}. Jimmie teaches swimming and freediving with an approach that is progressive, patient, and free from unnecessary pressure.`,
+    link: { href: "/instructor", label: "Meet the instructors" },
   },
   {
     question: "How do I book a session?",

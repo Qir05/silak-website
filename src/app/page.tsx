@@ -10,8 +10,9 @@ import { MerchandiseCarousel } from "@/components/merchandise-carousel";
 import { MERCHANDISE_PRODUCTS } from "@/lib/merchandise";
 import { REVIEWS } from "@/lib/reviews";
 import { InstructorCredential } from "@/components/instructor-credential";
-import { ACTIVE_INSTRUCTOR as instructor, activeInstructorFirstName } from "@/lib/instructors";
-import { pageMetadata, SITE_TITLE, SITE_DESCRIPTION, SOCIAL_TITLE, SOCIAL_DESCRIPTION } from "@/lib/site";
+import { OtherInstructors } from "@/components/other-instructors";
+import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
+import { pageMetadata, SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS, SOCIAL_TITLE, SOCIAL_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   path: "/",
@@ -334,13 +335,14 @@ export default function Home() {
               />
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
-              <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
+              <p className="eyebrow text-ocean-blue">Our Instructors</p>
               <h2 className="h2-display mt-4">{instructor.name}</h2>
               <InstructorCredential instructor={instructor} />
               <p className="prose-copy mt-6 text-ink-soft">{instructor.previewParagraph}</p>
+              <OtherInstructors />
               <div className="mt-8">
                 <CtaLink href="/instructor" variant="secondary">
-                  Meet {activeInstructorFirstName}
+                  Meet the Instructors
                 </CtaLink>
               </div>
             </Reveal>
@@ -408,7 +410,7 @@ export default function Home() {
               </CtaLink>
             </div>
             <a
-              href="https://www.facebook.com/profile.php?id=61557089507037"
+              href={SOCIAL_LINKS.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block text-sm text-white/70 underline decoration-1 underline-offset-4 hover:text-white"

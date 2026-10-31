@@ -7,11 +7,12 @@ import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { instructorSchema, pageSchema } from "@/lib/schema";
+import { instructorsSchema, pageSchema } from "@/lib/schema";
 import { GENERAL_FAQ } from "@/lib/faq";
 import { FaqSection } from "@/components/faq-section";
 import { InstructorCredential } from "@/components/instructor-credential";
-import { ACTIVE_INSTRUCTOR as instructor } from "@/lib/instructors";
+import { OtherInstructors } from "@/components/other-instructors";
+import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
 
 export const metadata: Metadata = pageMetadata({
   path: "/about",
@@ -40,7 +41,7 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={pageSchema("About", "/about")} />
-      <JsonLd data={instructorSchema()} />
+      <JsonLd data={instructorsSchema()} />
 
       <PageHero
         heading="The Ocean Is for Everyone"
@@ -105,7 +106,7 @@ export default function AboutPage() {
             </Reveal>
             <div className="flex flex-col justify-center">
               <Reveal delayMs={sequenceStep(1)}>
-                <p className="eyebrow text-ocean-blue">Meet Your Instructor</p>
+                <p className="eyebrow text-ocean-blue">Our Instructors</p>
                 <h2 className="h2-display mt-4">{instructor.name}</h2>
                 <InstructorCredential instructor={instructor} />
               </Reveal>
@@ -115,6 +116,7 @@ export default function AboutPage() {
                     {paragraph}
                   </p>
                 ))}
+                <OtherInstructors />
               </Reveal>
             </div>
           </div>

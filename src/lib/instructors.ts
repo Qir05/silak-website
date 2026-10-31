@@ -1,20 +1,28 @@
 import type { LightboxImage } from "@/components/lightbox";
 
 export type InstructorProfile = {
+  /** Stable key for the structured data @id. Do not change once published. */
+  slug: string;
   name: string;
   /** Credential line under the name. Only shown when supplied. */
   title?: string;
   /** Show the Molchanovs mark beside the title line. */
   molchanovsMark?: boolean;
-  image: LightboxImage;
+  /** Approved portrait. Left out until supplied; no stand-in image is shown. */
+  image?: LightboxImage;
   /** Teaching philosophy, one entry per paragraph, exactly as approved. */
   bio: string[];
+  /** Subjects the approved bio says this instructor teaches. */
+  knowsAbout?: string[];
+};
+
+/** An instructor with the approved portrait and copy the feature sections need. */
+export type FeaturedInstructorProfile = InstructorProfile & {
+  image: LightboxImage;
   /** Paragraph used for the homepage preview. */
   previewParagraph: string;
   /** Paragraph used in the Freediving page's instructor section. */
   freedivingParagraph: string;
-  /** Short page description for /instructor metadata. */
-  metaDescription: string;
 };
 
 const JIMMIE_BIO = [
@@ -24,7 +32,8 @@ const JIMMIE_BIO = [
   "For me, teaching is more than developing skills. It is about helping people discover confidence, discipline, awareness, and respect for the water, while making every lesson safe, meaningful, and enjoyable.",
 ];
 
-export const JIMMIE_CARLO: InstructorProfile = {
+export const JIMMIE_CARLO: FeaturedInstructorProfile = {
+  slug: "jimmie-carlo",
   name: "Jimmie Carlo",
   image: {
     src: "/images/instructors/jimmie-carlo-portrait.webp",
@@ -33,19 +42,30 @@ export const JIMMIE_CARLO: InstructorProfile = {
     height: 1200,
   },
   bio: JIMMIE_BIO,
+  knowsAbout: ["Swimming", "Freediving"],
   previewParagraph: JIMMIE_BIO[0],
   freedivingParagraph: JIMMIE_BIO[1],
-  metaDescription:
-    "Meet Jimmie Carlo of SiLak Davao: a patient, progressive approach to teaching swimming and freediving, building comfort before technique.",
+};
+
+/**
+ * Name only until SiLak supplies a portrait, a bio and a verified credential.
+ * Add those here and every page and the structured data pick them up. Which
+ * subjects Ron teaches is not confirmed, so he is left off /freediving.
+ */
+export const RON_EDWARDS: InstructorProfile = {
+  slug: "ron-edwards",
+  name: "Ron Edwards",
+  bio: [],
 };
 
 /**
  * Not currently shown on the site. Kept intact so the profile can be
- * restored by pointing ACTIVE_INSTRUCTOR back at it. Its original per-page
- * layouts (the pull quote on /instructor, the two-paragraph quote on /about)
- * are in git history before commit "Replace Ron Edwards with Jimmie Carlo".
+ * restored by adding it to ACTIVE_INSTRUCTORS. Its original per-page layouts
+ * (the pull quote on /instructor, the two-paragraph quote on /about) are in
+ * git history before commit "Replace Ron Edwards with Jimmie Carlo".
  */
-export const EDWARD_M_BERDOS: InstructorProfile = {
+export const EDWARD_M_BERDOS: FeaturedInstructorProfile = {
+  slug: "edward-m-berdos",
   name: "Edward M. Berdos",
   title: "Molchanovs Instructor",
   molchanovsMark: true,
@@ -64,12 +84,21 @@ export const EDWARD_M_BERDOS: InstructorProfile = {
     "The heart of my approach to teaching freediving is the belief in calmness and presence. I focus on guiding students to embrace the beauty of relaxation, ensuring that they never feel rushed or forced.",
   freedivingParagraph:
     "Training is guided around calmness and presence, never rushed or forced. Students are taught to trust their bodies and build confidence one level at a time.",
-  metaDescription:
-    "Meet Edward M. Berdos, Molchanovs Instructor at SiLak Davao, and his approach to teaching freediving through calmness, presence, and relaxation in the water.",
 };
 
-/** The instructor shown on the homepage, /instructor, /about and /freediving. */
-export const ACTIVE_INSTRUCTOR = JIMMIE_CARLO;
+/** Everyone teaching at SiLak now, in display order. Drives /instructor and the schema. */
+export const ACTIVE_INSTRUCTORS: InstructorProfile[] = [JIMMIE_CARLO, RON_EDWARDS];
 
-/** First name, used for the homepage "Meet ..." link. */
-export const activeInstructorFirstName = ACTIVE_INSTRUCTOR.name.split(" ")[0];
+/** Shown with portrait and bio on the homepage, /about and /freediving. */
+export const FEATURED_INSTRUCTOR = JIMMIE_CARLO;
+
+/** The active instructors the feature sections name but do not profile. */
+export const OTHER_INSTRUCTORS = ACTIVE_INSTRUCTORS.filter(
+  (instructor) => instructor !== FEATURED_INSTRUCTOR,
+);
+
+/** "Jimmie Carlo and Ron Edwards", for sentences and page metadata. */
+export const instructorNames = (instructors: InstructorProfile[]) =>
+  new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(
+    instructors.map((instructor) => instructor.name),
+  );

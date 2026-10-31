@@ -1,19 +1,21 @@
 /**
  * JSON-LD structured data. Only facts that are visible on the site are used:
  * the business name, city and country (shown in the footer), the logo, the
- * public social profiles, the active instructor, the page hierarchy, course
+ * public social profiles, the active instructors, the page hierarchy, course
  * names and prices, and FAQ answers shown word for word on each page.
  *
  * Deliberately absent, because the site does not state them: street address,
  * phone, opening hours, ratings, review aggregates, and instructor
  * credentials. That is also why this is not LocalBusiness.
  */
-import { ACTIVE_INSTRUCTOR } from "./instructors";
+import { ACTIVE_INSTRUCTORS, type InstructorProfile } from "./instructors";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_IMAGE, SOCIAL_LINKS } from "./site";
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
-const INSTRUCTOR_ID = `${SITE_URL}/instructor#person`;
+
+const instructorId = (instructor: InstructorProfile) =>
+  `${SITE_URL}/instructor#${instructor.slug}`;
 
 export const siteSchema = {
   "@context": "https://schema.org",
@@ -39,7 +41,7 @@ export const siteSchema = {
         containedInPlace: { "@type": "Place", name: "Mindanao, Philippines" },
       },
       knowsAbout: ["Swimming", "Freediving", "Water safety"],
-      member: { "@id": INSTRUCTOR_ID },
+      member: ACTIVE_INSTRUCTORS.map((instructor) => ({ "@id": instructorId(instructor) })),
       sameAs: [SOCIAL_LINKS.facebook, SOCIAL_LINKS.instagram],
     },
     {
@@ -53,18 +55,20 @@ export const siteSchema = {
   ],
 };
 
-export function instructorSchema() {
-  const instructor = ACTIVE_INSTRUCTOR;
+/** One Person per active instructor, carrying only what the profile states. */
+export function instructorsSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": INSTRUCTOR_ID,
-    name: instructor.name,
-    ...(instructor.title ? { jobTitle: instructor.title } : {}),
-    image: `${SITE_URL}${instructor.image.src}`,
-    url: `${SITE_URL}/instructor`,
-    knowsAbout: ["Swimming", "Freediving"],
-    worksFor: { "@id": ORG_ID },
+    "@graph": ACTIVE_INSTRUCTORS.map((instructor) => ({
+      "@type": "Person",
+      "@id": instructorId(instructor),
+      name: instructor.name,
+      ...(instructor.title ? { jobTitle: instructor.title } : {}),
+      ...(instructor.image ? { image: `${SITE_URL}${instructor.image.src}` } : {}),
+      url: `${SITE_URL}/instructor`,
+      ...(instructor.knowsAbout ? { knowsAbout: instructor.knowsAbout } : {}),
+      worksFor: { "@id": ORG_ID },
+    })),
   };
 }
 
