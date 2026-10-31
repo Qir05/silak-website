@@ -120,9 +120,9 @@ export default function JuniorPage() {
         <Container className="py-14 md:py-20">
           <Reveal className="max-w-2xl border-t border-ink/15 pt-10">
             <p className="prose-copy text-ink-soft">
-              Every junior session stays reassuring and parent friendly, guided by the
-              same calm, safety first approach used across all of SiLak&rsquo;s
-              programs.
+              Every junior session stays reassuring and welcoming for parents, guided
+              by the same calm approach used across all of SiLak&rsquo;s programs,
+              with safety always first.
             </p>
             <p className="prose-copy mt-4 text-ink-soft">
               Parents can read more <TextLink href="/about">about SiLak Davao</TextLink>,

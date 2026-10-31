@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/freediving",
   title: "Freediving Lessons in Davao City | Molchanovs at SiLak",
   description:
-    "Beginner friendly freediving lessons in Davao City, with Molchanovs Wave 1 and Wave 2 courses covering relaxation, breath hold composure, and ocean safety.",
+    "Freediving lessons for beginners in Davao City, with Molchanovs Wave 1 and Wave 2 courses covering relaxation, composure while breath holding, and ocean safety.",
 });
 
 const lineTrainingImage = {
@@ -33,7 +33,7 @@ const lineTrainingImage = {
 
 const covers = [
   {
-    title: "Breath Hold Composure",
+    title: "Breath Holding and Composure",
     copy: "Relaxation and breath control form the foundation every level builds on.",
   },
   {
@@ -42,7 +42,7 @@ const covers = [
   },
   {
     title: "Ocean Safety",
-    copy: "Safety protocols and awareness that stay nonnegotiable at every level.",
+    copy: "Safety protocols and awareness that stay essential at every level.",
   },
 ];
 
@@ -95,15 +95,15 @@ export default function FreedivingPage() {
               <p className="prose-copy mt-6 text-ink-soft">
                 Freediving is exploring the underwater world on a single breath.
                 SiLak Davao, based in Davao City on the island of Mindanao, teaches
-                it as a progressive, beginner friendly journey, even for
-                nonswimmers, built on three foundations: relaxation, breathing,
+                it as a progressive journey that welcomes beginners, even people who
+                cannot swim yet, built on three foundations: relaxation, breathing,
                 and safety.
               </p>
               <p className="prose-copy mt-4 text-ink-soft">
                 Training follows the certified Molchanovs curriculum, moving students
                 through structured levels rather than rushing toward depth. Each level
-                builds Relaxation techniques, breath hold composure and equalization
-                before progressing further.
+                builds Relaxation techniques, composure while breath holding, and
+                equalization before progressing further.
               </p>
               <p className="prose-copy mt-4 text-ink-soft">
                 <TextLink href="/instructor">Meet your instructors</TextLink>, read{" "}

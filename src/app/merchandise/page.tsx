@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/merchandise",
   title: "SiLak Merchandise | Shirts and Freediving Gear",
   description:
-    "SiLak branded shirts and water gear available through SiLak Davao, including apparel, freediving masks, fins, and training accessories.",
+    "SiLak branded shirts and water sports gear available through SiLak Davao, including apparel, freediving masks, fins, and training accessories.",
 });
 
 export default function MerchandisePage() {
@@ -21,7 +21,7 @@ export default function MerchandisePage() {
       <JsonLd data={pageSchema("Merchandise", "/merchandise")} />
       <PageHero
         heading="SiLak Merchandise"
-        intro="SiLak branded shirts and water gear, available directly through SiLak Davao. Reach out to see current designs and availability."
+        intro="SiLak branded shirts and water sports gear, available directly through SiLak Davao. Reach out to see current designs and availability."
         image="/images/merchandise/silak-shirt-ocean-connection.webp"
         imageAlt="Black SiLak t-shirt with a turtle and freediver design on the front and an Ocean Connection mermaid design on the back"
         fit="contain"

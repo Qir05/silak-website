@@ -59,7 +59,7 @@ export const EDWARD_M_BERDOS: InstructorProfile = {
   bio: [
     "The heart of my approach to teaching freediving is the belief in calmness and presence. I focus on guiding students to embrace the beauty of relaxation, ensuring that they never feel rushed or forced. In freediving, as in life, the greatest growth happens when you embrace the moment, and I teach my students to surrender to the flow of the water, trust their bodies, and experience the transformative power of stillness.",
     "My goal is to help you dive deeper, not into the water, but into your own potential.",
-    "Together, we will create a safe, nurturing environment for growth and self discovery, all while having fun and building confidence.",
+    "Together, we will create a safe, nurturing environment for growth and personal discovery, all while having fun and building confidence.",
   ],
   knowsAbout: ["Freediving"],
   previewParagraph:

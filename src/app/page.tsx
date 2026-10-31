@@ -169,8 +169,8 @@ export default function Home() {
             </p>
             <p className="prose-copy text-white/85">
               Our approach is progressive, safe, and beginner friendly, guiding
-              you from your first experience in the water, even as a
-              nonswimmer, to becoming a confident and skilled freediver.
+              you from your first experience in the water, even if you cannot
+              swim yet, to becoming a confident and skilled freediver.
             </p>
             <p className="prose-copy text-white/85">
               We focus on three foundations: relaxation, breathing, and safety.
@@ -349,7 +349,7 @@ export default function Home() {
               <h3 className="h3-display">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Safety comes first, always. We build strong water skills and
-                make safety a nonnegotiable part of every dive.
+                make safety an essential part of every dive.
               </p>
             </Reveal>
             <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">

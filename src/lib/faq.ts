@@ -26,7 +26,7 @@ export const GENERAL_FAQ: FaqEntry[] = [
   {
     question: "What does SiLak teach?",
     answer:
-      "SiLak teaches swimming, freediving, and junior water skills. Swimming covers basic technique and practical water safety. Freediving covers breath hold composure, equalization, and ocean safety through the Molchanovs Wave 1 and Wave 2 courses. Junior programs introduce children and teens to aquatic confidence and basic freediving.",
+      "SiLak teaches swimming, freediving, and junior water skills. Swimming covers basic technique and practical water safety. Freediving covers composure while breath holding, equalization, and ocean safety through the Molchanovs Wave 1 and Wave 2 courses. Junior programs introduce children and teens to aquatic confidence and basic freediving.",
   },
   {
     question: "Can beginners join?",
@@ -34,9 +34,9 @@ export const GENERAL_FAQ: FaqEntry[] = [
       "Yes. Courses at SiLak are structured for every skill level and age, and the approach is progressive, safe, and beginner friendly.",
   },
   {
-    question: "Can nonswimmers learn?",
+    question: "Can someone who cannot swim yet learn?",
     answer:
-      "Yes. SiLak guides students from their first experience in the water, even as nonswimmers. Swimming courses start with breathing, floating, and feeling comfortable in the water before anything else.",
+      "Yes. SiLak guides students from their first experience in the water, even if they cannot swim yet. Swimming courses start with breathing, floating, and feeling comfortable in the water before anything else.",
     link: { href: "/swimming", label: "Start with swimming" },
   },
   {
@@ -70,7 +70,7 @@ export const GENERAL_FAQ: FaqEntry[] = [
   {
     question: "How does SiLak approach water safety?",
     answer:
-      "Safety comes first, always. SiLak builds strong water skills and treats water safety as nonnegotiable, whether the setting is survival swimming or open water freediving.",
+      "Safety comes first, always. SiLak builds strong water skills and treats water safety as always essential, whether the setting is survival swimming or open water freediving.",
   },
   {
     question: "How do I book a session?",
@@ -125,7 +125,7 @@ export const FREEDIVING_FAQ: FaqEntry[] = [
   {
     question: "Where can I learn freediving in Davao or Mindanao?",
     answer:
-      "SiLak Davao, based in Davao City on the island of Mindanao, teaches freediving through a progressive, beginner friendly approach and the Molchanovs Wave 1 and Wave 2 courses. Message SiLak directly for current session details.",
+      "SiLak Davao, based in Davao City on the island of Mindanao, teaches freediving through a progressive approach that welcomes beginners and the Molchanovs Wave 1 and Wave 2 courses. Message SiLak directly for current session details.",
     link: { href: "/about", label: "About SiLak Davao" },
   },
   {
@@ -137,18 +137,18 @@ export const FREEDIVING_FAQ: FaqEntry[] = [
   {
     question: "Can beginners learn freediving?",
     answer:
-      "Yes. Training follows the certified Molchanovs curriculum, moving students through structured levels rather than rushing toward depth. Each level builds relaxation techniques, breath hold composure, and equalization before progressing further.",
+      "Yes. Training follows the certified Molchanovs curriculum, moving students through structured levels rather than rushing toward depth. Each level builds relaxation techniques, composure while breath holding, and equalization before progressing further.",
   },
   {
-    question: "Can a nonswimmer start?",
+    question: "Can I start if I cannot swim yet?",
     answer:
-      "Yes. The approach is progressive, safe, and beginner friendly, guiding you from your first experience in the water, even as a nonswimmer, to becoming a confident and skilled freediver.",
+      "Yes. The approach is progressive, safe, and beginner friendly, guiding you from your first experience in the water, even if you cannot swim yet, to becoming a confident and skilled freediver.",
     link: { href: "/swimming", label: "Swimming courses" },
   },
   {
     question: "Is freediving safe for beginners?",
     answer:
-      "Safety is the first priority, though no water activity is free of risk. SiLak treats safety as nonnegotiable at every level and moves students through structured levels rather than rushing toward depth.",
+      "Safety is the first priority, though no water activity is free of risk. SiLak treats safety as essential at every level and moves students through structured levels rather than rushing toward depth.",
   },
   {
     question: "How does SiLak teach freediving?",
@@ -173,7 +173,7 @@ export const FREEDIVING_FAQ: FaqEntry[] = [
   {
     question: "What is Wave 1?",
     answer:
-      "Wave 1 is the first Molchanovs level taught at SiLak Davao. It combines theory, practical training, and safety while building relaxation, breath hold composure, and equalization.",
+      "Wave 1 is the first Molchanovs level taught at SiLak Davao. It combines theory, practical training, and safety while building relaxation, composure while breath holding, and equalization.",
   },
   {
     question: "What is Wave 2?",
@@ -218,7 +218,7 @@ export const JUNIOR_FAQ: FaqEntry[] = [
   {
     question: "What should parents know?",
     answer:
-      "Every junior session stays reassuring and parent friendly, guided by the same calm, safety first approach used across all of SiLak's programs.",
+      "Every junior session stays reassuring and welcoming for parents, guided by the same calm approach used across all of SiLak's programs, with safety always first.",
   },
   {
     question: "How can parents ask about junior programs?",

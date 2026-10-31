@@ -31,7 +31,7 @@ const values = [
   },
   {
     title: "Safety",
-    copy: "Water safety is treated as nonnegotiable, whether the setting is survival swimming or open water freediving.",
+    copy: "Water safety is always essential, whether the setting is survival swimming or open water freediving.",
   },
   {
     title: "Respect for the Ocean",
