@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 export const SITE_NAME = "SiLak Davao";
 
+/** Earlier spellings of the same business, so search and AI systems connect them. */
+export const ALTERNATE_NAMES = ["SiLak Adventures", "SiLak Adventure", "Silak Adventures"];
+
 export const SITE_DESCRIPTION =
   "SiLak Davao is a swimming and freediving school in Davao City, Philippines, offering survival swimming lessons and Molchanovs freediving courses for all levels.";
 
@@ -19,10 +22,10 @@ const rawSiteUrl =
 
 export const SITE_URL = rawSiteUrl;
 
-export const SITE_TITLE = "SiLak Davao | Swimming & Freediving School in Davao City";
+export const SITE_TITLE = "SiLak Davao | Swimming & Freediving School";
 
 /** Title and description used for link previews (Open Graph and Twitter). */
-export const SOCIAL_TITLE = "SiLak Davao | Swimming & Freediving School";
+export const SOCIAL_TITLE = SITE_TITLE;
 export const SOCIAL_DESCRIPTION =
   "Swimming and freediving lessons in Davao City, focused on confidence, safety, and progressive learning in the water.";
 

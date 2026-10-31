@@ -25,7 +25,7 @@ export function LightboxTrigger({
   images,
   index = 0,
   sizes,
-  priority = false,
+  preload = false,
   className = "",
   fit = "cover",
   matted = true,
@@ -34,7 +34,7 @@ export function LightboxTrigger({
   images: LightboxImage[];
   index?: number;
   sizes: string;
-  priority?: boolean;
+  preload?: boolean;
   className?: string;
   fit?: "cover" | "contain";
   /** With `fit="contain"`, pad the image inside an aqua mat. Turn off when
@@ -60,7 +60,7 @@ export function LightboxTrigger({
         alt={img.alt}
         fill
         sizes={sizes}
-        priority={priority}
+        preload={preload}
         unoptimized={img.unoptimized}
         // Unmatted frames fit the image edge to edge, so the hover zoom is
         // skipped there - it would clip the outer edge of the image.

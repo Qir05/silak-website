@@ -5,6 +5,7 @@ import { sequenceStep } from "@/lib/reveal-timing";
 import { SOCIAL_LINKS, pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
 import { CourseLinks } from "@/components/course-links";
+import { TextLink } from "@/components/text-link";
 import { pageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = pageMetadata({
@@ -20,10 +21,11 @@ export default function BookPage() {
       <JsonLd data={pageSchema("Book a Session", "/book")} />
       <section className="bg-paper">
         <Container className="py-16 md:py-24 lg:py-28">
-          <Reveal className="max-w-2xl">
+          <Reveal immediate className="max-w-2xl">
             <p className="eyebrow text-ocean-blue">Book a Session</p>
             <h1 className="h1-display mt-4">Start Your Water Journey</h1>
             <p className="prose-copy mt-5 text-ink-soft">
+              SiLak Davao teaches swimming and freediving in Davao City, Philippines.
               Online booking is on the way. In the meantime, connect with SiLak Davao
               directly for current schedules and availability:
             </p>
@@ -58,6 +60,14 @@ export default function BookPage() {
                 {SOCIAL_LINKS.instagramHandle}
               </span>
             </a>
+          </Reveal>
+
+          <Reveal delayMs={sequenceStep(2)} className="max-w-2xl">
+            <p className="prose-copy mt-10 text-ink-soft">
+              Still deciding? <TextLink href="/instructor">Meet the instructors</TextLink>{" "}
+              or read <TextLink href="/reviews">student stories</TextLink>, then choose a
+              course below.
+            </p>
           </Reveal>
         </Container>
       </section>

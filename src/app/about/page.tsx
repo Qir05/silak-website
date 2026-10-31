@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
+import { COURSE_LINKS, CourseLinks } from "@/components/course-links";
+import { CtaLink } from "@/components/cta-link";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { instructorsSchema, pageSchema } from "@/lib/schema";
+import { instructorsSchema, organizationRef, pageSchema } from "@/lib/schema";
 import { GENERAL_FAQ } from "@/lib/faq";
 import { FaqSection } from "@/components/faq-section";
 import { InstructorCredential } from "@/components/instructor-credential";
@@ -16,9 +18,9 @@ import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
 
 export const metadata: Metadata = pageMetadata({
   path: "/about",
-  title: "About SiLak Davao | Swimming & Freediving in Davao City",
+  title: "About SiLak Davao | Our Approach to Swimming and Freediving",
   description:
-    "About SiLak Davao, a swimming and freediving school in Davao City built around breath, safety, and respect for the ocean, with answers to common questions.",
+    "SiLak Davao is a swimming and freediving school in Davao City, Philippines, built around breath, safety, and respect for the ocean. Answers to common questions.",
 });
 
 
@@ -29,7 +31,7 @@ const values = [
   },
   {
     title: "Safety",
-    copy: "Water safety is treated as non-negotiable, whether the setting is survival swimming or open-water freediving.",
+    copy: "Water safety is treated as nonnegotiable, whether the setting is survival swimming or open water freediving.",
   },
   {
     title: "Respect for the Ocean",
@@ -40,11 +42,12 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={pageSchema("About", "/about")} />
+      <JsonLd data={pageSchema("About", "/about", { mainEntity: organizationRef })} />
       <JsonLd data={instructorsSchema()} />
 
       <PageHero
         heading="The Ocean Is for Everyone"
+        intro="SiLak Davao is a swimming and freediving school in Davao City, Philippines."
         image="/images/freediving/open-water-freediver.jpeg"
         imageAlt="Freediver arching backward above a coral reef in sunlit open water"
         imagePosition="45% 40%"
@@ -60,7 +63,7 @@ export default function AboutPage() {
             <p className="prose-copy mx-auto mt-8 text-white/85">
               At SiLak, we believe freediving is more than learning to hold your breath
               or reaching greater depths. It is a journey of discovering the
-              ocean&mdash;and discovering yourself.
+              ocean, and discovering yourself.
             </p>
 
             <p className="font-display mx-auto mt-8 max-w-2xl text-2xl leading-snug text-soft-aqua md:text-3xl">
@@ -74,7 +77,7 @@ export default function AboutPage() {
             </p>
 
             <p className="prose-copy mx-auto mt-8 text-white/85">
-              Because the ocean has something to teach all of us&mdash;and everyone
+              Because the ocean has something to teach all of us, and everyone
               deserves the chance to learn.
             </p>
           </Reveal>
@@ -117,13 +120,20 @@ export default function AboutPage() {
                   </p>
                 ))}
                 <OtherInstructors />
+                <div className="mt-8">
+                  <CtaLink href="/instructor" variant="secondary">
+                    Meet the Instructors
+                  </CtaLink>
+                </div>
               </Reveal>
             </div>
           </div>
         </Container>
       </section>
 
-      <FaqSection items={GENERAL_FAQ} />
+      <FaqSection path="/about" items={GENERAL_FAQ} />
+
+      <CourseLinks links={[...COURSE_LINKS, { href: "/reviews", label: "Student stories" }]} />
 
       <CtaBand />
     </>

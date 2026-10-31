@@ -8,15 +8,18 @@ import { faqSchema } from "@/lib/schema";
 
 /** Visible questions and answers for a page, with matching FAQPage schema. */
 export function FaqSection({
+  path,
   items,
   className = "bg-paper",
 }: {
+  /** The page this section sits on, tying the FAQPage schema to that page. */
+  path: string;
   items: FaqEntry[];
   className?: string;
 }) {
   return (
     <section className={className}>
-      <JsonLd data={faqSchema(items)} />
+      <JsonLd data={faqSchema(path, items)} />
       <Container className="py-16 md:py-24 lg:py-28">
         <Reveal className="max-w-2xl">
           <p className="eyebrow text-ocean-blue">Questions</p>

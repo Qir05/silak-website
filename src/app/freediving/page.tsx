@@ -8,10 +8,11 @@ import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { InstructorCredential } from "@/components/instructor-credential";
-import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
+import { TextLink } from "@/components/text-link";
+import { ACTIVE_INSTRUCTORS } from "@/lib/instructors";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { coursesSchema, pageSchema } from "@/lib/schema";
+import { courseRef, coursesSchema, pageSchema, type CourseInput } from "@/lib/schema";
 import { FREEDIVING_FAQ } from "@/lib/faq";
 import { FaqSection } from "@/components/faq-section";
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/freediving",
   title: "Freediving Lessons in Davao City | Molchanovs at SiLak",
   description:
-    "Beginner-friendly freediving lessons in Davao City. Molchanovs Wave 1 and Wave 2 courses covering relaxation, breath-hold composure, and ocean safety.",
+    "Beginner friendly freediving lessons in Davao City, with Molchanovs Wave 1 and Wave 2 courses covering relaxation, breath hold composure, and ocean safety.",
 });
 
 const lineTrainingImage = {
@@ -32,7 +33,7 @@ const lineTrainingImage = {
 
 const covers = [
   {
-    title: "Breath-Hold Composure",
+    title: "Breath Hold Composure",
     copy: "Relaxation and breath control form the foundation every level builds on.",
   },
   {
@@ -41,30 +42,36 @@ const covers = [
   },
   {
     title: "Ocean Safety",
-    copy: "Safety protocols and awareness that stay non-negotiable at every level.",
+    copy: "Safety protocols and awareness that stay nonnegotiable at every level.",
+  },
+];
+
+const COURSES: CourseInput[] = [
+  {
+    slug: "molchanovs-wave-1",
+    name: "Molchanovs Wave 1",
+    description:
+      "Molchanovs Wave 1 freediving course at SiLak Davao, combining theory, practical training, and safety.",
+    pricePhp: 13000,
+  },
+  {
+    slug: "molchanovs-wave-2",
+    name: "Molchanovs Wave 2",
+    description:
+      "Molchanovs Wave 2 freediving course at SiLak Davao, combining theory, practical training, and safety with more advanced skills.",
+    pricePhp: 18000,
   },
 ];
 
 export default function FreedivingPage() {
   return (
     <>
-      <JsonLd data={pageSchema("Freediving", "/freediving")} />
       <JsonLd
-        data={coursesSchema([
-          {
-            name: "Molchanovs Wave 1",
-            description:
-              "Molchanovs Wave 1 freediving course at SiLak Davao, combining theory, practical training, and safety.",
-            pricePhp: 13000,
-          },
-          {
-            name: "Molchanovs Wave 2",
-            description:
-              "Molchanovs Wave 2 freediving course at SiLak Davao, combining theory, practical training, and safety with more advanced skills.",
-            pricePhp: 18000,
-          },
-        ])}
+        data={pageSchema("Freediving", "/freediving", {
+          mainEntity: COURSES.map((course) => courseRef("/freediving", course)),
+        })}
       />
+      <JsonLd data={coursesSchema("/freediving", COURSES)} />
       <PageHero
         heading="Molchanovs with Silak Freediving"
         intro="Each level combines theory + practical training + safety, with progressively more advanced skills."
@@ -86,10 +93,22 @@ export default function FreedivingPage() {
             <Reveal delayMs={sequenceStep(1)} className="md:order-1">
               <h2 className="h2-display">Calm, Structured Progression</h2>
               <p className="prose-copy mt-6 text-ink-soft">
+                Freediving is exploring the underwater world on a single breath.
+                SiLak Davao, based in Davao City on the island of Mindanao, teaches
+                it as a progressive, beginner friendly journey, even for
+                nonswimmers, built on three foundations: relaxation, breathing,
+                and safety.
+              </p>
+              <p className="prose-copy mt-4 text-ink-soft">
                 Training follows the certified Molchanovs curriculum, moving students
                 through structured levels rather than rushing toward depth. Each level
-                builds Relaxation techniques, breath-hold composure and equalization
+                builds Relaxation techniques, breath hold composure and equalization
                 before progressing further.
+              </p>
+              <p className="prose-copy mt-4 text-ink-soft">
+                <TextLink href="/instructor">Meet your instructors</TextLink>, read{" "}
+                <TextLink href="/reviews">student stories</TextLink>, or learn more{" "}
+                <TextLink href="/about">about SiLak Davao</TextLink>.
               </p>
             </Reveal>
           </div>
@@ -152,30 +171,33 @@ export default function FreedivingPage() {
 
       <section className="bg-paper-dim">
         <Container className="py-14 md:py-24 lg:py-28">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,320px)_1fr] md:gap-14">
-            <Reveal scale>
-              <LightboxTrigger
-                images={[instructor.image]}
-                sizes="(min-width: 768px) 320px, 100vw"
-                className="aspect-[4/5] max-w-xs"
-              />
-            </Reveal>
-            <Reveal delayMs={sequenceStep(1)} className="flex flex-col justify-center">
-              <p className="eyebrow text-ocean-blue">Instructor</p>
-              <h2 className="h2-display mt-4">{instructor.name}</h2>
-              <InstructorCredential instructor={instructor} />
-              <p className="prose-copy mt-6 text-ink-soft">{instructor.freedivingParagraph}</p>
-              <div className="mt-8">
-                <CtaLink href="/instructor" variant="secondary">
-                  Meet the Instructors
-                </CtaLink>
-              </div>
-            </Reveal>
+          <Reveal className="max-w-2xl">
+            <p className="eyebrow text-ocean-blue">Your Instructors</p>
+            <h2 className="h2-display mt-4">Who You Will Learn With</h2>
+          </Reveal>
+          <div className="mt-10 grid gap-12 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-14">
+            {ACTIVE_INSTRUCTORS.map((instructor, i) => (
+              <Reveal key={instructor.slug} stagger delayMs={groupStagger(i)}>
+                <LightboxTrigger
+                  images={[instructor.image]}
+                  sizes="(min-width: 768px) 320px, 100vw"
+                  className="aspect-[4/5] max-w-xs"
+                />
+                <h3 className="h3-display mt-6">{instructor.name}</h3>
+                <InstructorCredential instructor={instructor} />
+                <p className="prose-copy mt-4 text-ink-soft">{instructor.freedivingParagraph}</p>
+              </Reveal>
+            ))}
           </div>
+          <Reveal className="mt-10">
+            <CtaLink href="/instructor" variant="secondary">
+              Meet the Instructors
+            </CtaLink>
+          </Reveal>
         </Container>
       </section>
 
-      <FaqSection items={FREEDIVING_FAQ} />
+      <FaqSection path="/freediving" items={FREEDIVING_FAQ} />
 
       <CtaBand heading="Ready to Start Your Freediving Progression?" />
     </>

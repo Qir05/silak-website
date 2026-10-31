@@ -1,24 +1,20 @@
 import type { LightboxImage } from "@/components/lightbox";
 
 export type InstructorProfile = {
-  /** Stable key for the structured data @id. Do not change once published. */
+  /** Stable key for the page anchor and structured data @id. Never change it. */
   slug: string;
   name: string;
+  /** Another name the same person is known by. Never a separate instructor. */
+  alternateName?: string;
   /** Credential line under the name. Only shown when supplied. */
   title?: string;
   /** Show the Molchanovs mark beside the title line. */
   molchanovsMark?: boolean;
-  /** Approved portrait. Left out until supplied; no stand-in image is shown. */
-  image?: LightboxImage;
+  image: LightboxImage;
   /** Teaching philosophy, one entry per paragraph, exactly as approved. */
   bio: string[];
   /** Subjects the approved bio says this instructor teaches. */
-  knowsAbout?: string[];
-};
-
-/** An instructor with the approved portrait and copy the feature sections need. */
-export type FeaturedInstructorProfile = InstructorProfile & {
-  image: LightboxImage;
+  knowsAbout: string[];
   /** Paragraph used for the homepage preview. */
   previewParagraph: string;
   /** Paragraph used in the Freediving page's instructor section. */
@@ -32,7 +28,7 @@ const JIMMIE_BIO = [
   "For me, teaching is more than developing skills. It is about helping people discover confidence, discipline, awareness, and respect for the water, while making every lesson safe, meaningful, and enjoyable.",
 ];
 
-export const JIMMIE_CARLO: FeaturedInstructorProfile = {
+export const JIMMIE_CARLO: InstructorProfile = {
   slug: "jimmie-carlo",
   name: "Jimmie Carlo",
   image: {
@@ -47,26 +43,11 @@ export const JIMMIE_CARLO: FeaturedInstructorProfile = {
   freedivingParagraph: JIMMIE_BIO[1],
 };
 
-/**
- * Name only until SiLak supplies a portrait, a bio and a verified credential.
- * Add those here and every page and the structured data pick them up. Which
- * subjects Ron teaches is not confirmed, so he is left off /freediving.
- */
-export const RON_EDWARDS: InstructorProfile = {
-  slug: "ron-edwards",
-  name: "Ron Edwards",
-  bio: [],
-};
-
-/**
- * Not currently shown on the site. Kept intact so the profile can be
- * restored by adding it to ACTIVE_INSTRUCTORS. Its original per-page layouts
- * (the pull quote on /instructor, the two-paragraph quote on /about) are in
- * git history before commit "Replace Ron Edwards with Jimmie Carlo".
- */
-export const EDWARD_M_BERDOS: FeaturedInstructorProfile = {
+/** Ron Edwards is the same person: one profile, one schema entity. */
+export const EDWARD_M_BERDOS: InstructorProfile = {
   slug: "edward-m-berdos",
   name: "Edward M. Berdos",
+  alternateName: "Ron Edwards",
   title: "Molchanovs Instructor",
   molchanovsMark: true,
   image: {
@@ -78,18 +59,19 @@ export const EDWARD_M_BERDOS: FeaturedInstructorProfile = {
   bio: [
     "The heart of my approach to teaching freediving is the belief in calmness and presence. I focus on guiding students to embrace the beauty of relaxation, ensuring that they never feel rushed or forced. In freediving, as in life, the greatest growth happens when you embrace the moment, and I teach my students to surrender to the flow of the water, trust their bodies, and experience the transformative power of stillness.",
     "My goal is to help you dive deeper, not into the water, but into your own potential.",
-    "Together, we will create a safe, nurturing environment for growth and self-discovery, all while having fun and building confidence.",
+    "Together, we will create a safe, nurturing environment for growth and self discovery, all while having fun and building confidence.",
   ],
+  knowsAbout: ["Freediving"],
   previewParagraph:
     "The heart of my approach to teaching freediving is the belief in calmness and presence. I focus on guiding students to embrace the beauty of relaxation, ensuring that they never feel rushed or forced.",
   freedivingParagraph:
     "Training is guided around calmness and presence, never rushed or forced. Students are taught to trust their bodies and build confidence one level at a time.",
 };
 
-/** Everyone teaching at SiLak now, in display order. Drives /instructor and the schema. */
-export const ACTIVE_INSTRUCTORS: InstructorProfile[] = [JIMMIE_CARLO, RON_EDWARDS];
+/** Everyone teaching at SiLak now, in display order. Drives /instructor, /freediving and the schema. */
+export const ACTIVE_INSTRUCTORS: InstructorProfile[] = [JIMMIE_CARLO, EDWARD_M_BERDOS];
 
-/** Shown with portrait and bio on the homepage, /about and /freediving. */
+/** Shown with portrait and bio on the homepage and /about. */
 export const FEATURED_INSTRUCTOR = JIMMIE_CARLO;
 
 /** The active instructors the feature sections name but do not profile. */
@@ -97,7 +79,7 @@ export const OTHER_INSTRUCTORS = ACTIVE_INSTRUCTORS.filter(
   (instructor) => instructor !== FEATURED_INSTRUCTOR,
 );
 
-/** "Jimmie Carlo and Ron Edwards", for sentences and page metadata. */
+/** "Jimmie Carlo and Edward M. Berdos", for sentences and page metadata. */
 export const instructorNames = (instructors: InstructorProfile[]) =>
   new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(
     instructors.map((instructor) => instructor.name),

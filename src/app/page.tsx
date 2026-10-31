@@ -1,4 +1,4 @@
-import { getImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
@@ -12,7 +12,9 @@ import { REVIEWS } from "@/lib/reviews";
 import { InstructorCredential } from "@/components/instructor-credential";
 import { OtherInstructors } from "@/components/other-instructors";
 import { FEATURED_INSTRUCTOR as instructor } from "@/lib/instructors";
-import { pageMetadata, SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS, SOCIAL_TITLE, SOCIAL_DESCRIPTION } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { organizationRef, pageSchema } from "@/lib/schema";
+import { pageMetadata, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SOCIAL_LINKS, SOCIAL_TITLE, SOCIAL_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   path: "/",
@@ -69,7 +71,7 @@ const programs: Program[] = [
     href: "/junior",
     linkLabel: "See junior programs",
     image: "/images/junior/junior-molchanovs.webp",
-    alt: "Three junior swimmers practicing underwater during a Molchanovs Junior freediving session",
+    alt: "Three junior swimmers practicing underwater in a Molchanovs Junior graphic",
     width: 1536,
     height: 1024,
   },
@@ -82,26 +84,7 @@ const programImages = programs.map((program) => ({
   height: program.height,
 }));
 
-// Hero art direction: one <source> for tablet and desktop (>= 768px) and
-// the <img> fallback for phones, so the browser downloads only the match.
-// Both currently point at the original reef photo.
-const heroAlt = "Freediver gliding over a coral reef near Davao";
-const {
-  props: { srcSet: heroWideSrcSet },
-} = getImageProps({
-  src: "/images/hero/reef-freediver.jpg",
-  alt: heroAlt,
-  width: 4096,
-  height: 2730,
-  sizes: "100vw",
-});
-const { props: heroMobileProps } = getImageProps({
-  src: "/images/hero/reef-freediver.jpg",
-  alt: heroAlt,
-  width: 4096,
-  height: 2730,
-  sizes: "100vw",
-});
+const heroAlt = "Freediver gliding over a coral reef";
 
 // Homepage preview: the first four real review screenshots (Red Valencia
 // first); the full set is on /reviews.
@@ -112,21 +95,22 @@ const reviewColumnSize = Math.ceil(reviewPreview.length / 2);
 export default function Home() {
   return (
     <>
+      <JsonLd data={pageSchema(SITE_NAME, "/", { mainEntity: organizationRef })} />
       {/* Below lg the photo is a full-width band at the top (shown whole on
           phones, framed around the diver on tablets) that fades into navy,
           with the copy set on the fade beneath it. From lg up it returns to
           the full-bleed hero with the copy over the reef. */}
       <section className="relative -mt-20 flex items-end overflow-hidden bg-deep-navy text-white lg:-mt-24 lg:min-h-[92vh]">
-        <picture className="absolute inset-x-0 top-0 block aspect-[4/5] md:aspect-[16/10] lg:inset-0 lg:aspect-auto">
-          <source media="(min-width: 768px)" srcSet={heroWideSrcSet} />
-          <img
-            {...heroMobileProps}
+        <div className="absolute inset-x-0 top-0 aspect-[4/5] md:aspect-[16/10] lg:inset-0 lg:aspect-auto">
+          <Image
+            src="/images/hero/reef-freediver.jpg"
             alt={heroAlt}
-            loading="eager"
-            fetchPriority="high"
-            className="h-full w-full object-cover md:object-[33%_50%] lg:object-[50%_35%]"
+            fill
+            preload
+            sizes="100vw"
+            className="object-cover md:object-[33%_50%] lg:object-[50%_35%]"
           />
-        </picture>
+        </div>
         <div
           className="absolute inset-x-0 top-0 aspect-[4/5] bg-linear-to-b from-deep-navy/45 via-transparent via-30% to-deep-navy md:aspect-[16/10] lg:hidden"
           aria-hidden="true"
@@ -142,19 +126,21 @@ export default function Home() {
           aria-hidden="true"
         />
         <Container className="relative z-10 pb-14 pt-[calc(125vw-7rem)] md:pb-20 md:pt-[calc(62.5vw-6rem)] lg:pb-24 lg:pt-40">
-          <Reveal durationMs={800} distancePx={14}>
+          <Reveal immediate durationMs={800} distancePx={14}>
             <h1 className="h-hero max-w-3xl text-white">
               <span className="block md:inline">Breathe Into Freedom.</span>{" "}
               <span className="block md:inline">Discover Yourself.</span>
             </h1>
           </Reveal>
-          <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
+          <Reveal immediate durationMs={800} distancePx={14} delayMs={sequenceStep(1)}>
             <p className="prose-copy mt-5 text-base text-white/85 md:mt-6 md:text-lg">
-              From swimming and freediving to unforgettable adventures. We help
-              you build confidence and discover what you&rsquo;re capable of.
+              SiLak Davao is a swimming and freediving school in Davao City,
+              Philippines. From swimming and freediving to unforgettable
+              adventures, we help you build confidence and discover what
+              you&rsquo;re capable of.
             </p>
           </Reveal>
-          <Reveal durationMs={800} distancePx={14} delayMs={sequenceStep(2)}>
+          <Reveal immediate durationMs={800} distancePx={14} delayMs={sequenceStep(2)}>
             <div className="mt-8 flex flex-col gap-3 min-[400px]:flex-row min-[400px]:flex-wrap min-[400px]:items-center min-[400px]:gap-4 md:mt-10">
               <CtaLink href="/#programs" variant="inverse">
                 Explore Courses
@@ -184,7 +170,7 @@ export default function Home() {
             <p className="prose-copy text-white/85">
               Our approach is progressive, safe, and beginner friendly, guiding
               you from your first experience in the water, even as a
-              non-swimmer, to becoming a confident and skilled freediver.
+              nonswimmer, to becoming a confident and skilled freediver.
             </p>
             <p className="prose-copy text-white/85">
               We focus on three foundations: relaxation, breathing, and safety.
@@ -206,9 +192,8 @@ export default function Home() {
           <Reveal className="max-w-2xl">
             <h2 className="h2-display">Your Journey in the Water</h2>
             <p className="prose-copy mt-5 text-ink-soft">
-              SiLak Davao is a swimming and freediving school in Davao City,
-              Philippines. From foundational water safety to advanced freediving
-              techniques, our courses are structured for every skill level and age.
+              From foundational water safety to advanced freediving techniques,
+              our courses are structured for every skill level and age.
             </p>
           </Reveal>
 
@@ -249,7 +234,7 @@ export default function Home() {
             <p className="prose-copy mx-auto mt-8 text-white/85">
               At SiLak, we believe freediving is more than learning to hold your breath
               or reaching greater depths. It is a journey of discovering the
-              ocean&mdash;and discovering yourself.
+              ocean, and discovering yourself.
             </p>
 
             <p className="font-display mx-auto mt-8 max-w-2xl text-2xl leading-snug text-soft-aqua md:text-3xl">
@@ -263,7 +248,7 @@ export default function Home() {
             </p>
 
             <p className="prose-copy mx-auto mt-8 text-white/85">
-              Because the ocean has something to teach all of us&mdash;and everyone
+              Because the ocean has something to teach all of us, and everyone
               deserves the chance to learn.
             </p>
           </Reveal>
@@ -364,7 +349,7 @@ export default function Home() {
               <h3 className="h3-display">Safety</h3>
               <p className="prose-copy mt-3 text-ink-soft">
                 Safety comes first, always. We build strong water skills and
-                make safety a non-negotiable part of every dive.
+                make safety a nonnegotiable part of every dive.
               </p>
             </Reveal>
             <Reveal stagger delayMs={groupStagger(2)} className="border-t border-ink/15 pt-6">
@@ -384,7 +369,7 @@ export default function Home() {
             <h2 className="h2-display mt-5">Carry SiLak Beyond the Water</h2>
             <p className="prose-copy mt-5 text-ink-soft">
               Shirts, masks, and training gear carrying the same SiLak designs you see
-              on deck &mdash; available directly through SiLak.
+              on deck, available directly through SiLak.
             </p>
           </Reveal>
 

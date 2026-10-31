@@ -5,27 +5,41 @@
  * names and prices, and FAQ answers shown word for word on each page.
  *
  * Deliberately absent, because the site does not state them: street address,
- * phone, opening hours, ratings, review aggregates, and instructor
- * credentials. That is also why this is not LocalBusiness.
+ * phone, opening hours, coordinates, ratings, review aggregates, and course
+ * schedules. That is also why this is not LocalBusiness. Courses name SiLak as
+ * provider and no instructor, because who teaches which course is unconfirmed.
  */
 import { ACTIVE_INSTRUCTORS, type InstructorProfile } from "./instructors";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_IMAGE, SOCIAL_LINKS } from "./site";
+import {
+  ALTERNATE_NAMES,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_IMAGE,
+  SOCIAL_LINKS,
+} from "./site";
 
-const ORG_ID = `${SITE_URL}/#organization`;
+type EntityRef = { "@id": string };
+
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
-const instructorId = (instructor: InstructorProfile) =>
-  `${SITE_URL}/instructor#${instructor.slug}`;
+export const organizationRef: EntityRef = { "@id": `${SITE_URL}/#organization` };
+
+/** Stable ids that also resolve to each instructor's section on /instructor. */
+const instructorRef = (instructor: InstructorProfile): EntityRef => ({
+  "@id": `${SITE_URL}/instructor#${instructor.slug}`,
+});
+
+export const instructorRefs = ACTIVE_INSTRUCTORS.map(instructorRef);
 
 export const siteSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "EducationalOrganization",
-      "@id": ORG_ID,
+      ...organizationRef,
       name: SITE_NAME,
-      // The domain and Instagram handle use these spellings of the same business.
-      alternateName: ["SiLak Adventure", "SiLak Adventures"],
+      alternateName: ALTERNATE_NAMES,
       description: SITE_DESCRIPTION,
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/logos/silak-logo.png` },
@@ -38,19 +52,24 @@ export const siteSchema = {
       areaServed: {
         "@type": "City",
         name: "Davao City",
-        containedInPlace: { "@type": "Place", name: "Mindanao, Philippines" },
+        containedInPlace: {
+          "@type": "Place",
+          name: "Mindanao",
+          containedInPlace: { "@type": "Country", name: "Philippines" },
+        },
       },
       knowsAbout: ["Swimming", "Freediving", "Water safety"],
-      member: ACTIVE_INSTRUCTORS.map((instructor) => ({ "@id": instructorId(instructor) })),
+      member: instructorRefs,
       sameAs: [SOCIAL_LINKS.facebook, SOCIAL_LINKS.instagram],
     },
     {
       "@type": "WebSite",
       "@id": WEBSITE_ID,
       name: SITE_NAME,
+      alternateName: ALTERNATE_NAMES,
       url: SITE_URL,
       inLanguage: "en",
-      publisher: { "@id": ORG_ID },
+      publisher: organizationRef,
     },
   ],
 };
@@ -61,20 +80,36 @@ export function instructorsSchema() {
     "@context": "https://schema.org",
     "@graph": ACTIVE_INSTRUCTORS.map((instructor) => ({
       "@type": "Person",
-      "@id": instructorId(instructor),
+      ...instructorRef(instructor),
       name: instructor.name,
-      ...(instructor.title ? { jobTitle: instructor.title } : {}),
-      ...(instructor.image ? { image: `${SITE_URL}${instructor.image.src}` } : {}),
+      ...(instructor.alternateName ? { alternateName: instructor.alternateName } : {}),
+      ...(instructor.title
+        ? {
+            jobTitle: instructor.title,
+            hasCredential: {
+              "@type": "EducationalOccupationalCredential",
+              name: instructor.title,
+            },
+          }
+        : {}),
+      image: `${SITE_URL}${instructor.image.src}`,
       url: `${SITE_URL}/instructor`,
-      ...(instructor.knowsAbout ? { knowsAbout: instructor.knowsAbout } : {}),
-      worksFor: { "@id": ORG_ID },
+      knowsAbout: instructor.knowsAbout,
+      worksFor: organizationRef,
     })),
   };
 }
 
+const pageUrl = (path: string) => (path === "/" ? SITE_URL : `${SITE_URL}${path}`);
+
 /** The page itself, tied to the site and organization, with its breadcrumb. */
-export function pageSchema(name: string, path: string) {
-  const url = `${SITE_URL}${path}`;
+export function pageSchema(
+  name: string,
+  path: string,
+  { mainEntity }: { mainEntity?: EntityRef | EntityRef[] } = {},
+) {
+  const url = pageUrl(path);
+  const isHome = path === "/";
   const breadcrumbId = `${url}#breadcrumb`;
   return {
     "@context": "https://schema.org",
@@ -86,22 +121,29 @@ export function pageSchema(name: string, path: string) {
         name,
         inLanguage: "en",
         isPartOf: { "@id": WEBSITE_ID },
-        about: { "@id": ORG_ID },
-        breadcrumb: { "@id": breadcrumbId },
+        about: organizationRef,
+        ...(mainEntity ? { mainEntity } : {}),
+        ...(isHome ? {} : { breadcrumb: { "@id": breadcrumbId } }),
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": breadcrumbId,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-          { "@type": "ListItem", position: 2, name, item: url },
-        ],
-      },
+      ...(isHome
+        ? []
+        : [
+            {
+              "@type": "BreadcrumbList",
+              "@id": breadcrumbId,
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+                { "@type": "ListItem", position: 2, name, item: url },
+              ],
+            },
+          ]),
     ],
   };
 }
 
-type CourseInput = {
+export type CourseInput = {
+  /** Stable key for the course @id. Never change it. */
+  slug: string;
   name: string;
   description: string;
   /** Price in Philippine pesos, only when it is published on the site. */
@@ -109,14 +151,20 @@ type CourseInput = {
   ages?: [number, number];
 };
 
-export function coursesSchema(courses: CourseInput[]) {
+export const courseRef = (path: string, course: CourseInput): EntityRef => ({
+  "@id": `${pageUrl(path)}#${course.slug}`,
+});
+
+export function coursesSchema(path: string, courses: CourseInput[]) {
   return {
     "@context": "https://schema.org",
     "@graph": courses.map((course) => ({
       "@type": "Course",
+      ...courseRef(path, course),
       name: course.name,
       description: course.description,
-      provider: { "@id": ORG_ID },
+      url: pageUrl(path),
+      provider: organizationRef,
       inLanguage: "en",
       ...(course.pricePhp
         ? {
@@ -143,10 +191,14 @@ export function coursesSchema(courses: CourseInput[]) {
 
 export type FaqItem = { question: string; answer: string };
 
-export function faqSchema(items: FaqItem[]) {
+export function faqSchema(path: string, items: FaqItem[]) {
+  const url = pageUrl(path);
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    isPartOf: { "@id": `${url}#webpage` },
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,

@@ -5,15 +5,16 @@ import { CtaBand } from "@/components/cta-band";
 import { Reveal } from "@/components/reveal";
 import { groupStagger, sequenceStep } from "@/lib/reveal-timing";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
+import { TextLink } from "@/components/text-link";
 import { pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
-import { coursesSchema, pageSchema } from "@/lib/schema";
+import { courseRef, coursesSchema, pageSchema, type CourseInput } from "@/lib/schema";
 import { SWIMMING_FAQ } from "@/lib/faq";
 import { FaqSection } from "@/components/faq-section";
 
 export const metadata: Metadata = pageMetadata({
   path: "/swimming",
-  title: "Swimming Lessons in Davao City for All Ages | SiLak Davao",
+  title: "Swimming Lessons in Davao City for All Ages | SiLak",
   description:
     "Swimming lessons in Davao City for kids and adults, starting with breathing, floating, and comfort in the water, then technique and water safety.",
 });
@@ -27,28 +28,41 @@ const swimmingSessionImage = {
 
 const covers = [
   {
+    title: "Water Confidence",
+    copy: "Breathing, floating, and feeling at ease come first, because comfort in the water is what everything else is built on.",
+  },
+  {
     title: "Basic Techniques",
-    copy: "Core swimming technique built from the ground up, so movement in the water feels natural rather than forced.",
+    copy: "Core swimming technique built from the ground up, with attention to breathing, balance, and movement, so moving in the water feels natural rather than forced.",
   },
   {
     title: "Water Safety",
     copy: "Practical awareness and habits for staying safe in and around water, for both children and adults.",
+  },
+  {
+    title: "Progressive Learning",
+    copy: "Students move step by step, at a pace that respects where each swimmer is starting from, building comfort before technique and confidence before challenge.",
+  },
+];
+
+const COURSES: CourseInput[] = [
+  {
+    slug: "swimming-courses",
+    name: "Swimming Courses",
+    description:
+      "Essential swimming skills for all ages at SiLak Davao, focusing on basic techniques and water safety.",
   },
 ];
 
 export default function SwimmingPage() {
   return (
     <>
-      <JsonLd data={pageSchema("Swimming", "/swimming")} />
       <JsonLd
-        data={coursesSchema([
-          {
-            name: "Swimming Courses",
-            description:
-              "Essential swimming skills for all ages at SiLak Davao, focusing on basic techniques and water safety.",
-          },
-        ])}
+        data={pageSchema("Swimming", "/swimming", {
+          mainEntity: COURSES.map((course) => courseRef("/swimming", course)),
+        })}
       />
+      <JsonLd data={coursesSchema("/swimming", COURSES)} />
       <PageHero
         heading="Swimming Courses at SiLak Davao"
         intro="Essential skills for all ages, focusing on basic techniques and water safety."
@@ -64,6 +78,10 @@ export default function SwimmingPage() {
               <p className="eyebrow text-ocean-blue">Foundational Aquatic Confidence</p>
               <h2 className="h2-display mt-4">Building Comfort in the Water First</h2>
               <p className="prose-copy mt-6 text-ink-soft">
+                Swimming lessons at SiLak Davao, based in Davao City, are for
+                children and adults, including complete beginners.
+              </p>
+              <p className="prose-copy mt-4 text-ink-soft">
                 Swimming courses at SiLak start with the basics: breathing,
                 floating, and feeling comfortable in the water before anything
                 else. Beginners are guided at a pace that respects where each
@@ -71,8 +89,14 @@ export default function SwimmingPage() {
               </p>
               <p className="prose-copy mt-4 text-ink-soft">
                 Sessions focus on basic swimming techniques alongside practical water
-                safety, so every student leaves with skills they can actually rely on
-                &mdash; not just in a pool, but around water in general.
+                safety, so every student leaves with skills they can actually rely on,
+                not just in a pool, but around water in general.
+              </p>
+              <p className="prose-copy mt-4 text-ink-soft">
+                Read more <TextLink href="/about">about SiLak&rsquo;s approach</TextLink>,{" "}
+                <TextLink href="/instructor">meet the instructors</TextLink>, or see{" "}
+                <TextLink href="/reviews">what students say</TextLink>. When you are
+                ready, <TextLink href="/book">book a session</TextLink>.
               </p>
             </Reveal>
             <Reveal delayMs={sequenceStep(1)} scale>
@@ -102,7 +126,7 @@ export default function SwimmingPage() {
         </Container>
       </section>
 
-      <FaqSection items={SWIMMING_FAQ} />
+      <FaqSection path="/swimming" items={SWIMMING_FAQ} />
 
       <CtaBand heading="Ready to Get Comfortable in the Water?" />
     </>

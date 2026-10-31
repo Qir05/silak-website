@@ -74,14 +74,15 @@ export default function ReviewsPage() {
       <JsonLd data={pageSchema("Reviews", "/reviews")} />
       <section className="bg-paper">
         <Container className="pb-12 pt-16 md:pb-16 md:pt-24 lg:pt-28">
-          <Reveal className="max-w-2xl">
+          <Reveal immediate className="max-w-2xl">
             <p className="eyebrow text-ocean-blue">Reviews</p>
             <h1 className="h1-display mt-4">Student Stories</h1>
           </Reveal>
-          <Reveal delayMs={sequenceStep(1)} className="max-w-2xl">
+          <Reveal immediate delayMs={sequenceStep(1)} className="max-w-2xl">
             <p className="prose-copy mt-5 text-ink-soft">
               Real experiences from swimmers and freedivers who trained with SiLak
-              Davao.
+              Davao. Each story is a screenshot of a real post shared on Facebook,
+              shown exactly as it was written.
             </p>
           </Reveal>
         </Container>

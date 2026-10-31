@@ -41,6 +41,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    // AVIF first: smaller hero photos on phones, with WebP for older browsers.
+    formats: ["image/avif", "image/webp"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

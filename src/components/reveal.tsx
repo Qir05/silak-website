@@ -10,6 +10,7 @@ export function Reveal({
   distancePx,
   scale = false,
   stagger = false,
+  immediate = false,
 }: {
   children: ReactNode;
   className?: string;
@@ -23,13 +24,16 @@ export function Reveal({
   /** The delay staggers items that sit side by side. Phones stack those
    * items so each enters view on its own, and the delay is skipped there. */
   stagger?: boolean;
+  /** For content on screen at load. Plays from CSS alone, so it paints with the
+   * first frame instead of waiting for JavaScript. Same motion, same timing. */
+  immediate?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(immediate);
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
+    if (!node || immediate) return;
 
     // Phones trigger later: on a short viewport, firing at the bottom 8% means
     // the animation plays out on a sliver of screen the reader isn't looking
@@ -71,7 +75,7 @@ export function Reveal({
     if (mobile) watch((entry) => entry.intersectionRatio >= 0.99, { threshold: 0.99 });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [immediate]);
 
   const style: CSSProperties & Record<string, string | number> = {};
   if (delayMs) style["--reveal-delay"] = `${delayMs}ms`;
@@ -82,7 +86,7 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      className={`reveal ${visible ? "is-visible" : ""} ${immediate ? "reveal-immediate" : ""} ${className}`}
       style={style}
       data-stagger={stagger || undefined}
     >

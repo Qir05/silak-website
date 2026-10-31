@@ -179,7 +179,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
               sizes="90vw"
               className="h-auto max-h-[85vh] w-auto max-w-full object-contain"
               unoptimized={current.unoptimized}
-              priority
+              preload
             />
           </div>
 
