@@ -58,6 +58,14 @@ export function SiteFooter() {
             >
               Instagram
             </a>
+            <a
+              href={SOCIAL_LINKS.tripadvisor}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-ink hover:text-ocean-blue"
+            >
+              Tripadvisor
+            </a>
             <span className="text-sm text-ink-soft">{LOCATION}</span>
           </div>
         </div>

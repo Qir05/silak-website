@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { LightboxTrigger } from "@/components/lightbox-trigger";
 import { sequenceStep } from "@/lib/reveal-timing";
 import { REVIEWS } from "@/lib/reviews";
-import { pageMetadata } from "@/lib/site";
+import { SOCIAL_LINKS, pageMetadata } from "@/lib/site";
 import { JsonLd } from "@/components/json-ld";
 import { CourseLinks } from "@/components/course-links";
 import { pageSchema } from "@/lib/schema";
@@ -83,6 +83,16 @@ export default function ReviewsPage() {
               Real experiences from swimmers and freedivers who trained with SiLak
               Davao. Each story is a screenshot of a real post shared on Facebook,
               shown exactly as it was written.
+            </p>
+            <p className="prose-copy mt-4 text-ink-soft">
+              <a
+                href={SOCIAL_LINKS.tripadvisor}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-deep-ocean underline decoration-1 underline-offset-4 hover:text-ocean-blue"
+              >
+                Find SiLak Davao on Tripadvisor
+              </a>
             </p>
           </Reveal>
         </Container>

@@ -60,7 +60,7 @@ export const siteSchema = {
       },
       knowsAbout: ["Swimming", "Freediving", "Water safety"],
       member: instructorRefs,
-      sameAs: [SOCIAL_LINKS.facebook, SOCIAL_LINKS.instagram],
+      sameAs: [SOCIAL_LINKS.facebook, SOCIAL_LINKS.instagram, SOCIAL_LINKS.tripadvisor],
     },
     {
       "@type": "WebSite",

@@ -90,9 +90,11 @@ export const NAV_LINKS = [
 ] as const;
 
 export const SOCIAL_LINKS = {
-  facebook: "https://www.facebook.com/profile.php?id=61557089507037",
-  instagram: "https://www.instagram.com/silakadventures",
+  facebook: "https://www.facebook.com/silakdavao",
+  instagram: "https://www.instagram.com/silakadventures/",
   instagramHandle: "@silakadventures",
+  tripadvisor:
+    "https://www.tripadvisor.com/Attraction_Review-g298459-d34781983-Reviews-SiLak_Davao-Davao_City_Davao_del_Sur_Province_Mindanao.html",
 } as const;
 
 export const LOCATION = "Davao City, Philippines";

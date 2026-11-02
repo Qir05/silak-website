@@ -81,7 +81,7 @@ export const GENERAL_FAQ: FaqEntry[] = [
   {
     question: "Where can I find SiLak Davao online?",
     answer:
-      "The official website is www.silakadventure.com. SiLak Davao is also on Facebook, and on Instagram as @silakadventures. You may also see it listed as SiLak Adventures or SiLak Adventure.",
+      "The official website is www.silakadventure.com. SiLak Davao is also on Facebook, on Instagram as @silakadventures, and on Tripadvisor. You may also see it listed as SiLak Adventures or SiLak Adventure.",
   },
 ];
 
